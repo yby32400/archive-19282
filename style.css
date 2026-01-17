@@ -1,46 +1,140 @@
 @charset "utf-8";
-/* 전체 기본 설정 */
+
+/* [1] Base & Reset */
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Pretendard', sans-serif; background-color: #050505; color: #fff; line-height: 1.6; overflow-x: hidden; padding-top: 70px; }
-a { text-decoration: none; color: inherit; transition: 0.3s; }
+li { list-style: none; }
+a { text-decoration: none; color: inherit; transition: 0.3s; cursor: pointer; }
+body { 
+    font-family: 'Pretendard', sans-serif; 
+    background-color: #050505; 
+    color: #fff; 
+    line-height: 1.6; 
+    overflow-x: hidden; 
+    padding-top: 70px; 
+}
 
-/* 네온 스타일 */
-.neon-text { color: #fff; text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 42px #a855f7, 0 0 82px #a855f7; }
-.neon-text-sub { color: #e9d5ff; text-shadow: 0 0 10px #a855f7; font-weight: 700; letter-spacing: 2px; }
-.neon-box { border: 1px solid rgba(168, 85, 247, 0.5); box-shadow: 0 0 20px rgba(168, 85, 247, 0.2); }
+/* [2] Neon Identity System */
+.neon-text { 
+    color: #fff; 
+    text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #a855f7, 0 0 82px #a855f7; 
+}
+.neon-text-sub { 
+    color: #e9d5ff; 
+    text-shadow: 0 0 10px #a855f7; 
+    font-weight: 700; 
+    letter-spacing: 2px; 
+}
+.neon-box { 
+    border: 1px solid rgba(168, 85, 247, 0.5); 
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.2); 
+}
 
-/* 네비게이션 */
-.sticky_nav { position: fixed; top: 0; left: 0; width: 100%; height: 70px; background: rgba(5, 5, 5, 0.95); backdrop-filter: blur(10px); z-index: 99999; border-bottom: 1px solid rgba(168, 85, 247, 0.3); display: flex; justify-content: center; }
-.nav-inner { width: 100%; max-width: 1200px; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
-
-/* 로딩 화면 */
-#loading-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 999999; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.8s ease-out; }
-.loading-logo { font-size: 2rem; font-weight: 900; letter-spacing: 5px; color: #fff; text-shadow: 0 0 10px #a855f7; animation: blink 1.5s infinite alternate; }
+/* [3] Loading Screen */
+#loading-screen { 
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+    background: #000; z-index: 999999; 
+    display: flex; flex-direction: column; justify-content: center; align-items: center; 
+    transition: opacity 0.8s ease-out; 
+}
+.loading-logo { 
+    font-size: 2rem; font-weight: 900; letter-spacing: 5px; color: #fff; 
+    text-shadow: 0 0 10px #fff, 0 0 20px #a855f7; 
+    animation: blink 1.5s infinite alternate; 
+}
 @keyframes blink { 0% { opacity: 0.3; } 100% { opacity: 1; text-shadow: 0 0 20px #a855f7; } }
 
-/* 풀-위드 배너 인터랙션 */
-.content-section-full { width: 100%; padding-top: 80px; margin-bottom: 50px; }
-.banner-wrapper-full { position: relative; width: 100%; border-top: 1px solid rgba(168, 85, 247, 0.4); border-bottom: 1px solid rgba(168, 85, 247, 0.4); overflow: hidden; line-height: 0; }
-.banner-img { width: 100%; height: auto; object-fit: cover; transition: 0.5s ease; filter: brightness(0.8); }
-.banner-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(168, 85, 247, 0.3); display: flex; justify-content: center; align-items: center; opacity: 0; transition: 0.5s ease; }
-.banner-overlay span { color: #fff; font-weight: 900; font-size: 1.5rem; text-shadow: 0 0 15px #a855f7; border: 2px solid #fff; padding: 15px 35px; border-radius: 50px; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); transform: translateY(20px); transition: 0.5s ease; }
+/* [4] Navigation */
+.sticky_nav { 
+    position: fixed; top: 0; left: 0; width: 100%; height: 70px; 
+    background: rgba(5, 5, 5, 0.95); backdrop-filter: blur(10px); 
+    z-index: 99999; border-bottom: 1px solid rgba(168, 85, 247, 0.3); 
+    display: flex; justify-content: center; align-items: center; 
+}
+.nav-inner { 
+    width: 100%; max-width: 1200px; display: flex; 
+    justify-content: space-between; align-items: center; padding: 0 20px; 
+}
+.logo a { font-weight: 800; font-size: 20px; color: #fff; text-shadow: 0 0 10px #a855f7; }
+.nav-menu a { color: #bbb; font-size: 12px; font-weight: 700; margin-left: 15px; }
+.nav-menu a:hover, .nav-menu a.active { color: #fff; text-shadow: 0 0 15px #a855f7; }
+
+/* [5] Layout & Section */
+.page-section { display: none; }
+.page-section.active { display: block; animation: fadeIn 0.5s ease-out; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.container { max-width: 1200px; margin: 0 auto; padding: 40px 20px 80px; }
+.section-header { text-align: center; margin-bottom: 40px; }
+.section-header h2 { font-size: 1.8rem; margin-bottom: 5px; }
+
+/* [6] Hero Section */
+.hero-section { 
+    min-height: calc(100vh - 70px); display: flex; flex-direction: column; 
+    justify-content: center; align-items: center; text-align: center; 
+}
+.video-frame { 
+    width: 90%; max-width: 800px; aspect-ratio: 16/9; 
+    background: #000; border-radius: 10px; overflow: hidden; 
+}
+
+/* [7] Full-width Interactive Banner (가로 꽉 참) */
+.content-section-full {
+    width: 100vw; position: relative;
+    left: 50%; right: 50%;
+    margin-left: -50vw; margin-right: -50vw;
+    margin-top: 80px; margin-bottom: 50px;
+}
+.official-banner-link { display: block; width: 100%; overflow: hidden; position: relative; }
+.banner-wrapper-full { position: relative; width: 100%; overflow: hidden; line-height: 0; }
+.banner-img { 
+    width: 100%; height: auto; object-fit: cover; 
+    transition: filter 0.5s ease, transform 0.5s ease; filter: brightness(0.8); 
+}
+.banner-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(168, 85, 247, 0.3); display: flex; 
+    justify-content: center; align-items: center; opacity: 0; transition: 0.5s ease;
+}
+.banner-overlay span {
+    color: #fff; font-weight: 900; font-size: 1.5rem; text-shadow: 0 0 15px #a855f7;
+    border: 2px solid #fff; padding: 15px 35px; border-radius: 50px;
+    background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
+    transform: translateY(20px); transition: transform 0.5s ease;
+}
 .official-banner-link:hover .banner-img { filter: blur(8px) brightness(0.6); transform: scale(1.05); }
 .official-banner-link:hover .banner-overlay { opacity: 1; }
 .official-banner-link:hover .banner-overlay span { transform: translateY(0); }
 
-/* 리스트 스타일 */
-.container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+/* [8] List & Card Styles */
 .list-wrap { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
-.post-item { background: rgba(20,20,20,0.6); border: 1px solid rgba(168,85,247,0.3); border-radius: 12px; overflow: hidden; display: block; }
+.post-item { background: rgba(20,20,20,0.6); border: 1px solid rgba(168,85,247,0.3); border-radius: 12px; overflow: hidden; }
 .thumb { width: 100%; aspect-ratio: 16/9; background: #222; overflow: hidden; }
 .thumb img { width: 100%; height: 100%; object-fit: cover; }
 .text-box { padding: 20px; }
 
-/* 팝업 모달 */
-.modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 100000; backdrop-filter: blur(10px); overflow-y: auto; padding: 20px; }
+/* [9] Calendar Styles */
+.calendar-grid { display: none; grid-template-columns: repeat(7, 1fr); gap: 5px; }
+.calendar-grid.active-month { display: grid; }
+.day-cell { aspect-ratio: 2/3; background: #111; border: 1px solid #222; border-radius: 6px; position: relative; overflow: hidden; }
+.has-event { border: 1px solid #a855f7; box-shadow: 0 0 10px rgba(168,85,247,0.2); }
+.event-img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
+
+/* [10] Modal Styles (다중 이미지 대응) */
+.modal-overlay { 
+    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+    background: rgba(0,0,0,0.9); z-index: 100000; backdrop-filter: blur(10px); 
+    overflow-y: auto; padding: 20px; 
+}
 .modal-content { max-width: 800px; margin: 50px auto; background: #111; border: 1px solid #333; border-radius: 15px; overflow: hidden; position: relative; }
 .modal-close-btn { position: absolute; top: 20px; right: 20px; color: #fff; font-size: 30px; cursor: pointer; z-index: 10; background: none; border: none; }
+.modal-body { padding: 30px; }
+.modal-title { font-size: 1.8rem; font-weight: 900; margin-bottom: 10px; }
 
-/* 관리자 비밀 버튼 */
+/* [11] Admin & Misc */
 .admin-btn { position: fixed; bottom: 0; right: 0; width: 50px; height: 50px; background: transparent; z-index: 999999; }
 .admin-btn:hover { background: rgba(168, 85, 247, 0.2); }
+
+@media (max-width: 768px) {
+    .banner-overlay span { font-size: 1rem; padding: 10px 20px; }
+    .calendar-grid { grid-template-columns: repeat(3, 1fr); }
+    .day-cell:not(.has-event) { display: none; }
+}
