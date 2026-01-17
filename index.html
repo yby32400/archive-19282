@@ -15,7 +15,7 @@ li { list-style: none; }
 a { text-decoration: none; color: inherit; transition: 0.3s; cursor: pointer; }
 body { font-family: 'Pretendard', sans-serif; background-color: #050505; color: #fff; line-height: 1.6; overflow-x: hidden; padding-top: 70px; }
 
-/* ★★★ (수정됨) 텍스트는 강력하게, 박스는 은은하게 ★★★ */
+/* ★★★ PC용 네온 (우아함) ★★★ */
 .neon-text { 
     color: #fff; 
     text-shadow: 
@@ -23,20 +23,14 @@ body { font-family: 'Pretendard', sans-serif; background-color: #050505; color: 
         0 0 10px #fff,
         0 0 21px #fff,
         0 0 42px #a855f7,
-        0 0 82px #a855f7,
-        0 0 92px #a855f7;
+        0 0 82px #a855f7;
 }
 .neon-text-sub { 
     color: #e9d5ff; 
-    text-shadow: 
-        0 0 5px #fff,
-        0 0 10px #fff,
-        0 0 20px #a855f7,
-        0 0 30px #a855f7;
+    text-shadow: 0 0 10px #a855f7;
     font-weight: 700; letter-spacing: 2px; 
 }
 .neon-box { 
-    /* 박스는 예전처럼 은은하게 */
     border: 1px solid rgba(168, 85, 247, 0.5); 
     box-shadow: 0 0 20px rgba(168, 85, 247, 0.2); 
 }
@@ -90,15 +84,13 @@ body { font-family: 'Pretendard', sans-serif; background-color: #050505; color: 
 .title { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 5px; }
 .date { font-size: 11px; color: #666; font-family: monospace; }
 
-/* 공지사항 */
+/* 공지사항 & 방명록 */
 .notice-list { display: flex; flex-direction: column; gap: 15px; }
 .notice-item { background: rgba(30,30,30,0.8); border-left: 4px solid #a855f7; padding: 20px; border-radius: 0 8px 8px 0; cursor: pointer; transition: 0.3s; }
 .notice-item:hover { background: rgba(50,50,50,0.9); transform: translateX(5px); }
-.notice-title { font-size: 1.2rem; font-weight: bold; color: #fff; margin-bottom: 5px; text-shadow: 0 0 5px rgba(168, 85, 247, 0.5); }
+.notice-title { font-size: 1.2rem; font-weight: bold; color: #fff; margin-bottom: 5px; }
 .notice-date { font-size: 0.8rem; color: #888; }
 .notice-body-preview { color: #ccc; font-size: 0.95rem; margin-top: 10px; line-height: 1.5; white-space: pre-line; }
-
-/* 방명록 (Cbox) */
 .cbox-wrapper { max-width: 800px; margin: 0 auto; padding: 20px; background: rgba(10,10,10,0.8); border: 1px solid #a855f7; border-radius: 10px; box-shadow: 0 0 20px rgba(168, 85, 247, 0.2); }
 
 /* 팝업 */
@@ -111,7 +103,18 @@ body { font-family: 'Pretendard', sans-serif; background-color: #050505; color: 
 .modal-date { color: #888; font-size: 12px; display: block; margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 20px; }
 .modal-text { font-size: 1rem; line-height: 1.8; color: #ddd; white-space: pre-line; }
 
+/* ★★★ 모바일 전용 네온 튜닝 (작은 화면에서 더 쨍하게!) ★★★ */
 @media (max-width: 768px) {
+    .neon-text {
+        /* 모바일에서는 빛 번짐을 좁고 진하게 잡아야 잘 보임 */
+        text-shadow: 
+            0 0 3px #fff,
+            0 0 10px #fff,
+            0 0 20px #a855f7,
+            0 0 40px #a855f7; 
+    }
+    .neon-text-sub { text-shadow: 0 0 8px #a855f7; }
+    
     .list-wrap { grid-template-columns: 1fr; }
     .week-header { display: none; }
     .calendar-grid { grid-template-columns: repeat(3, 1fr); }
@@ -188,13 +191,11 @@ body { font-family: 'Pretendard', sans-serif; background-color: #050505; color: 
     <main class="container" style="padding-top: 50px;">
         <div class="content-section">
             <div class="section-header"><h2 class="neon-text-sub">GUESTBOOK</h2><p>LEAVE A MESSAGE</p></div>
-            
             <div class="cbox-wrapper">
                 <div style="padding: 50px; text-align: center; color: #888;">
                     Cbox 코드 붙여넣기 전입니다.
                 </div>
-                </div>
-
+            </div>
             <div style="text-align: center; margin-top: 50px;"><a href="#home" class="neon-box" style="display: inline-block; padding: 10px 30px; border-radius: 30px; font-weight: bold; color: #fff;">BACK TO HOME</a></div>
         </div>
     </main>
