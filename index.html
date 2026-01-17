@@ -4,12 +4,56 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>OBSID KAREN ARCHIVE</title>
-<link rel="stylesheet" href="./style.css">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
 <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
 <style>
-/* 가로 꽉 찬 배너 인터랙션 디자인 */
+/* [1] Reset & Base */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Pretendard', sans-serif; background-color: #050505; color: #fff; line-height: 1.6; overflow-x: hidden; padding-top: 70px; }
+a { text-decoration: none; color: inherit; transition: 0.3s; }
+
+/* [2] ★ 강렬한 네온 효과 스타일 ★ */
+.neon-text {
+    color: #fff;
+    text-shadow: 
+        0 0 7px #fff, 
+        0 0 10px #fff, 
+        0 0 21px #fff, 
+        0 0 42px #a855f7, 
+        0 0 82px #a855f7, 
+        0 0 92px #a855f7, 
+        0 0 102px #a855f7;
+}
+
+.neon-text-sub {
+    color: #e9d5ff;
+    font-weight: 800;
+    text-shadow: 
+        0 0 5px #fff, 
+        0 0 10px #a855f7, 
+        0 0 20px #a855f7;
+    letter-spacing: 2px;
+}
+
+.neon-box {
+    border: 1px solid #a855f7;
+    box-shadow: 
+        0 0 10px #a855f7, 
+        inset 0 0 10px #a855f7;
+}
+
+/* [3] Navigation */
+.sticky_nav { position: fixed; top: 0; left: 0; width: 100%; height: 70px; background: rgba(5, 5, 5, 0.9); backdrop-filter: blur(10px); z-index: 9999; border-bottom: 1px solid rgba(168, 85, 247, 0.5); display: flex; justify-content: center; }
+.nav-inner { width: 100%; max-width: 1200px; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
+.nav-menu a { margin-left: 20px; font-size: 0.9rem; font-weight: 700; color: #bbb; }
+.nav-menu a:hover { color: #fff; text-shadow: 0 0 10px #a855f7; }
+
+/* [4] Hero Section */
+.hero-section { min-height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 40px 20px; }
+.video-frame { width: 100%; max-width: 800px; aspect-ratio: 16/9; margin-bottom: 30px; border-radius: 12px; overflow: hidden; }
+
+/* [5] 가로 꽉 찬 배너 인터랙션 */
 .content-section-full {
     width: 100vw; position: relative;
     left: 50%; right: 50%;
@@ -17,38 +61,57 @@
     margin-top: 80px; margin-bottom: 50px;
 }
 .official-banner-link { display: block; width: 100%; overflow: hidden; position: relative; }
-.banner-wrapper-full { position: relative; width: 100%; overflow: hidden; line-height: 0; }
-.banner-img { 
-    width: 100%; height: auto; object-fit: cover; 
-    transition: filter 0.5s ease, transform 0.5s ease; filter: brightness(0.8); 
-}
+.banner-wrapper-full { position: relative; width: 100%; overflow: hidden; line-height: 0; border-top: 2px solid #a855f7; border-bottom: 2px solid #a855f7; }
+.banner-img { width: 100%; height: auto; object-fit: cover; transition: 0.5s ease; filter: brightness(0.7); }
 .banner-overlay {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(168, 85, 247, 0.3); display: flex; 
+    background: rgba(168, 85, 247, 0.4); display: flex; 
     justify-content: center; align-items: center; opacity: 0; transition: 0.5s ease;
 }
 .banner-overlay span {
     color: #fff; font-weight: 900; font-size: 1.5rem; text-shadow: 0 0 15px #a855f7;
     border: 2px solid #fff; padding: 15px 35px; border-radius: 50px;
-    background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
+    background: rgba(0,0,0,0.8); backdrop-filter: blur(8px);
     transform: translateY(20px); transition: transform 0.5s ease;
 }
-.official-banner-link:hover .banner-img { filter: blur(8px) brightness(0.6); transform: scale(1.05); }
+.official-banner-link:hover .banner-img { filter: blur(10px) brightness(0.5); transform: scale(1.05); }
 .official-banner-link:hover .banner-overlay { opacity: 1; }
 .official-banner-link:hover .banner-overlay span { transform: translateY(0); }
+
+/* [6] List & Card Styles */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+.list-wrap { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-top: 30px; }
+.post-item { background: #111; border: 1px solid #333; border-radius: 10px; overflow: hidden; transition: 0.3s; }
+.post-item:hover { border-color: #a855f7; transform: translateY(-5px); box-shadow: 0 5px 15px rgba(168, 85, 247, 0.3); }
+.thumb { width: 100%; aspect-ratio: 16/9; overflow: hidden; }
+.thumb img { width: 100%; height: 100%; object-fit: cover; }
+.text-box { padding: 20px; }
+
+/* [7] Calendar Style */
+.calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin-top: 20px; }
+.day-cell { aspect-ratio: 1/1.2; background: #111; border: 1px solid #222; border-radius: 4px; padding: 5px; position: relative; }
+.day-cell.has-event { border-color: #a855f7; cursor: pointer; }
+.day-num { font-size: 0.8rem; color: #555; }
+.event-img { width: 100%; height: 80%; object-fit: cover; border-radius: 2px; margin-top: 2px; }
+
+/* [8] Modal & Loading */
+#loading-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 99999; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: 0.5s; }
+.modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 10000; backdrop-filter: blur(10px); }
+.modal-content { max-width: 700px; margin: 50px auto; background: #111; border: 1px solid #a855f7; border-radius: 15px; overflow-y: auto; max-height: 80vh; position: relative; }
+.modal-close-btn { position: absolute; top: 15px; right: 20px; font-size: 2rem; color: #fff; cursor: pointer; z-index: 11; }
 </style>
 </head>
 
 <body>
 
 <div id="loading-screen">
-    <div class="loading-logo">OBSID ARCHIVE</div>
-    <div class="loading-text">SYSTEM INITIALIZING...</div>
+    <div class="loading-logo neon-text" style="font-size: 2rem; font-weight: 900;">OBSID ARCHIVE</div>
+    <div class="loading-text" style="margin-top: 10px; color: #a855f7;">INITIALIZING...</div>
 </div>
 
 <nav class="sticky_nav">
     <div class="nav-inner">
-        <h1 class="logo neon-text"><a href="#home">MY ARCHIVE</a></h1>
+        <h1 class="logo neon-text" style="font-size: 1.5rem;"><a href="#home">MY ARCHIVE</a></h1>
         <div class="nav-menu">
             <a href="#notice">NOTICE</a>
             <a href="#cheki">CHEKI</a>
@@ -60,30 +123,31 @@
 <div id="page-home" class="page-section active">
     <header class="hero-section">
         <div class="video-frame neon-box">
-            <iframe src="https://drive.google.com/file/d/1-ZyXQgAyqs2yzi3NlkEok81UKe7pKP1T/preview" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <iframe src="https://drive.google.com/file/d/1-ZyXQgAyqs2yzi3NlkEok81UKe7pKP1T/preview" width="100%" height="100%" frameborder="0" allow="autoplay"></iframe>
         </div>
-        <div class="hero-content" style="text-align:center; padding-top:20px;">
-            <p class="d-day neon-text-sub">TODAY'S MOOD</p>
-            <h2 class="main-copy neon-text" style="font-size:2.5rem;">OBSID KAREN ARCHIVE</h2>
-            <span class="scroll-down" onclick="document.getElementById('anchor-schedule').scrollIntoView({behavior:'smooth'})" style="cursor:pointer; display:block; margin-top:10px;">▼ SCROLL DOWN</span>
+        <div class="hero-content">
+            <p class="neon-text-sub">TODAY'S MOOD</p>
+            <h2 class="neon-text" style="font-size: 3rem; margin-top: 10px;">OBSID KAREN ARCHIVE</h2>
         </div>
     </header>
-    
+
     <main class="container">
-        <div id="anchor-schedule" class="content-section">
-            <div class="section-header"><h2 class="neon-text-sub">OFFICIAL SCHEDULE</h2><p>2026 CALENDAR</p></div>
-            <div class="schedule-wrapper">
-                <div class="calendar-header" style="display:flex; justify-content:center; align-items:center; gap:20px; margin-bottom:20px;">
-                    <button type="button" class="nav-btn" onclick="changeMonth(-1)" style="background:none; border:1px solid #a855f7; color:#fff; cursor:pointer; padding:5px 10px;">◀</button>
-                    <h2 id="current-month-title" class="month-title" style="text-align:center;">JANUARY<br>2026</h2>
-                    <button type="button" class="nav-btn" onclick="changeMonth(1)" style="background:none; border:1px solid #a855f7; color:#fff; cursor:pointer; padding:5px 10px;">▶</button>
+        <div id="anchor-schedule" style="padding-top: 50px;">
+            <div class="section-header" style="text-align: center;">
+                <h2 class="neon-text-sub">OFFICIAL SCHEDULE</h2>
+                <div style="margin-top: 20px;">
+                    <button onclick="changeMonth(-1)" class="neon-box" style="background: none; color: #fff; padding: 5px 15px; cursor: pointer;">◀</button>
+                    <span id="current-month-title" class="neon-text-sub" style="margin: 0 20px; font-size: 1.2rem;">JANUARY 2026</span>
+                    <button onclick="changeMonth(1)" class="neon-box" style="background: none; color: #fff; padding: 5px 15px; cursor: pointer;">▶</button>
                 </div>
-                <div id="calendar-body"></div>
             </div>
+            <div id="calendar-body"></div>
         </div>
-        
+
         <div class="content-section-full">
-            <div class="section-header" style="text-align:center;"><h2 class="neon-text-sub">OFFICIAL X</h2><p>REALTIME FEED</p></div>
+            <div class="section-header" style="text-align:center; margin-bottom: 30px;">
+                <h2 class="neon-text-sub">OFFICIAL X</h2>
+            </div>
             <a href="https://x.com/Obsid_ofcl" target="_blank" class="official-banner-link">
                 <div class="banner-wrapper-full">
                     <img src="https://pbs.twimg.com/profile_banners/1965985666375819264/1762981893/1080x360" class="banner-img">
@@ -92,149 +156,129 @@
             </a>
         </div>
 
-        <div class="content-section">
-            <div class="section-header"><h2 class="neon-text-sub">LATEST MEDIA</h2><p>VIDEO & PHOTO</p></div>
+        <div style="padding-top: 50px;">
+            <div class="section-header" style="text-align: center;"><h2 class="neon-text-sub">LATEST MEDIA</h2></div>
             <div class="list-wrap" id="media-list-container"></div>
-        </div>
-    </main>
-</div>
-
-<div id="page-notice" class="page-section">
-    <main class="container" style="padding-top: 50px;">
-        <div class="section-header"><h2 class="neon-text-sub">NOTICE</h2></div>
-        <div class="notice-list" id="notice-list-container"></div>
-        <div style="text-align:center; margin-top:30px;"><a href="#home" class="neon-box" style="padding:10px 20px;">BACK TO HOME</a></div>
-    </main>
-</div>
-
-<div id="page-cheki" class="page-section">
-    <main class="container" style="padding-top: 50px;">
-        <div class="section-header"><h2 class="neon-text-sub">CHEKI LOG</h2></div>
-        <div class="list-wrap" id="cheki-list-container"></div>
-        <div style="text-align:center; margin-top:30px;"><a href="#home" class="neon-box" style="padding:10px 20px;">BACK TO HOME</a></div>
-    </main>
-</div>
-
-<div id="page-guestbook" class="page-section">
-    <main class="container" style="padding-top: 50px;">
-        <div class="section-header"><h2 class="neon-text-sub">GUESTBOOK</h2></div>
-        <div class="cbox-wrapper" style="min-height:400px; background:#111; border-radius:12px; padding:10px;">
-            <div style="text-align:center; padding-top:150px; color:#555;">Cbox 코드를 입력해 주세요.</div>
         </div>
     </main>
 </div>
 
 <div id="article-modal" class="modal-overlay" onclick="closeModal(event)">
     <div class="modal-content">
-        <button class="modal-close-btn" onclick="closeModal(event)">×</button>
-        <div id="modal-img-container" style="width:100%; background:#000;"></div>
-        <div class="modal-body" style="padding:20px;">
-            <h2 id="modal-title" class="modal-title"></h2>
-            <span id="modal-date" class="modal-date" style="color:#888; font-size:0.9rem;"></span>
-            <p id="modal-text" class="modal-text" style="margin-top:15px;"></p>
+        <span class="modal-close-btn" onclick="closeModal(event)">&times;</span>
+        <div id="modal-img-container"></div>
+        <div class="modal-body" style="padding: 30px;">
+            <h2 id="modal-title" class="neon-text-sub"></h2>
+            <p id="modal-date" style="color: #666; font-size: 0.9rem; margin-top: 5px;"></p>
+            <p id="modal-text" style="margin-top: 20px; white-space: pre-line;"></p>
         </div>
     </div>
 </div>
 
-<a href="https://github.com/아이디/저장소/edit/main/data.js" target="_blank" class="admin-btn" title="ADMIN">⚙️</a>
-
 <script src="./data.js"></script>
 <script>
-    /* 1. 리스트 렌더링 함수 */
-    function renderList(data, id, type) {
-        const c = document.getElementById(id); if(!c) return;
-        let h = "";
-        if(!data || data.length === 0) return;
-        data.forEach((p, i) => {
-            let thumb = (p.images && p.images[0]) || p.img || "";
-            if(type === 'link') {
-                h += `<a href="${p.link||'#'}" target="_blank" class="post-item"><div class="thumb"><img src="${thumb}"></div><div class="text-box"><span class="category-label">${p.tag||'MEDIA'}</span><h3 class="title">${p.title}</h3><span class="date">${p.date}</span></div></a>`;
-            } else if (type === 'notice') {
-                h += `<div class="notice-item" onclick="openModal('notice-list-container', ${i})" style="cursor:pointer; border-bottom:1px solid #222; padding:15px 0;"><div class="notice-title" style="font-weight:bold;">${p.title}</div><div class="notice-date" style="font-size:0.8rem; color:#888;">${p.date}</div></div>`;
-            } else {
-                h += `<div class="post-item" onclick="openModal('${id}', ${i})" style="cursor:pointer;"><div class="thumb"><img src="${thumb}"></div><div class="text-box"><span class="category-label">${p.tag||'CHEKI'}</span><h3 class="title">${p.title}</h3><span class="date">${p.date}</span></div></div>`;
-            }
-        });
-        c.innerHTML = h;
+    /* --- 핵심 함수 정의 --- */
+    function forceHideLoader() {
+        const loader = document.getElementById('loading-screen');
+        if(loader) { loader.style.opacity = '0'; setTimeout(() => loader.style.display = 'none', 500); }
     }
 
-    /* 2. 상세 모달 제어 */
+    function renderList(data, containerId, isLink = false) {
+        const container = document.getElementById(containerId);
+        if(!container || !data) return;
+        let html = "";
+        data.forEach((item, index) => {
+            const thumb = (item.images && item.images[0]) || item.img || "";
+            if(isLink) {
+                html += `<a href="${item.link}" target="_blank" class="post-item">`;
+            } else {
+                html += `<div class="post-item" onclick="openModal('${containerId}', ${index})" style="cursor:pointer;">`;
+            }
+            html += `<div class="thumb"><img src="${thumb}"></div>
+                     <div class="text-box">
+                        <span style="color:#a855f7; font-size:0.8rem; font-weight:bold;">${item.tag || ''}</span>
+                        <h3 style="font-size:1.1rem; margin-top:5px;">${item.title}</h3>
+                        <p style="font-size:0.8rem; color:#666; margin-top:5px;">${item.date}</p>
+                     </div>`;
+            html += isLink ? `</a>` : `</div>`;
+        });
+        container.innerHTML = html;
+    }
+
     function openModal(type, index) {
-        let post;
-        if(type === 'cheki-list-container') post = chekiPosts[index];
-        else if(type === 'notice-list-container') post = noticePosts[index];
-        else return;
-        
-        const imgContainer = document.getElementById('modal-img-container');
-        imgContainer.innerHTML = "";
-        if (post.images && Array.isArray(post.images)) {
-            post.images.forEach(img => imgContainer.innerHTML += `<img src="${img}" style="width:100%; display:block; margin-bottom:5px;">`);
-        } else if (post.img) {
-            imgContainer.innerHTML = `<img src="${post.img}" style="width:100%; display:block;">`;
+        let post = (type === 'cheki-list-container') ? chekiPosts[index] : noticePosts[index];
+        if(!post) return;
+        const imgCont = document.getElementById('modal-img-container');
+        imgCont.innerHTML = "";
+        if(post.images) {
+            post.images.forEach(img => imgCont.innerHTML += `<img src="${img}" style="width:100%; display:block;">`);
+        } else if(post.img) {
+            imgCont.innerHTML = `<img src="${post.img}" style="width:100%; display:block;">`;
         }
         document.getElementById('modal-title').innerText = post.title;
         document.getElementById('modal-date').innerText = post.date;
         document.getElementById('modal-text').innerText = post.body || "";
         document.getElementById('article-modal').style.display = 'block';
     }
-    function closeModal(e) { if(e.target.id === 'article-modal' || e.target.classList.contains('modal-close-btn')) document.getElementById('article-modal').style.display = 'none'; }
 
-    /* 3. 달력 초기화 및 제어 */
-    const year = 2026; 
-    const monthNames = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"]; 
+    function closeModal(e) {
+        if(e.target.id === 'article-modal' || e.target.className === 'modal-close-btn') {
+            document.getElementById('article-modal').style.display = 'none';
+        }
+    }
+
+    /* --- 달력 시스템 --- */
+    const year = 2026;
     let currentIdx = 0;
+    const monthNames = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
 
     function initCalendar() {
-        const c = document.getElementById('calendar-body'); if(!c) return;
-        let h = '';
-        for (let m=0; m<12; m++) {
-            const f = new Date(year, m, 1).getDay(); const l = new Date(year, m+1, 0).getDate();
-            h += `<div class="calendar-grid ${m===0?'active-month':''}" id="month-${m}" style="display:${m===0?'grid':'none'}; grid-template-columns:repeat(7,1fr); gap:5px;">`;
-            for(let i=0; i<f; i++) h+=`<div class="day-cell"></div>`;
-            for(let d=1; d<=l; d++) {
-                const k = `${m+1}-${d}`; const ev = (typeof mySchedule !== 'undefined') ? mySchedule[k] : null;
-                if(ev) h += `<div class="day-cell has-event" style="border:1px solid #a855f7;"><a href="${ev.link}" target="_blank" class="event-link"><span class="day-num" style="font-size:0.7rem;">${d}</span><img src="${ev.img}" class="event-img" style="width:100%; aspect-ratio:1/1; object-fit:cover; display:block;"></a></div>`;
-                else h += `<div class="day-cell" style="background:#111; padding:5px;"><span class="day-num" style="font-size:0.7rem;">${d}</span></div>`;
+        const body = document.getElementById('calendar-body');
+        if(!body) return;
+        let html = "";
+        for(let m=0; m<12; m++) {
+            const firstDay = new Date(year, m, 1).getDay();
+            const lastDate = new Date(year, m+1, 0).getDate();
+            html += `<div class="calendar-grid" id="month-${m}" style="display:${m===0?'grid':'none'}">`;
+            for(let i=0; i<firstDay; i++) html += `<div class="day-cell"></div>`;
+            for(let d=1; d<=lastDate; d++) {
+                const key = `${m+1}-${d}`;
+                const event = (typeof mySchedule !== 'undefined') ? mySchedule[key] : null;
+                if(event) {
+                    html += `<div class="day-cell has-event"><a href="${event.link}" target="_blank">
+                                <span class="day-num">${d}</span>
+                                <img src="${event.img}" class="event-img">
+                             </a></div>`;
+                } else {
+                    html += `<div class="day-cell"><span class="day-num">${d}</span></div>`;
+                }
             }
-            h += `</div>`;
-        } 
-        c.innerHTML = h;
+            html += `</div>`;
+        }
+        body.innerHTML = html;
     }
-    function changeMonth(s) {
+
+    function changeMonth(step) {
         document.getElementById(`month-${currentIdx}`).style.display = 'none';
-        currentIdx += s; if(currentIdx>11) currentIdx=0; if(currentIdx<0) currentIdx=11;
+        currentIdx = (currentIdx + step + 12) % 12;
         document.getElementById(`month-${currentIdx}`).style.display = 'grid';
-        document.getElementById('current-month-title').innerHTML = `${monthNames[currentIdx]}<br>${year}`;
+        document.getElementById('current-month-title').innerText = `${monthNames[currentIdx]} ${year}`;
     }
 
-    /* 4. 라우팅 (페이지 전환) */
-    function handleRouting() {
-        const hash = window.location.hash.replace('#', '') || 'home';
-        document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
-        const target = document.getElementById('page-' + hash); if(target) target.classList.add('active');
-        window.scrollTo(0,0);
-    }
-
-    /* 5. 실행 및 로딩 해제 */
-    function forceHideLoader() {
-        const l = document.getElementById('loading-screen');
-        if(l) { l.style.opacity = '0'; setTimeout(() => l.style.display = 'none', 800); }
-    }
-
+    /* --- 초기화 --- */
     document.addEventListener("DOMContentLoaded", () => {
         try {
-            renderList(typeof chekiPosts !== 'undefined' ? chekiPosts : [], 'cheki-list-container', 'card');
-            renderList(typeof mediaPosts !== 'undefined' ? mediaPosts : [], 'media-list-container', 'link');
-            renderList(typeof noticePosts !== 'undefined' ? noticePosts : [], 'notice-list-container', 'notice');
+            if(typeof noticePosts !== 'undefined') renderList(noticePosts, 'notice-list-container');
+            if(typeof chekiPosts !== 'undefined') renderList(chekiPosts, 'cheki-list-container');
+            if(typeof mediaPosts !== 'undefined') renderList(mediaPosts, 'media-list-container', true);
             initCalendar();
-            handleRouting();
-        } catch(e) { console.error("Initialization Error:", e); }
+        } catch(e) { console.error(e); }
         finally { setTimeout(forceHideLoader, 1500); }
     });
 
-    window.addEventListener('hashchange', handleRouting);
-    const lenis = new Lenis({duration:1.2,easing:(t)=>Math.min(1,1.001-Math.pow(2,-10*t)),smooth:true});
-    function raf(t){lenis.raf(t);requestAnimationFrame(raf);}requestAnimationFrame(raf);
+    const lenis = new Lenis();
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
 </script>
 </body>
 </html>
