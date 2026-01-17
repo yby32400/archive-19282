@@ -9,10 +9,10 @@
 <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
 <style>
-/* ================= 스타일 (디자인) ================= */
+/* ================= 스타일 ================= */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 li { list-style: none; }
-a { text-decoration: none; color: inherit; transition: 0.3s; }
+a { text-decoration: none; color: inherit; transition: 0.3s; cursor: pointer; }
 body { font-family: 'Pretendard', sans-serif; background-color: #050505; color: #fff; line-height: 1.6; overflow-x: hidden; padding-top: 70px; }
 
 /* 네온 효과 */
@@ -24,19 +24,20 @@ body { font-family: 'Pretendard', sans-serif; background-color: #050505; color: 
 .sticky_nav { position: fixed; top: 0; left: 0; width: 100%; height: 70px; background: rgba(5, 5, 5, 0.95); backdrop-filter: blur(10px); z-index: 99999; border-bottom: 1px solid rgba(168, 85, 247, 0.3); display: flex; justify-content: center; align-items: center; padding: 0 20px; }
 .nav-inner { width: 100%; max-width: 1200px; display: flex; justify-content: space-between; align-items: center; }
 .logo a { font-weight: 800; font-size: 20px; color: #fff; text-shadow: 0 0 10px #a855f7; }
-.nav-menu a { color: #bbb; font-size: 12px; font-weight: 700; margin-left: 15px; letter-spacing: 1px; cursor: pointer; }
+.nav-menu a { color: #bbb; font-size: 12px; font-weight: 700; margin-left: 15px; letter-spacing: 1px; }
 .nav-menu a:hover, .nav-menu a.active { color: #fff; text-shadow: 0 0 8px #a855f7; }
 
-/* 섹션 공통 */
-.page-section { display: none; animation: fadeIn 0.5s ease-out; } /* 기본적으로 숨김 */
-.page-section.active { display: block; } /* 활성화되면 보임 */
+/* 페이지 섹션 (화면 전환용) */
+.page-section { display: none; } /* 일단 다 숨김 */
+.page-section.active { display: block; animation: fadeIn 0.5s ease-out; } /* 활성화된 것만 보임 */
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
+/* 히어로 섹션 */
 .hero-section { min-height: calc(100vh - 70px); display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; padding: 50px 20px; text-align: center; background: #000; }
 .video-frame { width: 90%; max-width: 800px; aspect-ratio: 16/9; margin-bottom: 30px; background: #000; position: relative; z-index: 10; border-radius: 10px; overflow: hidden; }
 .video-frame iframe { width: 100%; height: 100%; }
 .main-copy { font-size: 2.5rem; font-weight: 900; margin-bottom: 20px; line-height: 1.2; }
-.scroll-down { display: inline-block; padding: 8px 20px; border-radius: 30px; border: 1px solid #a855f7; color: #d8b4fe; font-size: 12px; margin-top: 20px; cursor: pointer; }
+.scroll-down { display: inline-block; padding: 8px 20px; border-radius: 30px; border: 1px solid #a855f7; color: #d8b4fe; font-size: 12px; margin-top: 20px; }
 
 .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px 80px; }
 .content-section { padding-top: 80px; margin-bottom: 50px; }
@@ -44,7 +45,7 @@ body { font-family: 'Pretendard', sans-serif; background-color: #050505; color: 
 .section-header h2 { font-size: 1.8rem; margin-bottom: 5px; }
 .section-header p { font-size: 0.9rem; color: #888; letter-spacing: 2px; }
 
-/* 달력, 리스트 스타일 */
+/* 달력 & 리스트 */
 .schedule-wrapper { width: 100%; }
 .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
 .month-title { font-size: 2rem; font-weight: 900; text-align: center; line-height: 1.2; }
@@ -80,10 +81,10 @@ body { font-family: 'Pretendard', sans-serif; background-color: #050505; color: 
 
 <nav class="sticky_nav">
     <div class="nav-inner">
-        <h1 class="logo neon-text"><a href="#home" onclick="route('home')">MY ARCHIVE</a></h1>
+        <h1 class="logo neon-text"><a href="#home">MY ARCHIVE</a></h1>
         <div class="nav-menu">
-            <a href="#cheki" onclick="route('cheki')">CHEKI</a>
-            <a href="#memo" onclick="route('memo')">MEMO</a>
+            <a href="#cheki">CHEKI</a>
+            <a href="#memo">MEMO</a>
         </div>
     </div>
 </nav>
@@ -96,7 +97,7 @@ body { font-family: 'Pretendard', sans-serif; background-color: #050505; color: 
         <div class="hero-content">
             <p class="d-day neon-text-sub">TODAY'S MOOD</p>
             <h2 class="main-copy neon-text">OBSID KAREN<br>ARCHIVE</h2>
-            <span class="scroll-down" onclick="scrollToContent()">▼ SCROLL DOWN</span>
+            <span class="scroll-down" onclick="document.getElementById('anchor-schedule').scrollIntoView({behavior:'smooth'})">▼ SCROLL DOWN</span>
         </div>
     </header>
 
@@ -122,25 +123,14 @@ body { font-family: 'Pretendard', sans-serif; background-color: #050505; color: 
                 <p>VIDEO & PHOTO</p>
             </div>
             <div class="list-wrap">
-                
                 <a href="#" class="post-item">
                     <div class="thumb"><img src="https://images.unsplash.com/photo-1635322966219-b75ed3a90e27?q=80&w=1000&auto=format&fit=crop"></div>
                     <div class="text-box">
                         <span class="category-label">YOUTUBE</span>
-                        <h3 class="title">페르소나5 플레이 영상 하이라이트</h3>
+                        <h3 class="title">페르소나5 플레이 영상</h3>
                         <span class="date">2026.01.15</span>
                     </div>
                 </a>
-
-                <a href="#" class="post-item">
-                    <div class="thumb"><img src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?q=80&w=1000&auto=format&fit=crop"></div>
-                    <div class="text-box">
-                        <span class="category-label">OFFICIAL</span>
-                        <h3 class="title">옵시드 카렌 프로필 사진 공개</h3>
-                        <span class="date">2026.01.10</span>
-                    </div>
-                </a>
-
             </div>
         </div>
     </main>
@@ -154,7 +144,6 @@ body { font-family: 'Pretendard', sans-serif; background-color: #050505; color: 
                 <p>MY POLAROID COLLECTION</p>
             </div>
             <div class="list-wrap">
-                
                 <a href="#" class="post-item">
                     <div class="thumb"><img src="https://images.unsplash.com/photo-1595079676339-1534801ad6cf?q=80&w=1000&auto=format&fit=crop"></div>
                     <div class="text-box">
@@ -163,20 +152,9 @@ body { font-family: 'Pretendard', sans-serif; background-color: #050505; color: 
                         <span class="date">2026.01.29</span>
                     </div>
                 </a>
-
-                <a href="#" class="post-item">
-                    <div class="thumb"><img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=1000&auto=format&fit=crop"></div>
-                    <div class="text-box">
-                        <span class="category-label">EVENT</span>
-                        <h3 class="title">2월 발렌타인 이벤트 체키</h3>
-                        <span class="date">2026.02.14</span>
-                    </div>
-                </a>
-
             </div>
-            
             <div style="text-align: center; margin-top: 50px;">
-                <a href="#home" onclick="route('home')" class="neon-box" style="display: inline-block; padding: 10px 30px; border-radius: 30px; font-weight: bold; color: #fff;">BACK TO HOME</a>
+                <a href="#home" class="neon-box" style="display: inline-block; padding: 10px 30px; border-radius: 30px; font-weight: bold; color: #fff;">BACK TO HOME</a>
             </div>
         </div>
     </main>
@@ -187,62 +165,62 @@ body { font-family: 'Pretendard', sans-serif; background-color: #050505; color: 
         <div class="content-section">
             <div class="section-header">
                 <h2 class="neon-text-sub">MEMO</h2>
-                <p>GUESTBOOK & DIARY</p>
+                <p>GUESTBOOK</p>
             </div>
             <div class="neon-box" style="padding: 30px; text-align: center; background: rgba(20,20,20,0.8);">
                 <p style="color: #bbb;">방명록 및 메모 기능 준비중입니다.</p>
-                </div>
+                <br>
+                <a href="#home" style="text-decoration: underline; color: #a855f7;">홈으로 돌아가기</a>
+            </div>
         </div>
     </main>
 </div>
 
 <script>
-    /* ========== 라우터 (페이지 이동) 시스템 ========== */
-    function route(pageId) {
-        // 모든 페이지 숨김
+    /* ================= 기능 로직 ================= */
+
+    // 1. 페이지 전환 (라우터)
+    // 주소창의 #뒤에 있는 단어(home, cheki, memo)를 읽어서 화면을 바꿔줍니다.
+    function handleRouting() {
+        const hash = window.location.hash.replace('#', '') || 'home'; // 기본값 home
+        
+        // 1. 모든 페이지 숨기기
         document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
-        // 선택한 페이지 보여줌
-        document.getElementById('page-' + pageId).classList.add('active');
         
-        // 스크롤 맨 위로
-        window.scrollTo(0, 0);
-        
-        // 메뉴 활성화 표시
+        // 2. 해당하는 페이지만 보여주기
+        const targetPage = document.getElementById('page-' + hash);
+        if (targetPage) {
+            targetPage.classList.add('active');
+            window.scrollTo(0, 0); // 화면 맨 위로
+        }
+
+        // 3. 메뉴 색깔 활성화
         document.querySelectorAll('.nav-menu a').forEach(el => el.classList.remove('active'));
-        const activeLink = document.querySelector(`.nav-menu a[href="#${pageId}"]`);
+        const activeLink = document.querySelector(`.nav-menu a[href="#${hash}"]`);
         if(activeLink) activeLink.classList.add('active');
     }
 
-    // 뒤로가기/앞으로가기 처리
-    window.addEventListener('hashchange', () => {
-        const hash = window.location.hash.replace('#', '') || 'home';
-        route(hash);
-    });
-
-    // 초기 로딩 시 주소 확인
+    // 주소가 바뀔 때마다 실행 (뒤로가기 포함)
+    window.addEventListener('hashchange', handleRouting);
+    // 처음 들어왔을 때 실행
     window.addEventListener('DOMContentLoaded', () => {
-        const hash = window.location.hash.replace('#', '') || 'home';
-        route(hash);
-        initCalendar();
+        handleRouting();
+        initCalendar(); // 달력도 그림
     });
 
-    function scrollToContent() {
-        document.getElementById('anchor-schedule').scrollIntoView({ behavior: 'smooth' });
-    }
+    // 2. 부드러운 스크롤 (Lenis)
+    const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smooth: true });
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
 
-    /* ========== 달력 데이터 & 로직 ========== */
+    // 3. 달력 데이터 및 로직
     const mySchedule = {
       "1-29": { img: "https://pbs.twimg.com/media/G-ubDR3bAAAeXV-?format=jpg&name=large", link: "#" },
       "2-14": { img: "https://images.unsplash.com/photo-1518199266791-5375a83190b7", link: "#" }
     };
-
     const year = 2026;
     const monthNames = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
     let currentIdx = 0; 
-
-    const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smooth: true });
-    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
-    requestAnimationFrame(raf);
 
     function initCalendar() {
       const container = document.getElementById('calendar-body');
