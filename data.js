@@ -5,7 +5,9 @@
 // 1. 달력 일정 (날짜: { 이미지, 링크 })
 const mySchedule = {
     "1-29": { img: "https://pbs.twimg.com/media/G-ubDR3bAAAeXV-?format=jpg&name=large", link: "https://drive.google.com" },
-    "2-14": { img: "https://images.unsplash.com/photo-1518199266791-5375a83190b7", link: "#" }
+    "2-14": { img: "https://images.unsplash.com/photo-1518199266791-5375a83190b7", link: "#" },
+   "1-24": { img: "https://images.unsplash.com/photo-1518199266791-5375a83190b7", link: "#" },
+
 };
 
 // 2. 공지사항 (Notice)
