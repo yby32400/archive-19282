@@ -7,88 +7,10 @@
 <link rel="stylesheet" href="./style.css">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
 <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
-
-<style>
-/* ★ 이번에 추가된 배너 인터랙션 CSS ★ */
-.official-banner-link {
-    display: block;
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-    text-decoration: none;
-}
-
-.banner-wrapper-full {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-    line-height: 0;
-    border-top: 1px solid rgba(168, 85, 247, 0.4);
-    border-bottom: 1px solid rgba(168, 85, 247, 0.4);
-}
-
-.banner-img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    transition: filter 0.5s ease, transform 0.5s ease; /* 흐려짐과 확대를 위한 부드러운 전환 */
-    filter: brightness(0.8); /* 기본 상태는 약간 어둡게 */
-}
-
-.banner-overlay {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(168, 85, 247, 0.3); /* 마우스 올렸을 때 깔릴 보라색 필터 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0; /* 처음엔 안 보임 */
-    transition: opacity 0.5s ease;
-    z-index: 2;
-}
-
-.banner-overlay span {
-    color: #fff;
-    font-weight: 900;
-    font-size: 1.5rem;
-    text-shadow: 0 0 15px #a855f7;
-    border: 2px solid #fff;
-    padding: 15px 35px;
-    border-radius: 50px;
-    background: rgba(0,0,0,0.7);
-    backdrop-filter: blur(8px); /* 글씨 배경도 살짝 흐리게 해서 고급스럽게 */
-    transform: translateY(20px); /* 살짝 아래에서 대기 */
-    transition: transform 0.5s ease;
-}
-
-/* 마우스 대었을 때(Hover) 반응 */
-.official-banner-link:hover .banner-img {
-    filter: blur(8px) brightness(0.6); /* ★ 핵심: 이미지를 흐리게 만들고 어둡게 함 */
-    transform: scale(1.05); /* 아주 살짝 확대 */
-}
-
-.official-banner-link:hover .banner-overlay {
-    opacity: 1; /* 보라색 필터 나타남 */
-}
-
-.official-banner-link:hover .banner-overlay span {
-    transform: translateY(0); /* 문구가 아래에서 위로 슥 올라옴 */
-}
-
-/* 모바일 화면 대응 */
-@media (max-width: 768px) {
-    .banner-overlay span { font-size: 1rem; padding: 10px 20px; }
-}
-</style>
 </head>
 
 <body>
-
-<div id="loading-screen">
-    <div class="loading-logo">OBSID ARCHIVE</div>
-    <div class="loading-text">SYSTEM INITIALIZING...</div>
-</div>
+<div id="loading-screen"><div class="loading-logo">OBSID ARCHIVE</div></div>
 
 <nav class="sticky_nav">
     <div class="nav-inner">
@@ -102,64 +24,101 @@
 </nav>
 
 <div id="page-home" class="page-section active">
-    <header class="hero-section">
-        <div class="video-frame neon-box">
-            <iframe src="https://drive.google.com/file/d/1-ZyXQgAyqs2yzi3NlkEok81UKe7pKP1T/preview" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    <header class="hero-section" style="text-align:center; padding:100px 20px;">
+        <div class="video-frame neon-box" style="max-width:800px; margin:0 auto; aspect-ratio:16/9; overflow:hidden;">
+            <iframe src="https://drive.google.com/file/d/1-ZyXQgAyqs2yzi3NlkEok81UKe7pKP1T/preview" style="width:100%; height:100%; border:none;"></iframe>
         </div>
-        <div class="hero-content">
-            <p class="d-day neon-text-sub">TODAY'S MOOD</p>
-            <h2 class="main-copy neon-text">OBSID KAREN<br>ARCHIVE</h2>
-            <span class="scroll-down" onclick="document.getElementById('anchor-schedule').scrollIntoView({behavior:'smooth'})">▼ SCROLL DOWN</span>
-        </div>
+        <h2 class="main-copy neon-text" style="font-size:3rem; margin-top:30px;">OBSID KAREN<br>ARCHIVE</h2>
     </header>
 
     <main>
-        <div id="anchor-schedule" class="container" style="padding-top: 80px;">
-            <div class="section-header"><h2 class="neon-text-sub">OFFICIAL SCHEDULE</h2><p>2026 CALENDAR</p></div>
-            <div class="schedule-wrapper">
-                <div class="calendar-header">
-                    <button type="button" class="nav-btn" onclick="changeMonth(-1)">◀</button>
-                    <h2 id="current-month-title" class="month-title">JANUARY<br>2026</h2>
-                    <button type="button" class="nav-btn" onclick="changeMonth(1)">▶</button>
-                </div>
-                <div id="calendar-body"></div>
-            </div>
+        <div id="anchor-schedule" class="container">
+            <div class="section-header" style="text-align:center; margin-bottom:50px;"><h2 class="neon-text-sub">OFFICIAL SCHEDULE</h2></div>
+            <div id="calendar-body"></div>
         </div>
         
-        <div class="content-section-full" style="width: 100%; padding-top: 80px; margin-bottom: 50px;">
-            <div class="section-header"><h2 class="neon-text-sub">OFFICIAL X</h2><p>REALTIME FEED</p></div>
+        <div class="content-section-full">
+            <div class="section-header" style="text-align:center;"><h2 class="neon-text-sub">OFFICIAL X</h2></div>
             <a href="https://x.com/Obsid_ofcl" target="_blank" class="official-banner-link">
                 <div class="banner-wrapper-full">
-                    <img src="https://pbs.twimg.com/profile_banners/1965985666375819264/1762981893/1080x360" alt="Obsid Official Banner" class="banner-img">
-                    <div class="banner-overlay">
-                        <span>옵시드 공식 X 바로가기</span>
-                    </div>
+                    <img src="https://pbs.twimg.com/profile_banners/1965985666375819264/1762981893/1080x360" class="banner-img">
+                    <div class="banner-overlay"><span>옵시드 공식 X 바로가기</span></div>
                 </div>
             </a>
         </div>
 
         <div class="container">
-            <div class="section-header"><h2 class="neon-text-sub">LATEST MEDIA</h2><p>VIDEO & PHOTO</p></div>
+            <div class="section-header" style="text-align:center;"><h2 class="neon-text-sub">LATEST MEDIA</h2></div>
             <div class="list-wrap" id="media-list-container"></div>
         </div>
     </main>
 </div>
 
+<div id="page-guestbook" class="page-section">
+    <main class="container">
+        <div class="section-header" style="text-align:center;"><h2 class="neon-text-sub">GUESTBOOK</h2></div>
+        <div class="neon-box" style="min-height:400px; padding:10px; background:#000; border-radius:12px;">
+            <div style="text-align:center; padding:100px 0; color:#444;">Cbox Loading...</div>
+        </div>
+    </main>
+</div>
+
+<div id="article-modal" class="modal-overlay" onclick="closeModal(event)">
+    <div class="modal-content">
+        <button class="modal-close-btn" onclick="closeModal(event)">×</button>
+        <div id="modal-img-container"></div>
+        <div class="modal-body">
+            <h2 id="modal-title" class="modal-title"></h2>
+            <span id="modal-date" class="modal-date"></span>
+            <p id="modal-text" class="modal-text"></p>
+        </div>
+    </div>
+</div>
+
+<a href="https://github.com/아이디/저장소/edit/main/data.js" target="_blank" class="admin-btn"></a>
+
 <script src="./data.js"></script>
 <script>
-    // 기존 로직 코드들 (renderList, openModal, initCalendar, handleRouting 등)
-    // 이전 답변의 스크립트 내용을 그대로 유지해서 붙여넣으시면 됩니다.
-    
+    function forceHideLoader() {
+        const loader = document.getElementById('loading-screen');
+        if(loader) {
+            loader.style.opacity = '0';
+            setTimeout(() => { loader.style.display = 'none'; }, 800);
+        }
+    }
+
+    function renderList(data, id, type) {
+        const c = document.getElementById(id); if(!c || !data) return;
+        let h = "";
+        data.forEach((p, i) => {
+            let thumb = (p.images && p.images[0]) || p.img || "";
+            if(type === 'link') h += `<a href="${p.link||'#'}" target="_blank" class="post-item"><div class="thumb"><img src="${thumb}"></div><div class="text-box"><h3>${p.title}</h3><span>${p.date}</span></div></a>`;
+            else h += `<div class="post-item" onclick="openModal('${id}', ${i})"><div class="thumb"><img src="${thumb}"></div><div class="text-box"><h3>${p.title}</h3><span>${p.date}</span></div></div>`;
+        });
+        c.innerHTML = h;
+    }
+
+    function openModal(type, index) {
+        let post = (type.includes('cheki')) ? chekiPosts[index] : noticePosts[index];
+        const imgContainer = document.getElementById('modal-img-container');
+        imgContainer.innerHTML = "";
+        if(post.images) post.images.forEach(s => imgContainer.innerHTML += `<img src="${s}" style="width:100%;">`);
+        else if(post.img) imgContainer.innerHTML = `<img src="${post.img}" style="width:100%;">`;
+        document.getElementById('modal-title').innerText = post.title;
+        document.getElementById('modal-text').innerText = post.body;
+        document.getElementById('article-modal').style.display = 'block';
+    }
+
+    function closeModal(e) { if(e.target.id === 'article-modal' || e.target.classList.contains('modal-close-btn')) document.getElementById('article-modal').style.display = 'none'; }
+
     document.addEventListener("DOMContentLoaded", () => {
-        renderList(typeof noticePosts !== 'undefined' ? noticePosts : [], 'notice-list-container', 'notice');
-        renderList(typeof chekiPosts !== 'undefined' ? chekiPosts : [], 'cheki-list-container', 'card');
-        renderList(typeof mediaPosts !== 'undefined' ? mediaPosts : [], 'media-list-container', 'link');
-        initCalendar();
-        handleRouting();
-        setTimeout(() => { const l=document.getElementById('loading-screen'); if(l){l.style.opacity='0'; setTimeout(()=>l.style.display='none',800);} }, 1500);
+        try {
+            renderList(typeof noticePosts !== 'undefined' ? noticePosts : [], 'notice-list-container', 'notice');
+            renderList(typeof chekiPosts !== 'undefined' ? chekiPosts : [], 'cheki-list-container', 'card');
+            renderList(typeof mediaPosts !== 'undefined' ? mediaPosts : [], 'media-list-container', 'link');
+        } catch(e) { console.error(e); }
+        finally { setTimeout(forceHideLoader, 1500); }
     });
-    
-    // ... 나머지 달력 및 스크롤 함수들 ...
 </script>
 </body>
 </html>
