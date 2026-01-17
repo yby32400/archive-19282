@@ -1,0 +1,204 @@
+
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OBSID KAREN ARCHIVE</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
+<script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+
+<style>
+/* ================= CSS 디자인 (여기에 다 넣었습니다) ================= */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+li { list-style: none; }
+a { text-decoration: none; color: inherit; transition: 0.3s; }
+body { font-family: 'Pretendard', sans-serif; background-color: #050505; color: #fff; line-height: 1.6; overflow-x: hidden; padding-top: 70px; }
+
+/* 네온 효과 */
+.neon-text { color: #fff; text-shadow: 0 0 10px rgba(168, 85, 247, 0.8), 0 0 20px rgba(168, 85, 247, 0.4); }
+.neon-text-sub { color: #d8b4fe; text-shadow: 0 0 8px rgba(168, 85, 247, 0.6); font-weight: 700; letter-spacing: 1px; }
+.neon-box { border: 1px solid rgba(168, 85, 247, 0.5); box-shadow: 0 0 20px rgba(168, 85, 247, 0.2); }
+
+/* 헤더 */
+.sticky_nav { position: fixed; top: 0; left: 0; width: 100%; height: 70px; background: rgba(5, 5, 5, 0.95); backdrop-filter: blur(10px); z-index: 99999; border-bottom: 1px solid rgba(168, 85, 247, 0.3); display: flex; justify-content: center; align-items: center; padding: 0 20px; }
+.nav-inner { width: 100%; max-width: 1200px; display: flex; justify-content: space-between; align-items: center; }
+.logo a { font-weight: 800; font-size: 20px; color: #fff; text-shadow: 0 0 10px #a855f7; }
+.nav-menu a { color: #bbb; font-size: 12px; font-weight: 700; margin-left: 15px; letter-spacing: 1px; }
+.nav-menu a:hover { color: #fff; text-shadow: 0 0 8px #a855f7; }
+
+/* 히어로 섹션 */
+.hero-section { min-height: calc(100vh - 70px); display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; padding: 50px 20px; text-align: center; background: #000; }
+.video-frame { width: 90%; max-width: 800px; aspect-ratio: 16/9; margin-bottom: 30px; background: #000; position: relative; z-index: 10; border-radius: 10px; overflow: hidden; }
+.video-frame iframe { width: 100%; height: 100%; }
+.main-copy { font-size: 2.5rem; font-weight: 900; margin-bottom: 20px; line-height: 1.2; }
+.scroll-down { display: inline-block; padding: 8px 20px; border-radius: 30px; border: 1px solid #a855f7; color: #d8b4fe; font-size: 12px; margin-top: 20px; }
+
+/* 컨텐츠 공통 */
+.container { max-width: 1200px; margin: 0 auto; padding: 40px 20px 80px; }
+.content-section { padding-top: 80px; margin-bottom: 50px; }
+.section-header { text-align: center; margin-bottom: 40px; }
+.section-header h2 { font-size: 1.8rem; margin-bottom: 5px; }
+.section-header p { font-size: 0.9rem; color: #888; letter-spacing: 2px; }
+
+/* 달력 */
+.schedule-wrapper { width: 100%; }
+.calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.month-title { font-size: 2rem; font-weight: 900; text-align: center; line-height: 1.2; }
+.nav-btn { background: transparent; border: 1px solid #a855f7; color: #d8b4fe; padding: 5px 15px; border-radius: 20px; font-size: 12px; }
+.week-header { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; color: #d8b4fe; margin-bottom: 10px; font-size: 12px; }
+.calendar-grid { display: none; grid-template-columns: repeat(7, 1fr); gap: 5px; }
+.calendar-grid.active-month { display: grid; }
+.day-cell { position: relative; aspect-ratio: 2/3; background: #111; border: 1px solid #222; border-radius: 6px; overflow: hidden; }
+.day-num { position: absolute; top: 5px; left: 5px; font-weight: bold; color: rgba(255,255,255,0.5); font-size: 12px; z-index: 10; }
+.has-event { border: 1px solid #a855f7; cursor: pointer; }
+.event-img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
+
+/* 리스트 (카드) */
+.list-wrap { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+.post-item { display: block; background: rgba(20,20,20,0.6); border: 1px solid rgba(168,85,247,0.3); border-radius: 12px; overflow: hidden; backdrop-filter: blur(5px); }
+.thumb { width: 100%; aspect-ratio: 16/9; background: #222; overflow: hidden; }
+.thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0.9; }
+.text-box { padding: 20px; }
+.category-label { display: inline-block; background: #a855f7; color: #000; font-weight: 800; font-size: 10px; padding: 3px 6px; border-radius: 4px; margin-bottom: 8px; }
+.title { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 5px; }
+.date { font-size: 11px; color: #666; font-family: monospace; }
+
+/* 모바일 대응 */
+@media (max-width: 768px) {
+    .list-wrap { grid-template-columns: 1fr; }
+    .week-header { display: none; }
+    .calendar-grid { grid-template-columns: repeat(3, 1fr); }
+    .day-cell { aspect-ratio: 1; }
+    .day-cell:not(.has-event) { display: none; } /* 일정 없는 날 숨김 (모바일 최적화) */
+}
+</style>
+</head>
+
+<body>
+
+<nav class="sticky_nav">
+    <div class="nav-inner">
+        <h1 class="logo neon-text"><a href="#">MY ARCHIVE</a></h1>
+        <div class="nav-menu">
+            <a href="#">CHEKI</a>
+            <a href="#">MEMO</a>
+        </div>
+    </div>
+</nav>
+
+<header class="hero-section">
+    <div class="video-frame neon-box">
+        <iframe src="https://drive.google.com/file/d/1-ZyXQgAyqs2yzi3NlkEok81UKe7pKP1T/preview" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+    <div class="hero-content">
+        <p class="d-day neon-text-sub">TODAY'S MOOD</p>
+        <h2 class="main-copy neon-text">OBSID KAREN<br>ARCHIVE</h2>
+        <span class="scroll-down">▼ SCROLL DOWN</span>
+    </div>
+</header>
+
+<main class="container">
+    <div class="content-section">
+        <div class="section-header">
+            <h2 class="neon-text-sub">OFFICIAL SCHEDULE</h2>
+            <p>2026 CALENDAR</p>
+        </div>
+        <div class="schedule-wrapper">
+            <div class="calendar-header">
+                <button type="button" class="nav-btn" onclick="changeMonth(-1)">◀</button>
+                <h2 id="current-month-title" class="month-title">JANUARY<br>2026</h2>
+                <button type="button" class="nav-btn" onclick="changeMonth(1)">▶</button>
+            </div>
+            <div id="calendar-body"></div>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <div class="section-header">
+            <h2 class="neon-text-sub">LATEST MEDIA</h2>
+            <p>ARCHIVED MOMENTS</p>
+        </div>
+        <div class="list-wrap">
+            
+            <a href="#" class="post-item">
+                <div class="thumb">
+                    <img src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?q=80&w=1000&auto=format&fit=crop" alt="썸네일">
+                </div>
+                <div class="text-box">
+                    <span class="category-label">CHEKI LOG</span>
+                    <h3 class="title">1월 29일 체키 정산 (테스트)</h3>
+                    <span class="date">2026.01.29</span>
+                </div>
+            </a>
+
+            <a href="#" class="post-item">
+                <div class="thumb">
+                    <img src="https://images.unsplash.com/photo-1635322966219-b75ed3a90e27?q=80&w=1000&auto=format&fit=crop" alt="썸네일">
+                </div>
+                <div class="text-box">
+                    <span class="category-label">EVENT</span>
+                    <h3 class="title">페르소나 콜라보 카페 후기</h3>
+                    <span class="date">2026.02.14</span>
+                </div>
+            </a>
+
+        </div>
+    </div>
+</main>
+
+<script>
+    // 1. 달력 데이터 (여기에 일정 추가하세요)
+    const mySchedule = {
+      "1-29": { img: "https://pbs.twimg.com/media/G-ubDR3bAAAeXV-?format=jpg&name=large", link: "#" },
+      "2-14": { img: "https://images.unsplash.com/photo-1518199266791-5375a83190b7", link: "#" }
+    };
+
+    const year = 2026;
+    const monthNames = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
+    let currentIdx = 0; 
+
+    // 2. 부드러운 스크롤
+    const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smooth: true });
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+
+    // 3. 달력 로직
+    document.addEventListener("DOMContentLoaded", function() {
+        initCalendar();
+    });
+
+    function initCalendar() {
+      const container = document.getElementById('calendar-body');
+      let html = '';
+      for (let m = 0; m < 12; m++) {
+        const firstDay = new Date(year, m, 1).getDay();
+        const lastDate = new Date(year, m + 1, 0).getDate();
+        html += `<div class="calendar-grid ${m === 0 ? 'active-month' : ''}" id="month-${m}">`;
+        for (let i = 0; i < firstDay; i++) html += `<div class="day-cell"></div>`;
+        for (let d = 1; d <= lastDate; d++) {
+          const key = `${m + 1}-${d}`; const event = mySchedule[key]; 
+          if (event) {
+            html += `<div class="day-cell has-event"><span class="day-num">${d}</span><img src="${event.img}" class="event-img"></div>`;
+          } else {
+            html += `<div class="day-cell"><span class="day-num">${d}</span></div>`;
+          }
+        }
+        html += `</div>`;
+      }
+      container.innerHTML = html;
+    }
+
+    function changeMonth(step) {
+      const currentMonth = document.getElementById(`month-${currentIdx}`);
+      if(currentMonth) currentMonth.classList.remove('active-month');
+      currentIdx += step;
+      if (currentIdx > 11) currentIdx = 0; if (currentIdx < 0) currentIdx = 11;
+      const nextMonth = document.getElementById(`month-${currentIdx}`);
+      if(nextMonth) nextMonth.classList.add('active-month');
+      const title = document.getElementById('current-month-title');
+      if(title) title.innerHTML = `${monthNames[currentIdx]}<br>${year}`;
+    }
+</script>
+</body>
+</html>
