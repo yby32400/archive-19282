@@ -49,26 +49,42 @@ a { text-decoration: none; color: inherit; cursor: pointer; }
 .nav-menu { display: flex; align-items: center; } /* PC용 */
 
 @media (max-width: 768px) {
-    .nav-menu {
-        display: flex !important; /* 항상 flex로 유지하되 투명도로 조절 */
-        position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-        background: rgba(0, 0, 0, 0.98); 
-        flex-direction: column; 
-        justify-content: center; /* 세로 중앙 */
-        align-items: center;     /* 가로 중앙 */
-        gap: 35px; z-index: 100000;
-        
-        /* 부드러운 효과 */
-        opacity: 0; visibility: hidden; 
-        transform: translateY(-20px); transition: all 0.4s ease-in-out;
+    /* 1. 달력 전체 너비 확보 */
+    .schedule-wrapper {
+        width: 100% !important;
+        padding: 0 10px;
     }
-    .nav-menu.active { opacity: 1; visibility: visible; transform: translateY(0); }
-    .nav-menu a { font-size: 26px; font-weight: 800; text-shadow: 0 0 10px #a855f7; margin: 0; }
-    .m-menu-btn { display: flex !important; }
-    
-    .calendar-grid { grid-template-columns: repeat(4, 1fr) !important; }
-    .day-cell:not(.has-event) { display: none; }
+
+    /* 2. 모바일에서도 무조건 7열 격자 유지 */
+    .calendar-grid {
+        grid-template-columns: repeat(7, 1fr) !important;
+        display: grid !important; /* 항상 보이게 설정 */
+        gap: 4px; /* 칸 사이 간격 살짝 줄임 */
+    }
+
+    /* 3. 칸 크기 키우기 (aspect-ratio 조절) */
+    .day-cell {
+        aspect-ratio: 1 / 1.5 !important; /* 가로보다 세로를 길게 해서 크기 확보 */
+        min-height: 60px; /* 최소 높이 설정 */
+    }
+
+    /* 4. 일정 없는 날도 투명하게 보여주기 (스크린샷 느낌) */
+    .day-cell:not(.has-event) {
+        display: block !important; 
+        background: rgba(255, 255, 255, 0.03); /* 아주 살짝 배경색 */
+        opacity: 1 !important; /* 숨기지 않음 */
+    }
+
+    /* 5. 날짜 숫자 크기 조절 */
+    .day-num {
+        font-size: 10px;
+        top: 3px;
+        left: 4px;
+        color: #888;
+    }
 }
+
+
 
 /* [6] 메인 히어로 & 리스트 디자인 */
 .hero-section { width: 100%; padding: 40px 0; display: flex; flex-direction: column; align-items: center; }
