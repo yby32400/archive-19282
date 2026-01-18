@@ -12,9 +12,10 @@
 
 <nav class="sticky_nav">
     <div class="nav-inner">
-        <h1 class="logo neon-text"><a href="#home">MY ARCHIVE</a></h1>
+        <h1 class="logo"><a href="#home">MY ARCHIVE</a></h1>
         <button class="m-menu-btn" onclick="toggleMenu()"><span></span><span></span><span></span></button>
         <div class="nav-menu" id="mobileMenu">
+            <a href="#home" onclick="toggleMenu()">HOME</a>
             <a href="#sns" onclick="toggleMenu()">SNS</a>
             <a href="#notice" onclick="toggleMenu()">NOTICE</a>
             <a href="#cheki" onclick="toggleMenu()">CHEKI</a>
@@ -25,29 +26,29 @@
 
 <div id="page-home" class="page-section active">
     <header class="hero-section">
-        <div class="video-frame neon-box">
+        <div class="video-frame">
             <iframe src="https://drive.google.com/file/d/1-ZyXQgAyqs2yzi3NlkEok81UKe7pKP1T/preview" frameborder="0" allowfullscreen></iframe>
         </div>
         <div class="hero-content">
-            <p class="neon-text-sub">TODAY'S MOOD</p>
-            <h2 class="main-copy neon-text">OBSID KAREN<br>ARCHIVE</h2>
+            <p style="color:#d8b4fe; letter-spacing:2px; font-size:14px;">TODAY'S MOOD</p>
+            <h2 class="neon-text">OBSID KAREN ARCHIVE</h2>
             <div class="scroll-down" onclick="document.getElementById('anchor-schedule').scrollIntoView({behavior:'smooth'})">▼ SCROLL DOWN</div>
         </div>
     </header>
     <main class="container">
-        <section id="anchor-schedule" class="content-section" style="padding-top:80px;">
-            <div class="section-header" style="text-align:center; margin-bottom:40px;"><h2 class="neon-text-sub">OFFICIAL SCHEDULE</h2><p>2026 CALENDAR</p></div>
+        <section id="anchor-schedule" style="width:100%; padding:60px 0;">
+            <div style="text-align:center; margin-bottom:40px;"><h2>OFFICIAL SCHEDULE</h2><p style="color:#666;">2026 CALENDAR</p></div>
             <div class="schedule-wrapper">
                 <div class="calendar-header">
-                    <button class="nav-btn neon-box" onclick="changeMonth(-1)" style="background:none; color:#fff; padding:5px 15px; border-radius:20px;">◀</button>
-                    <h2 id="current-month-title" class="month-title">JANUARY 2026</h2>
-                    <button class="nav-btn neon-box" onclick="changeMonth(1)" style="background:none; color:#fff; padding:5px 15px; border-radius:20px;">▶</button>
+                    <button class="nav-btn" onclick="changeMonth(-1)">◀</button>
+                    <h2 id="current-month-title">JANUARY 2026</h2>
+                    <button class="nav-btn" onclick="changeMonth(1)">▶</button>
                 </div>
                 <div id="calendar-body"></div>
             </div>
         </section>
-        <section class="content-section" style="margin-top:80px;">
-            <div class="section-header" style="text-align:center; margin-bottom:40px;"><h2 class="neon-text-sub">LATEST MEDIA</h2></div>
+        <section style="width:100%; padding:60px 0;">
+            <div style="text-align:center; margin-bottom:40px;"><h2>LATEST MEDIA</h2></div>
             <div class="list-wrap" id="media-list-container"></div>
         </section>
     </main>
@@ -55,17 +56,25 @@
 
 <div id="page-sns" class="page-section">
     <main class="container">
-        <div class="section-header" style="text-align:center; margin: 40px 0;"><h2 class="neon-text-sub">OFFICIAL SNS</h2></div>
-        <div class="neon-box" style="max-width:500px; margin:0 auto; border-radius:15px; overflow:hidden;">
+        <div style="text-align:center; margin-bottom:40px;"><h2>OFFICIAL SNS</h2></div>
+        <div style="width:100%; max-width:500px; background:#111; border:1px solid #a855f7; border-radius:15px; overflow:hidden;">
             <a class="twitter-timeline" data-theme="dark" data-height="600" href="https://twitter.com/Official_Obsid">Tweets</a>
             <script async src="https://platform.twitter.com/widgets.js"></script>
         </div>
     </main>
 </div>
 
-<div id="page-notice" class="page-section"><main class="container"><div class="section-header" style="text-align:center; margin:40px 0;"><h2 class="neon-text-sub">NOTICE</h2></div><div class="list-wrap" id="notice-list-container"></div></main></div>
-<div id="page-cheki" class="page-section"><main class="container"><div class="section-header" style="text-align:center; margin:40px 0;"><h2 class="neon-text-sub">CHEKI LOG</h2></div><div class="list-wrap" id="cheki-list-container"></div></main></div>
-<div id="page-guestbook" class="page-section"><main class="container"><div class="section-header" style="text-align:center; margin:40px 0;"><h2 class="neon-text-sub">GUESTBOOK</h2></div><div style="text-align:center; color:#666;">준비 중입니다.</div></main></div>
+<div id="page-notice" class="page-section">
+    <main class="container"><h2>NOTICE</h2><div class="list-wrap" id="notice-list-container" style="margin-top:40px;"></div></main>
+</div>
+
+<div id="page-cheki" class="page-section">
+    <main class="container"><h2>CHEKI LOG</h2><div class="list-wrap" id="cheki-list-container" style="margin-top:40px;"></div></main>
+</div>
+
+<div id="page-guestbook" class="page-section">
+    <main class="container"><h2>GUESTBOOK</h2><p style="margin-top:40px;">준비 중입니다.</p></main>
+</div>
 
 <script src="./data.js"></script>
 <script>
@@ -123,7 +132,6 @@
         renderList(typeof noticePosts !== 'undefined' ? noticePosts : [], 'notice-list-container');
         renderList(typeof chekiPosts !== 'undefined' ? chekiPosts : [], 'cheki-list-container');
     });
-
     const lenis = new Lenis({duration:1.2, smooth:true});
     function raf(t){lenis.raf(t); requestAnimationFrame(raf);} requestAnimationFrame(raf);
 </script>
