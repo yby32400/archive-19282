@@ -12,9 +12,7 @@
 <nav class="sticky_nav">
     <div class="nav-inner">
         <h1 class="logo neon-text"><a href="#home">MY ARCHIVE</a></h1>
-        <button class="m-menu-btn" id="menuBtn" onclick="toggleMenu()">
-            <span></span><span></span><span></span>
-        </button>
+        <button class="m-menu-btn" onclick="toggleMenu()"><span></span><span></span><span></span></button>
         <div class="nav-menu" id="mobileMenu">
             <a href="#home" onclick="toggleMenu()">HOME</a>
             <a href="#sns" onclick="toggleMenu()">SNS</a>
@@ -27,143 +25,71 @@
 
 <div id="page-home" class="page-section active">
     <main class="container">
-        <header class="hero-section">
-            <div class="video-frame neon-box">
-                <iframe src="https://drive.google.com/file/d/1-ZyXQgAyqs2yzi3NlkEok81UKe7pKP1T/preview" frameborder="0" style="width:100%; height:100%;" allowfullscreen></iframe>
-            </div>
-            <p class="neon-text-sub" style="margin-bottom:10px;">TODAY'S MOOD</p>
-            <h2 class="neon-text" style="font-size: 2.5rem; line-height:1.2;">OBSID KAREN<br>ARCHIVE</h2>
-        </header>
-
+        <h2 class="neon-text" style="font-size: 2.5rem; margin-bottom: 40px;">OBSID KAREN ARCHIVE</h2>
+        
         <section class="content-section">
-            <h2 class="neon-text-sub">OFFICIAL SCHEDULE</h2>
-            <p style="color:#666; font-size:12px; margin-bottom:20px;">2026 CALENDAR</p>
-            <div class="calendar-header" style="display:flex; align-items:center; gap:30px; margin-bottom:20px; justify-content: center;">
-                <button onclick="changeMonth(-1)" style="background:none; border:1px solid #a855f7; color:#fff; width:30px; height:30px; border-radius:50%; cursor:pointer;">◀</button>
-                <h2 id="current-month-title" style="font-size:20px; font-weight:800; min-width: 150px; text-align: center;">JANUARY 2026</h2>
-                <button onclick="changeMonth(1)" style="background:none; border:1px solid #a855f7; color:#fff; width:30px; height:30px; border-radius:50%; cursor:pointer;">▶</button>
+            <h2 class="neon-text-sub" style="margin-bottom:20px;">OFFICIAL SCHEDULE</h2>
+            <div class="calendar-header" style="display:flex; justify-content:center; align-items:center; gap:20px; margin-bottom:20px;">
+                <button class="neon-box" onclick="changeMonth(-1)" style="background:none; color:#fff; width:35px; height:35px; cursor:pointer;">◀</button>
+                <h2 id="current-month-title" class="neon-text" style="min-width:160px; font-size: 1.5rem;">JANUARY 2026</h2>
+                <button class="neon-box" onclick="changeMonth(1)" style="background:none; color:#fff; width:35px; height:35px; cursor:pointer;">▶</button>
             </div>
             <div id="calendar-body"></div>
         </section>
-
-        <section class="content-section">
-            <h2 class="neon-text-sub" style="margin-bottom:30px;">LATEST MEDIA</h2>
-            <div class="list-wrap" id="media-list-container"></div>
-        </section>
     </main>
 </div>
 
-<div id="page-sns" class="page-section">
-    <main class="container">
-        <h2 class="neon-text-sub" style="margin-bottom:40px;">OFFICIAL SNS</h2>
-        <div class="neon-box" style="width:100%; max-width:500px; overflow:hidden; margin: 0 auto;">
-            <a class="twitter-timeline" data-theme="dark" data-height="600" href="https://twitter.com/Official_Obsid">Tweets</a>
-            <script async src="https://platform.twitter.com/widgets.js"></script>
-        </div>
-    </main>
-</div>
-
-<div id="page-notice" class="page-section">
-    <main class="container">
-        <h2 class="neon-text-sub" style="margin-bottom:40px;">NOTICE</h2>
-        <div class="list-wrap" id="notice-list-container"></div>
-    </main>
-</div>
-
-<div id="page-cheki" class="page-section">
-    <main class="container">
-        <h2 class="neon-text-sub" style="margin-bottom:40px;">CHEKI LOG</h2>
-        <div class="list-wrap" id="cheki-list-container"></div>
-    </main>
-</div>
-
-<div id="page-guestbook" class="page-section">
-    <main class="container">
-        <h2 class="neon-text-sub" style="margin-bottom:40px;">GUESTBOOK</h2>
-        <div style="text-align:center; color:#666;">준비 중입니다.</div>
-    </main>
-</div>
+<div id="page-sns" class="page-section"><main class="container"><h2 class="neon-text">SNS FEED</h2></main></div>
+<div id="page-notice" class="page-section"><main class="container"><h2 class="neon-text">NOTICE</h2></main></div>
+<div id="page-cheki" class="page-section"><main class="container"><h2 class="neon-text">CHEKI LOG</h2></main></div>
 
 <script src="./data.js"></script>
 <script>
-    // 1. 메뉴 토글 함수
     function toggleMenu() {
-        const menu = document.getElementById('mobileMenu');
-        const btn = document.getElementById('menuBtn');
-        if(menu && btn) {
-            menu.classList.toggle('active');
-            btn.classList.toggle('active');
-        }
+        document.getElementById('mobileMenu').classList.toggle('active');
+        document.querySelector('.m-menu-btn').classList.toggle('active');
     }
 
-    // 2. 페이지 라우팅 함수
     function handleRouting() {
         const hash = window.location.hash.replace('#', '') || 'home';
         document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
         const target = document.getElementById('page-' + hash);
         if(target) target.classList.add('active');
-        window.scrollTo(0,0);
+        window.scrollTo(0, 0);
     }
     window.addEventListener('hashchange', handleRouting);
 
-    // 3. 리스트 그리기 함수 (영상, 공지, 체키 공용)
-    function renderList(data, id, type) {
-        const container = document.getElementById(id);
-        if(!container || !data) return;
-        let html = "";
-        data.forEach((item) => {
-            let thumb = Array.isArray(item.images) ? item.images[0] : (item.img || "");
-            html += `
-                <div class="post-item">
-                    <div class="thumb"><img src="${thumb}" style="width:100%; height:100%; object-fit:cover;"></div>
-                    <div class="text-box">
-                        <h3 style="font-size:16px; margin-bottom:5px;">${item.title}</h3>
-                        <p style="font-size:12px; color:#888;">${item.date}</p>
-                    </div>
-                </div>`;
-        });
-        container.innerHTML = html;
-    }
-
-    // 4. 달력 로직
-    const year = 2026;
+    const year = 2026; let currentIdx = 0;
     const monthNames = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
-    let currentIdx = 0;
 
     function initCalendar() {
-        const body = document.getElementById('calendar-body');
-        if(!body) return;
-        let html = '';
+        const c = document.getElementById('calendar-body');
+        let h = '';
         for (let m=0; m<12; m++) {
             const f = new Date(year, m, 1).getDay();
             const l = new Date(year, m+1, 0).getDate();
-            html += `<div class="calendar-grid ${m===currentIdx?'active-month':''}" id="month-${m}">`;
-            for(let i=0; i<f; i++) html += `<div class="day-cell"></div>`;
+            h += `<div class="calendar-grid ${m===currentIdx ? 'active-month' : ''}" id="month-${m}">`;
+            for(let i=0; i<f; i++) h += `<div class="day-cell"></div>`;
             for(let d=1; d<=l; d++) {
                 const k = `${m+1}-${d}`;
                 const ev = (typeof mySchedule !== 'undefined') ? mySchedule[k] : null;
-                html += ev ? `<div class="day-cell has-event"><span class="day-num">${d}</span><img src="${ev.img}" class="event-img" style="width:100%; height:100%; object-fit:cover;"></div>` : `<div class="day-cell"><span class="day-num">${d}</span></div>`;
+                h += ev ? `<div class="day-cell has-event"><span class="day-num">${d}</span><img src="${ev.img}" class="event-img"></div>` : `<div class="day-cell"><span class="day-num">${d}</span></div>`;
             }
-            html += `</div>`;
+            h += `</div>`;
         }
-        body.innerHTML = html;
+        c.innerHTML = h;
     }
 
-    function changeMonth(step) {
+    function changeMonth(s) {
         document.getElementById(`month-${currentIdx}`).classList.remove('active-month');
-        currentIdx = (currentIdx + step + 12) % 12;
+        currentIdx = (currentIdx + s + 12) % 12;
         document.getElementById(`month-${currentIdx}`).classList.add('active-month');
-        document.getElementById('current-month-title').innerHTML = `${monthNames[currentIdx]} ${year}`;
+        document.getElementById('current-month-title').innerText = `${monthNames[currentIdx]} ${year}`;
     }
 
-    // 5. 페이지 로드 시 실행
     document.addEventListener("DOMContentLoaded", () => {
-        handleRouting();
         initCalendar();
-        // 데이터 출력 명령 (data.js의 변수명과 일치해야 함)
-        if(typeof mediaPosts !== 'undefined') renderList(mediaPosts, 'media-list-container');
-        if(typeof noticePosts !== 'undefined') renderList(noticePosts, 'notice-list-container');
-        if(typeof chekiPosts !== 'undefined') renderList(chekiPosts, 'cheki-list-container');
+        handleRouting();
     });
 </script>
 </body>
