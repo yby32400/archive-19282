@@ -186,15 +186,30 @@
         setTimeout(() => { const l=document.getElementById('loading-screen'); if(l){l.style.opacity='0'; setTimeout(()=>l.style.display='none',800);} }, 1500);
     });
 
-    function handleRouting() {
-        const hash = window.location.hash.replace('#', '') || 'home';
-        document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
-        const target = document.getElementById('page-' + hash); if(target) target.classList.add('active');
-        document.querySelectorAll('.nav-menu a').forEach(el => el.classList.remove('active'));
-        const link = document.querySelector(`.nav-menu a[href="#${hash}"]`); if(link) link.classList.add('active');
-        window.scrollTo(0,0);
+    /* ... 기존 handleRouting 함수 부분 ... */
+function handleRouting() {
+    const hash = window.location.hash.replace('#', '') || 'home';
+    document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
+    const target = document.getElementById('page-' + hash); if(target) target.classList.add('active');
+    document.querySelectorAll('.nav-menu a').forEach(el => el.classList.remove('active'));
+    const link = document.querySelector(`.nav-menu a[href="#${hash}"]`); if(link) link.classList.add('active');
+    window.scrollTo(0,0);
+}
+window.addEventListener('hashchange', handleRouting);
+
+// ★ 여기에 아래 코드를 복사해서 붙여넣으세요! ★
+function toggleMenu() {
+    const menu = document.getElementById('mobileMenu');
+    if (menu) {
+        menu.classList.toggle('active');
     }
-    window.addEventListener('hashchange', handleRouting);
+}
+/* ★ 여기까지 ★ */
+
+/* ... 이하 기존 달력(initCalendar) 코드 ... */
+const year = 2026; 
+// ... 생략 ...
+
     
     const year = 2026; const monthNames = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"]; let currentIdx = 0;
     function initCalendar() {
