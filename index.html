@@ -201,12 +201,16 @@
     window.addEventListener('hashchange', handleRouting);
 
     // 5. 모바일 햄버거 메뉴 토글
-    function toggleMenu() {
-        const menu = document.getElementById('mobileMenu');
-        if (menu) {
-            menu.classList.toggle('active');
-        }
+    // 자바스크립트 내 toggleMenu 함수를 이렇게 수정하세요!
+function toggleMenu() {
+    const menu = document.getElementById('mobileMenu');
+    const btn = document.querySelector('.m-menu-btn'); // 버튼 찾기 추가
+    
+    if (menu && btn) {
+        menu.classList.toggle('active'); // 메뉴 열고 닫기
+        btn.classList.toggle('active');  // 버튼 X 모양으로 바꾸기
     }
+}
 
     // 6. 달력 설정
     const year = 2026; 
