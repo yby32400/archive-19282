@@ -11,8 +11,10 @@
 
 <nav class="sticky_nav">
     <div class="nav-inner">
-        <h1 class="logo"><a href="#home">MY ARCHIVE</a></h1>
-        <button class="m-menu-btn" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+        <h1 class="logo neon-text"><a href="#home">MY ARCHIVE</a></h1>
+        <button class="m-menu-btn" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
+        </button>
         <div class="nav-menu" id="mobileMenu">
             <a href="#home" onclick="toggleMenu()">HOME</a>
             <a href="#sns" onclick="toggleMenu()">SNS</a>
@@ -25,11 +27,12 @@
 
 <div id="page-home" class="page-section active">
     <main class="container">
-        <h2 style="font-size: 2.5rem; margin-bottom: 40px; text-shadow: 0 0 15px #a855f7;">OBSID KAREN ARCHIVE</h2>
+        <h2 style="font-size: 2.5rem; margin-bottom: 50px; text-shadow: 0 0 15px #a855f7;">OBSID KAREN ARCHIVE</h2>
         <section class="content-section">
+            <h2 style="color:#d8b4fe; margin-bottom:20px;">OFFICIAL SCHEDULE</h2>
             <div class="calendar-header" style="display:flex; justify-content:center; align-items:center; gap:20px; margin-bottom:20px;">
                 <button onclick="changeMonth(-1)" style="background:none; border:1px solid #a855f7; color:#fff; width:35px; height:35px; border-radius:50%; cursor:pointer;">◀</button>
-                <h2 id="current-month-title" style="min-width:160px;">JANUARY 2026</h2>
+                <h2 id="current-month-title" style="min-width:160px; font-size: 1.4rem;">JANUARY 2026</h2>
                 <button onclick="changeMonth(1)" style="background:none; border:1px solid #a855f7; color:#fff; width:35px; height:35px; border-radius:50%; cursor:pointer;">▶</button>
             </div>
             <div id="calendar-body"></div>
@@ -39,6 +42,7 @@
 
 <script src="./data.js"></script>
 <script>
+    // [1] 메뉴 토글 로직
     function toggleMenu() {
         const menu = document.getElementById('mobileMenu');
         const btn = document.querySelector('.m-menu-btn');
@@ -46,45 +50,57 @@
         btn.classList.toggle('active');
     }
 
+    // [2] 페이지 라우팅 로직
     function handleRouting() {
         const hash = window.location.hash.replace('#', '') || 'home';
+        // 모든 페이지 숨기기
         document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+        // 선택한 페이지 보여주기
         const target = document.getElementById('page-' + hash);
         if(target) target.classList.add('active');
         window.scrollTo(0, 0);
     }
     window.addEventListener('hashchange', handleRouting);
 
+    // [3] 달력 로직 - 중복 노출 해결
     const year = 2026; 
     let currentIdx = 0;
     const monthNames = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
 
     function initCalendar() {
-        const c = document.getElementById('calendar-body');
-        let h = '';
+        const body = document.getElementById('calendar-body');
+        let html = '';
         for (let m=0; m<12; m++) {
-            const f = new Date(year, m, 1).getDay();
-            const l = new Date(year, m+1, 0).getDate();
-            // m===currentIdx인 경우에만 active-month 클래스 부여
-            h += `<div class="calendar-grid ${m===currentIdx ? 'active-month' : ''}" id="month-${m}">`;
-            for(let i=0; i<f; i++) h += `<div class="day-cell"></div>`;
-            for(let d=1; d<=l; d++) {
-                const k = `${m+1}-${d}`;
-                const ev = (typeof mySchedule !== 'undefined') ? mySchedule[k] : null;
-                h += ev ? `<div class="day-cell has-event"><span class="day-num">${d}</span><img src="${ev.img}" class="event-img"></div>` : `<div class="day-cell"><span class="day-num">${d}</span></div>`;
+            const firstDay = new Date(year, m, 1).getDay();
+            const lastDate = new Date(year, m+1, 0).getDate();
+            // currentIdx와 m이 같을 때만 active-month 클래스 부여
+            html += `<div class="calendar-grid ${m===currentIdx ? 'active-month' : ''}" id="month-${m}">`;
+            for(let i=0; i<firstDay; i++) html += `<div class="day-cell"></div>`;
+            for(let d=1; d<=lastDate; d++) {
+                const key = `${m+1}-${d}`;
+                const event = (typeof mySchedule !== 'undefined') ? mySchedule[key] : null;
+                html += event ? `<div class="day-cell has-event"><span class="day-num">${d}</span><img src="${event.img}" class="event-img"></div>` : `<div class="day-cell"><span class="day-num">${d}</span></div>`;
             }
-            h += `</div>`;
+            html += `</div>`;
         }
-        c.innerHTML = h;
+        body.innerHTML = html;
     }
 
-    function changeMonth(s) {
-        document.getElementById(`month-${currentIdx}`).classList.remove('active-month');
-        currentIdx = (currentIdx + s + 12) % 12;
-        document.getElementById(`month-${currentIdx}`).classList.add('active-month');
+    function changeMonth(step) {
+        // 현재 달력 숨기기
+        const prev = document.getElementById(`month-${currentIdx}`);
+        if(prev) prev.classList.remove('active-month');
+        
+        currentIdx = (currentIdx + step + 12) % 12;
+        
+        // 새 달력 보여주기
+        const next = document.getElementById(`month-${currentIdx}`);
+        if(next) next.classList.add('active-month');
+        
         document.getElementById('current-month-title').innerText = `${monthNames[currentIdx]} ${year}`;
     }
 
+    // 초기화
     document.addEventListener("DOMContentLoaded", () => {
         initCalendar();
         handleRouting();
