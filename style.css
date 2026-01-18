@@ -1,4 +1,11 @@
 @charset "utf-8";
+
+/* 모든 요소의 기본 여백을 없애주는 설정입니다 */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+li { list-style: none; }
+/* ... 나머지 코드는 그대로 붙여넣으세요 ... */
+
 /* ================= 디자인 (CSS) ================= */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 li { list-style: none; }
