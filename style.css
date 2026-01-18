@@ -1,58 +1,85 @@
 @charset "utf-8";
 
-/* [1] 초기화 */
+/* [1] 초기화 및 기초 설정 */
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Pretendard', sans-serif; background: #050505; color: #fff; line-height: 1.6; padding-top: 70px; overflow-x: hidden; }
+body { 
+    font-family: 'Pretendard', sans-serif; 
+    background-color: #050505; color: #fff; line-height: 1.6; 
+    overflow-x: hidden; padding-top: 70px;
+}
 a { text-decoration: none; color: inherit; cursor: pointer; }
 
-/* [2] 페이지 관리 (섞임 방지 핵심!) */
-.page-section { display: none; width: 100%; min-height: calc(100vh - 70px); }
-.page-section.active { display: block; animation: fadeIn 0.5s ease; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+/* [2] 상단 네비게이션 바 (가장 중요) */
+.sticky_nav { 
+    position: fixed; top: 0; left: 0; width: 100%; height: 70px; 
+    background: rgba(5, 5, 5, 0.95); backdrop-filter: blur(10px); 
+    z-index: 9999; border-bottom: 1px solid rgba(168, 85, 247, 0.3); 
+    display: flex; justify-content: center; align-items: center; padding: 0 20px; 
+}
+.nav-inner { 
+    width: 100%; max-width: 1200px; 
+    display: flex; justify-content: space-between; align-items: center; 
+}
+.logo a { 
+    font-weight: 800; font-size: 22px; color: #fff; 
+    text-shadow: 0 0 10px #a855f7, 0 0 20px #a855f7; 
+    white-space: nowrap;
+}
 
-/* [3] 상단 네비게이션 바 */
-.sticky_nav { position: fixed; top: 0; left: 0; width: 100%; height: 70px; background: rgba(5,5,5,0.95); backdrop-filter: blur(10px); z-index: 99999; border-bottom: 1px solid #a855f7; display: flex; justify-content: center; }
-.nav-inner { width: 100%; max-width: 1200px; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
-.logo a { font-weight: 800; font-size: 20px; text-shadow: 0 0 10px #a855f7; }
+/* [3] PC 메뉴 스타일 (데스크탑에서만 보임) */
+.nav-menu { display: flex; align-items: center; }
+.nav-menu a { 
+    color: #bbb; font-size: 13px; font-weight: 700; 
+    margin-left: 20px; transition: 0.3s; letter-spacing: 1px;
+}
+.nav-menu a:hover { color: #fff; text-shadow: 0 0 10px #a855f7; }
 
-/* [4] 메뉴 & 햄버거 버튼 */
-.nav-menu a { color: #bbb; font-size: 13px; font-weight: 700; margin-left: 20px; }
-.m-menu-btn { display: none; flex-direction: column; justify-content: space-between; width: 25px; height: 18px; background: none; border: none; z-index: 100001; cursor: pointer; }
+/* [4] 모바일용 햄버거 버튼 (PC에선 숨김) */
+.m-menu-btn { 
+    display: none; flex-direction: column; justify-content: space-between; 
+    width: 25px; height: 18px; background: none; border: none; cursor: pointer; z-index: 10001; 
+}
 .m-menu-btn span { display: block; width: 100%; height: 3px; background: #a855f7; border-radius: 3px; transition: 0.3s; }
 
-/* [5] 메인 히어로 (카피) */
-.hero-section { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px 20px; }
-.video-frame { width: 100%; max-width: 800px; aspect-ratio: 16/9; margin-bottom: 30px; border: 1px solid #a855f7; border-radius: 12px; overflow: hidden; }
-.video-frame iframe { width: 100%; height: 100%; }
-.neon-text { font-size: 2.5rem; font-weight: 900; color: #fff; text-shadow: 0 0 15px #a855f7, 0 0 30px #a855f7; margin-bottom: 10px; }
-.scroll-down { display: inline-block; padding: 8px 20px; border: 1px solid #a855f7; border-radius: 30px; font-size: 12px; color: #d8b4fe; margin-top: 10px; cursor: pointer; }
+/* [5] 페이지 구역 관리 (섞임 방지) */
+.page-section { display: none; width: 100%; }
+.page-section.active { display: block; }
 
-/* [6] 달력 (격자 유지) */
-.container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; }
-.schedule-wrapper { width: 100%; max-width: 600px; }
-.calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-.calendar-grid { display: none; grid-template-columns: repeat(7, 1fr); gap: 5px; width: 100%; }
-.calendar-grid.active-month { display: grid; }
-.day-cell { position: relative; aspect-ratio: 1/1.2; background: #111; border: 1px solid #222; border-radius: 6px; overflow: hidden; }
-.day-num { position: absolute; top: 5px; left: 5px; font-size: 10px; color: #666; }
-.has-event { border: 1px solid #a855f7; box-shadow: 0 0 10px rgba(168, 85, 247, 0.2); }
-.event-img { width: 100%; height: 100%; object-fit: cover; }
-.nav-btn { background: none; border: 1px solid #a855f7; color: #fff; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; }
-
-/* [7] 리스트 (미디어, 체키) */
-.list-wrap { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; width: 100%; }
-.post-item { background: #111; border-radius: 12px; border: 1px solid #333; overflow: hidden; }
-.thumb { width: 100%; aspect-ratio: 16/9; background: #222; overflow: hidden; }
-.thumb img { width: 100%; height: 100%; object-fit: cover; }
-.text-box { padding: 15px; }
-
-/* [8] 모바일 대응 */
+/* [6] 모바일 반응형 (768px 이하) - 여기서 메뉴를 숨깁니다 */
 @media (max-width: 768px) {
+    /* 햄버거 버튼 보이게 */
     .m-menu-btn { display: flex; }
-    .nav-menu { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: #000; flex-direction: column; justify-content: center; align-items: center; gap: 40px; opacity: 0; visibility: hidden; transition: 0.4s; z-index: 100000; }
-    .nav-menu.active { opacity: 1; visibility: visible; }
-    .nav-menu a { font-size: 24px; margin: 0; }
-    .neon-text { font-size: 1.8rem; }
-    .calendar-grid { grid-template-columns: repeat(4, 1fr); }
-    .day-cell:not(.has-event) { display: none; }
+
+    /* 메뉴를 화면 밖으로 숨김 */
+    .nav-menu {
+        position: fixed; top: 0; left: 0; 
+        width: 100%; height: 100vh;
+        background: rgba(5, 5, 5, 0.98); 
+        flex-direction: column; justify-content: center; align-items: center; 
+        gap: 40px; z-index: 10000;
+        
+        /* 애니메이션 효과 */
+        opacity: 0; visibility: hidden; 
+        transform: translateY(-20px); transition: 0.4s ease-in-out;
+    }
+
+    /* 버튼 클릭 시 메뉴가 나타남 */
+    .nav-menu.active { 
+        opacity: 1; visibility: visible; transform: translateY(0); 
+    }
+    .nav-menu a { font-size: 24px; margin: 0; text-shadow: 0 0 10px #a855f7; }
+
+    /* 햄버거 버튼 X 변신 */
+    .m-menu-btn.active span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+    .m-menu-btn.active span:nth-child(2) { opacity: 0; }
+    .m-menu-btn.active span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+    
+    .logo a { font-size: 18px; }
 }
+
+/* [7] 기타 레이아웃 (달력, 카드 등) */
+.container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; }
+.neon-box { border: 1px solid rgba(168, 85, 247, 0.5); box-shadow: 0 0 20px rgba(168, 85, 247, 0.2); border-radius: 12px; }
+.calendar-grid { display: none; grid-template-columns: repeat(7, 1fr); gap: 5px; width: 100%; max-width: 500px; }
+.calendar-grid.active-month { display: grid; }
+.day-cell { aspect-ratio: 1; background: #111; border: 1px solid #222; border-radius: 6px; }
