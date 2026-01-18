@@ -135,13 +135,16 @@
 
     // 기능 3: 메뉴 토글 (햄버거 애니메이션 포함)
     function toggleMenu() {
-        const menu = document.getElementById('mobileMenu');
-        const btn = document.querySelector('.m-menu-btn');
-        if (menu && btn) {
-            menu.classList.toggle('active');
-            btn.classList.toggle('active');
-        }
+    const menu = document.getElementById('mobileMenu');
+    const btn = document.querySelector('.m-menu-btn'); // 버튼을 찾는 줄
+    
+    if (menu && btn) {
+        // 메뉴와 버튼 모두에 'active'라는 이름표를 붙였다 뗐다 합니다.
+        menu.classList.toggle('active'); 
+        btn.classList.toggle('active'); 
     }
+}
+
 
     // 기능 4: 페이지 이동
     function handleRouting() {
