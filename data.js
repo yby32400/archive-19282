@@ -43,7 +43,8 @@ const mediaPosts = [
         title: "페르소나5 플레이 영상",
         date: "2026.01.15",
         tag: "YOUTUBE",
-        img: "https://images.unsplash.com/photo-1635322966219-b75ed3a90e27?q=80&w=1000&auto=format&fit=crop",
+        // 확실히 작동하는 샘플 이미지 주소입니다.
+        img: "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80",
         link: "https://youtube.com", 
         body: ""
     }
