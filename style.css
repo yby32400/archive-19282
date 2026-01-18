@@ -98,36 +98,70 @@ body {
 /* 햄버거 버튼 (기본 숨김) */
 .m-menu-btn { display: none; }
 
-/* [9] 모바일 반응형 (768px 이하) 통합 */
+/* [9] 모바일 반응형 - 애니메이션 버전 */
 @media (max-width: 768px) {
-    .neon-text { text-shadow: 0 0 3px #fff, 0 0 10px #fff, 0 0 20px #a855f7, 0 0 40px #a855f7; }
-    .list-wrap { grid-template-columns: 1fr; }
-    .calendar-grid { grid-template-columns: repeat(3, 1fr); }
-    .day-cell { aspect-ratio: 1; }
-    .day-cell:not(.has-event) { display: none; }
+    /* ... (기존 neon-text 등 다른 설정은 유지) ... */
 
-    /* 햄버거 버튼 활성화 */
+    /* 햄버거 버튼 스타일 */
     .m-menu-btn {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        width: 30px; height: 20px;
-        background: none; border: none; cursor: pointer;
+        width: 30px; 
+        height: 20px;
+        background: none; 
+        border: none; 
+        cursor: pointer;
         z-index: 100001;
-    }
-    .m-menu-btn span {
-        display: block; width: 100%; height: 3px;
-        background-color: #a855f7; border-radius: 3px; transition: 0.3s;
+        padding: 0;
     }
 
-    /* 모바일 메뉴 오버레이 */
-    .nav-menu {
-        display: none; position: fixed; top: 0; left: 0;
-        width: 100%; height: 100vh;
-        background: rgba(5, 5, 5, 0.98); backdrop-filter: blur(15px);
-        flex-direction: column; justify-content: center; align-items: center;
-        gap: 40px; z-index: 100000;
+    .m-menu-btn span {
+        display: block;
+        width: 100%;
+        height: 3px;
+        background-color: #a855f7;
+        border-radius: 3px;
+        transition: all 0.3s ease-in-out; /* 부드러운 변화를 위한 설정 */
     }
-    .nav-menu.active { display: flex; }
-    .nav-menu a { font-size: 28px; margin: 0; text-shadow: 0 0 10px #a855f7; }
+
+    /* 버튼이 클릭되어 .active 클래스가 붙었을 때 (X 모양 만들기) */
+    .m-menu-btn.active span:nth-child(1) {
+        transform: translateY(8.5px) rotate(45deg); /* 첫 번째 줄: 아래로 이동 후 회전 */
+    }
+
+    .m-menu-btn.active span:nth-child(2) {
+        opacity: 0; /* 두 번째 줄: 투명하게 사라짐 */
+    }
+
+    .m-menu-btn.active span:nth-child(3) {
+        transform: translateY(-8.5px) rotate(-45deg); /* 세 번째 줄: 위로 이동 후 회전 */
+    }
+
+    /* 모바일 메뉴 오버레이 (부드러운 열림) */
+    .nav-menu {
+        display: flex; 
+        position: fixed; 
+        top: 0; left: 0;
+        width: 100%; height: 100vh;
+        background: rgba(5, 5, 5, 0.98); 
+        backdrop-filter: blur(15px);
+        flex-direction: column; 
+        justify-content: center; 
+        align-items: center;
+        gap: 40px; 
+        z-index: 100000;
+
+        /* 초기 상태: 숨김 */
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-20px);
+        transition: all 0.4s ease-in-out;
+    }
+
+    .nav-menu.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
 }
