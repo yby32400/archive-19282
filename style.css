@@ -21,9 +21,61 @@ a { text-decoration: none; color: inherit; transition: 0.3s; }
 .m-menu-btn { display: none; } /* 기본 숨김 */
 
 @media (max-width: 768px) {
-    .logo a { font-size: 16px; }
-    .m-menu-btn { display: flex; flex-direction: column; justify-content: space-between; width: 25px; height: 18px; background: none; border: none; cursor: pointer; z-index: 100001; }
-    .m-menu-btn span { display: block; width: 100%; height: 3px; background: #a855f7; border-radius: 3px; transition: 0.3s; }
+    /* [1] 로고: 한 줄로 예쁘게 나오게 고정 */
+    .logo a {
+        font-size: 18px !important;
+        white-space: nowrap !important; /* 절대 줄바꿈 방지 */
+    }
+
+    /* [2] PC 메뉴 숨기기: 평소엔 안 보이게 설정 */
+    .nav-menu {
+        display: flex !important;
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100vh;
+        background: rgba(5, 5, 5, 0.98); /* 배경을 진하게 */
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        z-index: 100000;
+
+        /* 부드러운 애니메이션 효과 */
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-20px);
+        transition: all 0.4s ease-in-out;
+    }
+
+    /* 메뉴가 열렸을 때 상태 */
+    .nav-menu.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    /* [3] 햄버거 버튼: 모바일에서만 보이게 */
+    .m-menu-btn {
+        display: flex !important;
+        z-index: 100001; /* 메뉴보다 위에 있게 */
+    }
+
+    /* [4] X 버튼으로 변신하는 애니메이션 */
+    .m-menu-btn.active span:nth-child(1) {
+        transform: translateY(8.5px) rotate(45deg);
+    }
+    .m-menu-btn.active span:nth-child(2) {
+        opacity: 0; /* 가운데 줄 사라짐 */
+    }
+    .m-menu-btn.active span:nth-child(3) {
+        transform: translateY(-8.5px) rotate(-45deg);
+    }
+
+    /* [5] 본문 레이아웃 조정 */
+    .hero-section { padding-top: 120px; }
+    .main-copy { font-size: 1.8rem; }
+}
+
     
     /* X 애니메이션 */
     .m-menu-btn.active span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
@@ -64,60 +116,3 @@ a { text-decoration: none; color: inherit; transition: 0.3s; }
 .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 100002; overflow-y: auto; padding: 20px; }
 .modal-content { max-width: 700px; margin: 40px auto; background: #111; border-radius: 15px; overflow: hidden; }
 #loading-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 999999; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: 0.8s; }
-
-@media (max-width: 768px) {
-    /* [로고 깨짐 방지] 한 줄로 예쁘게 나오게 */
-    .logo a {
-        font-size: 18px !important;
-        white-space: nowrap !important;
-    }
-
-    /* [PC 메뉴 숨기기] 평소엔 버튼만 보이게 */
-    .nav-menu {
-        display: flex !important; /* flex 유지 */
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        background: rgba(5, 5, 5, 0.98);
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 30px;
-        z-index: 100000;
-
-        /* --- 부드러운 열림 효과 --- */
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(-20px);
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    /* [메뉴 활성화] 버튼 눌렀을 때 */
-    .nav-menu.active {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-    }
-
-    /* [햄버거 버튼 활성화] 모바일에서만 보이게 */
-    .m-menu-btn {
-        display: flex !important;
-        z-index: 100001;
-    }
-
-    /* [X 버튼 변신] */
-    .m-menu-btn.active span:nth-child(1) {
-        transform: translateY(8px) rotate(45deg);
-        background-color: #fff; /* X일 때 흰색으로 강조 (선택사항) */
-    }
-    .m-menu-btn.active span:nth-child(2) {
-        opacity: 0;
-    }
-    .m-menu-btn.active span:nth-child(3) {
-        transform: translateY(-8px) rotate(-45deg);
-        background-color: #fff;
-    }
-}
-
