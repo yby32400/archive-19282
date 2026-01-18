@@ -10,99 +10,223 @@
 </head>
 
 <body>
-<!-- 기존 HTML 구조 동일 -->
 
-<!-- 더미 데이터 (수정됨) -->
+<div id="loading-screen">
+    <div class="loading-logo">OBSID ARCHIVE</div>
+    <div class="loading-text">SYSTEM INITIALIZING...</div>
+</div>
+
+<nav class="sticky_nav">
+    <div class="nav-inner">
+        <h1 class="logo"><a href="#home">MY ARCHIVE</a></h1>
+        <div class="nav-menu">
+            <a href="#notice">NOTICE</a>
+            <a href="#cheki">CHEKI</a>
+            <a href="#guestbook">GUESTBOOK</a>
+        </div>
+    </div>
+</nav>
+
+<!-- 홈 페이지 -->
+<div id="page-home" class="page-section active">
+    <header class="hero-section">
+        <div class="video-frame neon-box">
+            <iframe src="https://drive.google.com/file/d/1-ZyXQgAyqs2yzi3NlkEok81UKe7pKP1T/preview" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+        <div class="hero-content">
+            <p class="d-day neon-text-sub">TODAY'S MOOD</p>
+            <h2 class="main-copy neon-text">OBSID KAREN ARCHIVE</h2>
+            <span class="scroll-down" onclick="lenis.scrollTo('#anchor-schedule')">▼ SCROLL DOWN</span>
+        </div>
+    </header>
+    
+    <main class="container">
+        <!-- 스케줄 -->
+        <div id="anchor-schedule" class="content-section">
+            <div class="section-header">
+                <h2 class="neon-text-sub">OFFICIAL SCHEDULE</h2>
+                <p>2026 CALENDAR</p>
+            </div>
+            <div class="schedule-wrapper">
+                <div class="calendar-header">
+                    <button class="nav-btn" onclick="changeMonth(-1)">◀</button>
+                    <h2 id="current-month-title" class="month-title">JANUARY<br>2026</h2>
+                    <button class="nav-btn" onclick="changeMonth(1)">▶</button>
+                </div>
+                <div id="calendar-body" style="background:#111; padding:20px; border-radius:15px;"></div>
+            </div>
+        </div>
+
+        <!-- 공식 X 배너 -->
+        <div class="content-section">
+            <div class="section-header">
+                <h2 class="neon-text-sub">OFFICIAL X</h2>
+                <p>REALTIME FEED</p>
+            </div>
+            <a href="https://x.com/Obsid_ofcl" target="_blank" class="official-banner-link">
+                <div class="banner-wrapper-full" style="height:250px; border-radius:15px; overflow:hidden;">
+                    <img src="https://pbs.twimg.com/profile_banners/1965985666375819264/1762981893/1080x360" class="banner-img">
+                    <div class="banner-overlay">
+                        <span>옵시드 공식 X 바로가기</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- 미디어 -->
+        <div class="content-section">
+            <div class="section-header">
+                <h2 class="neon-text-sub">LATEST MEDIA</h2>
+                <p>VIDEO & PHOTO</p>
+            </div>
+            <div class="list-wrap" id="media-list-container"></div>
+        </div>
+    </main>
+</div>
+
+<!-- 공지사항 페이지 -->
+<div id="page-notice" class="page-section">
+    <main class="container">
+        <div class="section-header"><h2 class="neon-text-sub">NOTICE</h2></div>
+        <div class="notice-list" id="notice-list-container"></div>
+        <a href="#home" class="neon-box" style="display:block; text-align:center; margin-top:40px; padding:15px 30px; max-width:300px; margin-left:auto; margin-right:auto;">BACK TO HOME</a>
+    </main>
+</div>
+
+<!-- CHEKI 페이지 -->
+<div id="page-cheki" class="page-section">
+    <main class="container">
+        <div class="section-header"><h2 class="neon-text-sub">CHEKI LOG</h2></div>
+        <div class="list-wrap" id="cheki-list-container"></div>
+        <a href="#home" class="neon-box" style="display:block; text-align:center; margin-top:40px; padding:15px 30px; max-width:300px; margin-left:auto; margin-right:auto;">BACK TO HOME</a>
+    </main>
+</div>
+
+<!-- 방명록 -->
+<div id="page-guestbook" class="page-section">
+    <main class="container">
+        <div class="section-header"><h2 class="neon-text-sub">GUESTBOOK</h2></div>
+        <div class="cbox-wrapper" style="min-height:400px; text-align:center; padding:60px 20px;">
+            <div style="color:#888; font-size:1.1rem;">Cbox 코드를 입력해 주세요.</div>
+        </div>
+    </main>
+</div>
+
+<!-- 모달 -->
+<div id="article-modal" class="modal-overlay" onclick="closeModal(event)">
+    <div class="modal-content">
+        <button class="modal-close-btn" onclick="closeModal(event)">×</button>
+        <div id="modal-img-container" style="padding:20px; background:#000;"></div>
+        <div class="modal-body">
+            <h2 id="modal-title" class="modal-title"></h2>
+            <span id="modal-date" class="modal-date"></span>
+            <p id="modal-text" class="modal-text"></p>
+        </div>
+    </div>
+</div>
+
+<a href="https://github.com/yby32400/archive-19282/edit/main/data.js" target="_blank" class="admin-btn" title="ADMIN">⚙️</a>
+
 <script>
-const chekiPosts = [
-    {title:"첫 CHEKI", date:"2026.01.18", img:"https://via.placeholder.com/300x400/a855f7/fff?text=CHEKI"}
-];
+/* 데이터 */
+const chekiPosts = [{title:"첫 CHEKI", date:"2026.01.18", img:"https://via.placeholder.com/350x500/a855f7/fff?text=CHEKI"}];
 const mediaPosts = [
-    {title:"최신 영상", date:"2026.01.18", link:"https://youtube.com", img:"https://via.placeholder.com/300x200/a855f7/fff?text=MEDIA"},
-    {title:"포토 업데이트", date:"2026.01.15", link:"https://instagram.com", img:"https://via.placeholder.com/300x200/a855f7/fff?text=PHOTO"}
+    {title:"최신 영상", date:"2026.01.18", link:"https://youtube.com", img:"https://via.placeholder.com/350x250/a855f7/fff?text=MEDIA"},
+    {title:"포토 업데이트", date:"2026.01.15", link:"https://instagram.com", img:"https://via.placeholder.com/350x250/a855f7/fff?text=PHOTO"}
 ];
-const noticePosts = [
-    {title:"사이트 오픈!", date:"2026.01.18", body:"OBSID KAREN ARCHIVE가 시작되었습니다."}
-];
-
-// 🔧 PC/Mobile 캘린더 완전 수정
+const noticePosts = [{title:"사이트 오픈!", date:"2026.01.18", body:"OBSID KAREN ARCHIVE가 시작되었습니다."}];
 const mySchedule = {
-    "01-18": {link:"https://x.com/Obsid_ofcl", img:"https://via.placeholder.com/50/a855f7/fff?text=18", title:"공식 X 업데이트"},
-    "01-20": {link:"https://youtube.com", img:"https://via.placeholder.com/50/a855f7/fff?text=20", title:"새 영상 공개"}
+    "01-18": {link:"https://x.com/Obsid_ofcl", img:"https://via.placeholder.com/45/a855f7/fff?text=18", title:"공식X"},
+    "01-20": {link:"https://youtube.com", img:"https://via.placeholder.com/45/a855f7/fff?text=20", title:"영상"}
 };
 </script>
 
 <script>
-// 🔧 1. 모달 함수 완전 수정 (PC 링크 문제 해결)
+/* 리스트 렌더링 */
+function renderList(data, containerId, type='card') {
+    const container = document.getElementById(containerId);
+    if(!container || !data?.length) {
+        container.innerHTML = '<div style="text-align:center;padding:60px;color:#888;">콘텐츠 준비중입니다.</div>';
+        return;
+    }
+    let html = '';
+    data.forEach((post, i) => {
+        const thumb = post.images?.[0] || post.img || '';
+        if(type === 'link') {
+            html += `<a href="${post.link||'#'}" target="_blank" class="post-item">
+                <div class="thumb"><img src="${thumb}" onerror="this.src='https://via.placeholder.com/350x250/333/999?text=IMAGE'"></div>
+                <div class="text-box">
+                    <span class="category-label">${post.tag||'MEDIA'}</span>
+                    <h3 class="title">${post.title}</h3><span class="date">${post.date}</span>
+                </div></a>`;
+        } else if(type === 'notice') {
+            html += `<div class="notice-item" onclick="openModal('notice-list-container',${i})" style="cursor:pointer;">
+                <div class="notice-title">${post.title}</div><div class="notice-date">${post.date}</div></div>`;
+        } else {
+            html += `<div class="post-item" onclick="openModal('${containerId}',${i})" style="cursor:pointer;">
+                <div class="thumb"><img src="${thumb}" onerror="this.src='https://via.placeholder.com/350x500/333/999?text=CHEKI'"></div>
+                <div class="text-box">
+                    <span class="category-label">${post.tag||'CHEKI'}</span>
+                    <h3 class="title">${post.title}</h3><span class="date">${post.date}</span>
+                </div></div>`;
+        }
+    });
+    container.innerHTML = html;
+}
+
+/* 모달 */
 function openModal(containerId, index) {
-    let posts, post;
-    if(containerId === 'cheki-list-container') { posts = chekiPosts; }
-    else if(containerId === 'notice-list-container') { posts = noticePosts; }
-    else if(containerId === 'media-list-container') { posts = mediaPosts; }
+    let posts;
+    if(containerId === 'cheki-list-container') posts = chekiPosts;
+    else if(containerId === 'notice-list-container') posts = noticePosts;
+    else if(containerId === 'media-list-container') posts = mediaPosts;
     else return;
     
-    post = posts[index];
+    const post = posts[index];
     if(!post) return;
-    
-    const imgContainer = document.getElementById('modal-img-container');
-    imgContainer.innerHTML = '';
-    
-    // 이미지 처리
-    if(post.images && Array.isArray(post.images)) {
-        post.images.forEach(img => {
-            imgContainer.innerHTML += `<img src="${img}" class="modal-img" style="width:100%;height:auto;">`;
-        });
-    } else if(post.img) {
-        imgContainer.innerHTML = `<img src="${post.img}" class="modal-img">`;
-    }
     
     document.getElementById('modal-title').textContent = post.title;
     document.getElementById('modal-date').textContent = post.date;
     document.getElementById('modal-text').textContent = post.body || '';
+    
+    const imgContainer = document.getElementById('modal-img-container');
+    imgContainer.innerHTML = post.img ? `<img src="${post.img}" class="modal-img">` : '';
+    
     document.getElementById('article-modal').style.display = 'block';
 }
 
-// 🔧 2. 달력 완전 재구성 (PC/Mobile 모두 수정)
-const year = 2026;
-const monthNames = ["JANUARY","FEBRUARY","MARCH","APRIL","MAY","JUNE","JULY","AUGUST","SEPTEMBER","OCTOBER","NOVEMBER","DECEMBER"];
+function closeModal(e) {
+    if(e.target.id === 'article-modal' || e.classList?.contains('modal-close-btn'))
+        document.getElementById('article-modal').style.display = 'none';
+}
+
+/* 캘린더 */
+const year = 2026, monthNames = ["JANUARY","FEBRUARY","MARCH","APRIL","MAY","JUNE","JULY","AUGUST","SEPTEMBER","OCTEMBER","NOVEMBER","DECEMBER"];
 let currentMonth = 0;
 
 function initCalendar() {
     const container = document.getElementById('calendar-body');
-    if(!container) return;
-    
     let html = '';
     for(let m = 0; m < 12; m++) {
         const firstDay = new Date(year, m, 1).getDay();
         const daysInMonth = new Date(year, m + 1, 0).getDate();
         
-        html += `<div class="calendar-grid ${(m === 0) ? 'active-month' : ''}" id="month-${m}" style="display: ${m === 0 ? 'grid' : 'none'};">`;
+        html += `<div class="calendar-grid${m===0?' active-month':''}" id="month-${m}" style="display:${m===0?'grid':'none'}; grid-template-columns:repeat(7,1fr); gap:6px; padding:20px;">`;
         
-        // 빈 날짜 셀
-        for(let i = 0; i < firstDay; i++) {
-            html += `<div class="day-cell"></div>`;
-        }
+        for(let i = 0; i < firstDay; i++) html += '<div class="day-cell"></div>';
         
-        // 실제 날짜 셀
         for(let day = 1; day <= daysInMonth; day++) {
-            const dateKey = `${String(m + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-            const eventData = mySchedule[dateKey];
-            
-            if(eventData) {
-                html += `
-                    <div class="day-cell has-event" style="cursor:pointer;">
-                        <a href="${eventData.link}" target="_blank" class="event-link" title="${eventData.title || ''}">
-                            <span class="day-num">${day}</span>
-                            <img src="${eventData.img}" class="event-img" onerror="this.style.display='none'">
-                        </a>
-                    </div>
-                `;
-            } else {
-                html += `
-                    <div class="day-cell">
+            const dateKey = `${String(m+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+            const event = mySchedule[dateKey];
+            if(event) {
+                html += `<div class="day-cell has-event">
+                    <a href="${event.link}" target="_blank" class="event-link" title="${event.title}">
                         <span class="day-num">${day}</span>
-                    </div>
-                `;
+                        <img src="${event.img}" class="event-img" onerror="this.style.display='none'">
+                    </a>
+                </div>`;
+            } else {
+                html += `<div class="day-cell"><span class="day-num">${day}</span></div>`;
             }
         }
         html += '</div>';
@@ -111,94 +235,27 @@ function initCalendar() {
 }
 
 function changeMonth(direction) {
-    const currentGrid = document.getElementById(`month-${currentMonth}`);
-    currentGrid.classList.remove('active-month');
-    currentGrid.style.display = 'none';
-    
+    document.getElementById(`month-${currentMonth}`).style.display = 'none';
     currentMonth = (currentMonth + direction + 12) % 12;
-    const nextGrid = document.getElementById(`month-${currentMonth}`);
-    nextGrid.classList.add('active-month');
-    nextGrid.style.display = 'grid';
-    
+    document.getElementById(`month-${currentMonth}`).style.display = 'grid';
     document.getElementById('current-month-title').innerHTML = `${monthNames[currentMonth]}<br>${year}`;
 }
 
-// 🔧 3. 리스트 렌더링 수정
-function renderList(data, containerId, type = 'card') {
-    const container = document.getElementById(containerId);
-    if(!container) return;
-    
-    if(!data || !data.length) {
-        container.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:50px;color:#888;">콘텐츠 준비중입니다.</div>';
-        return;
-    }
-    
-    let html = '';
-    data.forEach((post, index) => {
-        const thumb = post.images?.[0] || post.img || '';
-        
-        if(type === 'link') {
-            html += `
-                <a href="${post.link || '#'}" target="_blank" class="post-item">
-                    <div class="thumb">
-                        <img src="${thumb}" onerror="this.src='https://via.placeholder.com/300x200/333/999?text=IMAGE'">
-                    </div>
-                    <div class="text-box">
-                        <span class="category-label">${post.tag || 'MEDIA'}</span>
-                        <h3 class="title">${post.title}</h3>
-                        <span class="date">${post.date}</span>
-                    </div>
-                </a>
-            `;
-        } else if(type === 'notice') {
-            html += `
-                <div class="notice-item" onclick="openModal('notice-list-container', ${index})" style="cursor:pointer;">
-                    <div class="notice-title">${post.title}</div>
-                    <div class="notice-date">${post.date}</div>
-                </div>
-            `;
-        } else {
-            html += `
-                <div class="post-item" onclick="openModal('${containerId}', ${index})" style="cursor:pointer;">
-                    <div class="thumb">
-                        <img src="${thumb}" onerror="this.src='https://via.placeholder.com/300x400/333/999?text=CHEKI'">
-                    </div>
-                    <div class="text-box">
-                        <span class="category-label">${post.tag || 'CHEKI'}</span>
-                        <h3 class="title">${post.title}</h3>
-                        <span class="date">${post.date}</span>
-                    </div>
-                </div>
-            `;
-        }
-    });
-    container.innerHTML = html;
-}
-
-function closeModal(event) {
-    if(event.target.id === 'article-modal' || event.target.classList.contains('modal-close-btn')) {
-        document.getElementById('article-modal').style.display = 'none';
-    }
-}
-
+/* 초기화 */
 function handleRouting() {
-    const hash = location.hash.replace('#', '') || 'home';
-    document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
-    const target = document.getElementById(`page-${hash}`);
+    const hash = location.hash.replace('#','') || 'home';
+    document.querySelectorAll('.page-section').forEach(el=>el.classList.remove('active'));
+    const target = document.getElementById('page-'+hash);
     if(target) target.classList.add('active');
-    window.scrollTo(0, 0);
 }
 
 function forceHideLoader() {
     const loader = document.getElementById('loading-screen');
-    if(loader) {
-        loader.style.opacity = '0';
-        setTimeout(() => loader.style.display = 'none', 800);
-    }
+    loader.style.opacity = '0';
+    setTimeout(()=>loader.style.display='none', 800);
 }
 
-// 초기화
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', ()=>{
     renderList(mediaPosts, 'media-list-container', 'link');
     renderList(chekiPosts, 'cheki-list-container');
     renderList(noticePosts, 'notice-list-container', 'notice');
@@ -209,7 +266,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 window.addEventListener('hashchange', handleRouting);
 
-// Lenis 스무스 스크롤
 const lenis = new Lenis({duration:1.2, easing:(t)=>Math.min(1,1.001-Math.pow(2,-10*t)), smooth:true});
 function raf(t){lenis.raf(t);requestAnimationFrame(raf);}requestAnimationFrame(raf);
 </script>
+
+</body>
+</html>
