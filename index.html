@@ -19,14 +19,22 @@
 <nav class="sticky_nav">
     <div class="nav-inner">
         <h1 class="logo neon-text"><a href="#home">MY ARCHIVE</a></h1>
-        <div class="nav-menu">
-            <a href="#notice">NOTICE</a>
-            <a href="#cheki">CHEKI</a>
-         <a href="#sns">SNS</a>
-            <a href="#guestbook">GUESTBOOK</a>
+        
+        <button class="m-menu-btn" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <div class="nav-menu" id="mobileMenu">
+            <a href="#sns" onclick="toggleMenu()">SNS</a>
+            <a href="#notice" onclick="toggleMenu()">NOTICE</a>
+            <a href="#cheki" onclick="toggleMenu()">CHEKI</a>
+            <a href="#guestbook" onclick="toggleMenu()">GUESTBOOK</a>
         </div>
     </div>
 </nav>
+
 
 <div id="page-home" class="page-section active">
     <header class="hero-section">
