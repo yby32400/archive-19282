@@ -9,109 +9,67 @@
         /* [1] 초기화 및 전체 테마 */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
-            font-family: 'Pretendard', sans-serif; 
-            background-color: #050505; color: #fff; line-height: 1.6; 
+            font-family: 'Pretendard', sans-serif; background-color: #050505; color: #fff; 
             padding-top: 70px; overflow-x: hidden; 
         }
         a { text-decoration: none; color: inherit; cursor: pointer; }
 
-        /* [2] 네온 & 반투명 효과 */
-        .neon-text { color: #fff; text-shadow: 0 0 15px #fff, 0 0 30px #a855f7; }
-        .neon-text-sub { color: #e9d5ff; text-shadow: 0 0 8px #a855f7; font-weight: 700; }
-        
-        /* 반투명 유리 느낌 (Glassmorphism) */
+        /* [2] 네온 & 반투명 유리 효과 (Glassmorphism) */
+        .neon-text { text-shadow: 0 0 15px #fff, 0 0 30px #a855f7; }
         .glass-panel { 
-            background: rgba(20, 20, 20, 0.7) !important; 
-            backdrop-filter: blur(15px); 
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(168, 85, 247, 0.3);
-            border-radius: 20px;
+            background: rgba(20, 20, 20, 0.6) !important; backdrop-filter: blur(15px); 
+            -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(168, 85, 247, 0.2); border-radius: 20px;
         }
 
-        /* [3] 움직이는 타이틀 (PC에서 더 크게) */
+        /* [3] 움직이는 거대 타이틀 (PC 최적화) */
         .animated-title {
             background-image: url('https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNXJ4bnV6aGZ4bnV6aGZ4bnV6aGZ4bnV6aGZ4bnV6aGZ4bnV6aGZSZ/3o7aD53F0J5568961G/giphy.gif');
-            background-size: cover;
-            background-position: center;
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            font-weight: 900;
-            text-transform: uppercase;
-            -webkit-text-stroke: 1px rgba(168, 85, 247, 0.3);
-            filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.5));
-            text-align: center;
-            /* 기본(모바일) 크기 */
-            font-size: 3rem;
-            transition: 0.3s;
+            background-size: cover; background-position: center; -webkit-background-clip: text; background-clip: text;
+            color: transparent; font-weight: 900; text-transform: uppercase; -webkit-text-stroke: 1px rgba(168, 85, 247, 0.3);
+            filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.5)); text-align: center; font-size: 3rem; transition: 0.3s;
         }
+        @media (min-width: 769px) { .animated-title { font-size: 6rem; letter-spacing: -2px; } }
 
-        /* [PC 전용 스타일] */
-        @media (min-width: 769px) {
-            .animated-title { 
-                font-size: 6rem; /* PC에서 글자 크기 대폭 확대 */
-                letter-spacing: -2px;
-            }
-            .container { padding: 60px 40px; }
-            .neon-text-sub { font-size: 1.5rem; }
-        }
-
-        /* [4] 상단 네비게이션 */
-        .sticky_nav { 
-            position: fixed; top: 0; width: 100%; height: 70px; 
-            background: rgba(5, 5, 5, 0.8); backdrop-filter: blur(10px); 
-            z-index: 9999; border-bottom: 1px solid rgba(168, 85, 247, 0.2); 
-            display: flex; justify-content: center; align-items: center; 
-        }
+        /* [4] 메뉴 뭉침 차단 네비게이션 */
+        .sticky_nav { position: fixed; top: 0; width: 100%; height: 70px; background: rgba(5,5,5,0.8); backdrop-filter: blur(10px); z-index: 9999; border-bottom: 1px solid rgba(168, 85, 247, 0.2); display: flex; justify-content: center; align-items: center; }
         .nav-inner { width: 100%; max-width: 1200px; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
-        .logo a { font-weight: 800; font-size: 22px; }
-
         .nav-menu { display: flex; gap: 30px; }
-        .nav-menu a { font-weight: 700; color: #aaa; transition: 0.3s; }
-        .nav-menu a:hover { color: #fff; text-shadow: 0 0 10px #a855f7; }
-
         .m-menu-btn { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; z-index: 10001; }
         .m-menu-btn span { width: 25px; height: 3px; background: #a855f7; border-radius: 2px; }
 
         @media (max-width: 768px) {
             .m-menu-btn { display: flex; }
-            .nav-menu {
-                position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-                background: rgba(0, 0, 0, 0.95); flex-direction: column; justify-content: center; align-items: center;
-                gap: 40px; z-index: 10000;
-                opacity: 0; visibility: hidden; transform: translateY(-20px); transition: 0.4s ease;
-            }
-            .nav-menu.active { opacity: 1; visibility: visible; transform: translateY(0); }
+            .nav-menu { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.95); flex-direction: column; justify-content: center; align-items: center; gap: 40px; z-index: 10000; opacity: 0; visibility: hidden; transition: 0.4s; }
+            .nav-menu.active { opacity: 1; visibility: visible; }
+            .animated-title { font-size: 3rem !important; }
         }
 
-        /* [5] 달력 및 리스트 디자인 */
+        /* [5] 달력 중복 노출 방지 및 7열 고정 */
         .calendar-grid { display: none !important; grid-template-columns: repeat(7, 1fr); gap: 10px; width: 100%; max-width: 800px; margin: 0 auto; }
         .calendar-grid.active-month { display: grid !important; }
-        .day-cell { position: relative; aspect-ratio: 1 / 1.4; background: rgba(30, 30, 30, 0.5); border: 1px solid #333; border-radius: 12px; overflow: hidden; }
-        .has-event { border: 1px solid #a855f7; background: rgba(168, 85, 247, 0.1); }
+        .day-cell { position: relative; aspect-ratio: 1/1.4; background: rgba(30,30,30,0.5); border: 1px solid #333; border-radius: 12px; overflow: hidden; }
+        .has-event { border: 1px solid #a855f7; }
         .event-img { width: 100%; height: 100%; object-fit: cover; }
+        .day-num { position: absolute; top: 5px; left: 5px; font-size: 11px; color: #555; }
 
-        .list-wrap { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; width: 100%; margin-top: 40px; }
-        .post-item { transition: 0.4s; }
-        .post-item:hover { transform: translateY(-10px); border-color: #a855f7; }
-
-        /* [6] 상세 보기 모달 */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8); backdrop-filter: blur(8px);
-            z-index: 100002; display: none; justify-content: center; align-items: center;
+        @media (max-width: 768px) {
+            /* 모바일에서 일정이 있는 날만 표시하여 깔끔하게 정리 */
+            .day-cell:not(.has-event) { display: none; }
+            .calendar-grid { grid-template-columns: repeat(4, 1fr) !important; }
         }
-        .modal-content {
-            background: rgba(20, 20, 20, 0.9); width: 90%; max-width: 600px;
-            border-radius: 25px; border: 1px solid #a855f7; padding: 30px;
-            position: relative; animation: modalPop 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
-        }
-        @keyframes modalPop { from { opacity: 0; scale: 0.8; } to { opacity: 1; scale: 1; } }
 
-        /* 공통 컨테이너 */
-        .container { width: 100%; max-width: 1300px; margin: 0 auto; padding: 40px 20px; text-align: center; }
+        /* [6] 페이지 및 모달 */
         .page-section { display: none; width: 100%; animation: fadeIn 0.8s ease; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .page-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .container { max-width: 1300px; margin: 0 auto; padding: 40px 20px; text-align: center; }
+        
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); z-index: 100002; display: none; justify-content: center; align-items: center; }
+        .modal-content { background: rgba(20,20,20,0.95); width: 90%; max-width: 600px; border-radius: 25px; border: 1px solid #a855f7; padding: 30px; position: relative; }
+        
+        .list-wrap { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; margin-top: 40px; }
+        .post-item { cursor: pointer; transition: 0.3s; overflow: hidden; }
+        .post-item:hover { transform: translateY(-10px); }
     </style>
 </head>
 <body>
@@ -132,82 +90,66 @@
 
 <div id="page-home" class="page-section active">
     <main class="container">
-        <header class="hero-section" style="padding: 120px 20px; min-height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-            <p class="neon-text-sub" style="margin-bottom:20px; letter-spacing: 6px;">OFFICIAL ARCHIVE</p>
+        <header style="padding: 100px 20px; min-height: 50vh; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+            <p class="neon-text" style="letter-spacing: 6px; margin-bottom: 20px;">WELCOME TO</p>
             <h2 class="animated-title">OBSID KAREN<br>ARCHIVE</h2>
         </header>
-
-        <section class="content-section glass-panel" style="padding: 40px; margin-top: 40px;">
-            <h2 class="neon-text-sub" style="margin-bottom:30px;">OFFICIAL SCHEDULE</h2>
+        <section class="glass-panel" style="padding: 40px;">
+            <h2 class="neon-text" style="margin-bottom: 30px;">OFFICIAL SCHEDULE</h2>
             <div style="display:flex; justify-content:center; align-items:center; gap:30px; margin-bottom:30px;">
                 <button onclick="changeMonth(-1)" style="background:none; border:1px solid #a855f7; color:#fff; width:40px; height:40px; border-radius:50%; cursor:pointer;">◀</button>
-                <h2 id="current-month-title" class="neon-text" style="min-width:200px; font-size: 1.8rem;">JANUARY 2026</h2>
+                <h2 id="current-month-title" class="neon-text" style="min-width:200px; font-size: 1.5rem;">JANUARY 2026</h2>
                 <button onclick="changeMonth(1)" style="background:none; border:1px solid #a855f7; color:#fff; width:40px; height:40px; border-radius:50%; cursor:pointer;">▶</button>
             </div>
             <div id="calendar-body"></div>
         </section>
-
-        <h2 class="neon-text-sub" style="margin-top:100px; font-size: 2rem;">LATEST MEDIA</h2>
-        <div class="list-wrap" id="media-list-container"></div>
+        <h2 class="neon-text" style="margin-top: 100px; font-size: 2rem;">LATEST MEDIA</h2>
+        <div class="list-wrap" id="media-list"></div>
     </main>
 </div>
+
+<div id="page-sns" class="page-section"><main class="container"><h2 class="neon-text">SNS FEED</h2><div class="glass-panel" style="max-width:500px; margin:40px auto; overflow:hidden;"><a class="twitter-timeline" data-theme="dark" data-height="600" href="https://twitter.com/Official_Obsid">Tweets</a><script async src="https://platform.twitter.com/widgets.js"></script></div></main></div>
+<div id="page-notice" class="page-section"><main class="container"><h2 class="neon-text">NOTICE</h2><div class="list-wrap" id="notice-list"></div></main></div>
+<div id="page-cheki" class="page-section"><main class="container"><h2 class="neon-text">CHEKI LOG</h2><div class="list-wrap" id="cheki-list"></div></main></div>
 
 <div class="modal-overlay" id="detailModal" onclick="closeModal(event)">
     <div class="modal-content">
         <div id="modal-img-wrap" style="margin-bottom:20px; border-radius:15px; overflow:hidden;"></div>
-        <h2 id="modal-title" class="neon-text" style="font-size: 24px; margin-bottom: 10px;"></h2>
-        <p id="modal-date" style="color:#888; font-size:14px; margin-bottom:20px;"></p>
-        <div id="modal-body" style="font-size:16px; color:#ddd; white-space:pre-wrap; text-align: left;"></div>
+        <h2 id="modal-title" class="neon-text" style="margin-bottom: 10px;"></h2>
+        <p id="modal-date" style="color:#888; margin-bottom:15px;"></p>
+        <div id="modal-body" style="text-align: left; color:#ddd; white-space:pre-wrap;"></div>
     </div>
 </div>
 
 <script>
-    /* [데이터 설정] */
-    const mySchedule = {
-        "1-3": { img: "https://pbs.twimg.com/media/G-ubDR3bAAAeXV-?format=jpg&name=large", link: "#" },
-        "1-29": { img: "https://pbs.twimg.com/media/G-ubDR3bAAAeXV-?format=jpg&name=large", link: "#" }
-    };
-    const mediaPosts = [
-        { title: "페르소나5 플레이 영상", date: "2026.01.15", img: "https://images.unsplash.com/photo-1635322966219-b75ed3a90e27?auto=format&fit=crop&w=800&q=80", body: "영상 본문 내용입니다." }
-    ];
+    /* [데이터 입력] */
+    const mySchedule = {"1-3": {img: "https://pbs.twimg.com/media/G-ubDR3bAAAeXV-?format=jpg&name=large"}, "1-29": {img: "https://pbs.twimg.com/media/G-ubDR3bAAAeXV-?format=jpg&name=large"}};
+    const mediaPosts = [{title: "페르소나5 플레이 영상", date: "2026.01.15", img: "https://images.unsplash.com/photo-1635322966219-b75ed3a90e27?w=800", body: "영상 설명입니다."}];
+    const noticePosts = [{title: "아카이브 오픈 안내", date: "2026.01.18", img: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800", body: "오픈을 축하합니다!"}];
+    const chekiPosts = [{title: "1월 체키 정산", date: "2026.01.29", img: "https://images.unsplash.com/photo-1595079676339-1534801ad6cf?w=800", body: "체키 기록입니다."}];
 
-    /* [기능 설정] */
-    function toggleMenu() {
-        document.getElementById('mobileMenu').classList.toggle('active');
-    }
+    /* [기능 로직] */
+    let currentIdx = 0;
+    const months = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
 
+    function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('active'); }
     function handleRouting() {
         const hash = window.location.hash.replace('#', '') || 'home';
         document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
         const target = document.getElementById('page-' + hash);
         if(target) target.classList.add('active');
+        window.scrollTo(0,0);
     }
     window.addEventListener('hashchange', handleRouting);
 
-    function openModal(data, index) {
-        const item = data[index];
-        document.getElementById('modal-img-wrap').innerHTML = `<img src="${item.img}" style="width:100%;">`;
-        document.getElementById('modal-title').innerText = item.title;
-        document.getElementById('modal-date').innerText = item.date;
-        document.getElementById('modal-body').innerText = item.body || "";
-        document.getElementById('detailModal').style.display = "flex";
-    }
-    function closeModal(e) {
-        if(!e || e.target.classList.contains('modal-overlay')) document.getElementById('detailModal').style.display = "none";
-    }
-
-    const year = 2026; let currentIdx = 0;
-    const monthNames = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
-
     function initCalendar() {
-        const b = document.getElementById('calendar-body');
-        let h = '';
+        const b = document.getElementById('calendar-body'); let h = '';
         for (let m=0; m<12; m++) {
-            const f = new Date(year, m, 1).getDay(); const l = new Date(year, m+1, 0).getDate();
-            h += `<div class="calendar-grid ${m===currentIdx ? 'active-month' : ''}" id="month-${m}">`;
+            const f = new Date(2026, m, 1).getDay(); const l = new Date(2026, m+1, 0).getDate();
+            h += `<div class="calendar-grid ${m===currentIdx?'active-month':''}" id="m-${m}">`;
             for(let i=0; i<f; i++) h += `<div class="day-cell"></div>`;
             for(let d=1; d<=l; d++) {
-                const k = `${m+1}-${d}`; const ev = mySchedule[k];
+                const ev = mySchedule[`${m+1}-${d}`];
                 h += ev ? `<div class="day-cell has-event"><span class="day-num">${d}</span><img src="${ev.img}" class="event-img"></div>` : `<div class="day-cell"><span class="day-num">${d}</span></div>`;
             }
             h += `</div>`;
@@ -216,28 +158,35 @@
     }
 
     function changeMonth(s) {
-        document.getElementById(`month-${currentIdx}`).classList.remove('active-month');
+        document.getElementById(`m-${currentIdx}`).classList.remove('active-month');
         currentIdx = (currentIdx + s + 12) % 12;
-        document.getElementById(`month-${currentIdx}`).classList.add('active-month');
-        document.getElementById('current-month-title').innerText = `${monthNames[currentIdx]} ${year}`;
+        document.getElementById(`m-${currentIdx}`).classList.add('active-month');
+        document.getElementById('current-month-title').innerText = `${months[currentIdx]} 2026`;
     }
 
     function renderList(data, id) {
-        const c = document.getElementById(id); if(!c || !data) return;
-        c.innerHTML = data.map((p, i) => `
-            <div class="post-item glass-panel neon-box" onclick='openModal(${JSON.stringify(data)}, ${i})'>
-                <div class="thumb"><img src="${p.img}" style="width:100%; height:100%; object-fit:cover;"></div>
-                <div class="text-box" style="padding:20px; text-align:left;">
-                    <h3 class="neon-text" style="font-size:18px; margin-bottom:8px;">${p.title}</h3>
-                    <p style="font-size:14px; color:#888;">${p.date}</p>
-                </div>
+        const c = document.getElementById(id); if(!c) return;
+        c.innerHTML = data.map((item, i) => `
+            <div class="post-item glass-panel" onclick="openModal('${id}', ${i})">
+                <div style="aspect-ratio:16/9; background:#222;"><img src="${item.img}" style="width:100%; height:100%; object-fit:cover;"></div>
+                <div style="padding:20px; text-align:left;"><h3>${item.title}</h3><p style="color:#888; font-size:12px;">${item.date}</p></div>
             </div>
         `).join('');
     }
 
+    function openModal(type, i) {
+        const data = type === 'media-list' ? mediaPosts : type === 'notice-list' ? noticePosts : chekiPosts;
+        const item = data[i];
+        document.getElementById('modal-img-wrap').innerHTML = `<img src="${item.img}" style="width:100%;">`;
+        document.getElementById('modal-title').innerText = item.title;
+        document.getElementById('modal-date').innerText = item.date;
+        document.getElementById('modal-body').innerText = item.body;
+        document.getElementById('detailModal').style.display = 'flex';
+    }
+    function closeModal(e) { if(e.target.id === 'detailModal' || e.target.classList.contains('modal-overlay')) document.getElementById('detailModal').style.display = 'none'; }
+
     document.addEventListener("DOMContentLoaded", () => {
-        initCalendar(); handleRouting();
-        renderList(mediaPosts, 'media-list-container');
+        initCalendar(); renderList(mediaPosts, 'media-list'); renderList(noticePosts, 'notice-list'); renderList(chekiPosts, 'cheki-list'); handleRouting();
     });
 </script>
 </body>
