@@ -1,14 +1,13 @@
 <!doctype html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OBSID KAREN ARCHIVE</title>
-<link rel="stylesheet" href="./style.css">
-<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
-<script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OBSID KAREN ARCHIVE</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 </head>
-
 <body>
 
 <div id="loading-screen">
@@ -21,20 +20,17 @@
         <h1 class="logo neon-text"><a href="#home">MY ARCHIVE</a></h1>
         
         <button class="m-menu-btn" onclick="toggleMenu()">
-            <span></span>
-            <span></span>
-            <span></span>
+            <span></span><span></span><span></span>
         </button>
 
         <div class="nav-menu" id="mobileMenu">
+            <a href="#sns" onclick="toggleMenu()">SNS</a>
             <a href="#notice" onclick="toggleMenu()">NOTICE</a>
             <a href="#cheki" onclick="toggleMenu()">CHEKI</a>
- <a href="#sns" onclick="toggleMenu()">SNS</a
             <a href="#guestbook" onclick="toggleMenu()">GUESTBOOK</a>
         </div>
     </div>
 </nav>
-
 
 <div id="page-home" class="page-section active">
     <header class="hero-section">
@@ -59,8 +55,6 @@
                 <div id="calendar-body"></div>
             </div>
         </div>
-       
-
         <div class="content-section">
             <div class="section-header"><h2 class="neon-text-sub">LATEST MEDIA</h2><p>VIDEO & PHOTO</p></div>
             <div class="list-wrap" id="media-list-container"></div>
@@ -68,56 +62,27 @@
     </main>
 </div>
 
-<div id="page-notice" class="page-section">
+<div id="page-sns" class="page-section">
     <main class="container" style="padding-top: 50px;">
         <div class="content-section">
-            <div class="section-header"><h2 class="neon-text-sub">NOTICE</h2><p>OFFICIAL NEWS</p></div>
-            <div class="notice-list" id="notice-list-container"></div>
-            <div style="text-align: center; margin-top: 50px;"><a href="#home" class="neon-box" style="display: inline-block; padding: 10px 30px; border-radius: 30px; font-weight: bold; color: #fff;">BACK TO HOME</a></div>
-        </div>
-    </main>
-</div>
-
-<div id="page-cheki" class="page-section">
-    <main class="container" style="padding-top: 50px;">
-        <div class="content-section">
-            <div class="section-header"><h2 class="neon-text-sub">CHEKI LOG</h2><p>MY POLAROID COLLECTION</p></div>
-            <div class="list-wrap" id="cheki-list-container"></div>
-            <div style="text-align: center; margin-top: 50px;"><a href="#home" class="neon-box" style="display: inline-block; padding: 10px 30px; border-radius: 30px; font-weight: bold; color: #fff;">BACK TO HOME</a></div>
-        </div>
-    </main>
-</div>
-
-<div id="page-sns" class="page-section"> <main class="container" style="padding-top: 50px;">  
-        <div class="content-section">  
-            <div class="section-header">
-                <h2 class="neon-text-sub">OFFICIAL SNS</h2> <p>REALTIME FEED</p>
-            </div>  
-            <div class="neon-box" style="max-width: 600px; margin: 0 auto; border-radius: 12px; overflow: hidden;">  
-                <a class="twitter-timeline" data-theme="dark" data-height="800" data-chrome="noheader nofooter noborders transparent" href="https://twitter.com/Official_Obsid">Tweets by Official_Obsid</a>  
-                <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>  
-            </div>  
-            <div style="text-align: center; margin-top: 50px;">
-                <a href="#home" class="neon-box" style="display: inline-block; padding: 10px 30px; border-radius: 30px; font-weight: bold; color: #fff;">BACK TO HOME</a>
-            </div>  
-        </div>  
-    </main>  
-</div>
-
-
-
-<div id="page-guestbook" class="page-section">
-    <main class="container" style="padding-top: 50px;">
-        <div class="content-section">
-            <div class="section-header"><h2 class="neon-text-sub">GUESTBOOK</h2><p>LIVE CHAT</p></div>
-            <div class="cbox-wrapper">
-                <div style="padding: 50px; text-align: center; color: #888;">
-                    Cbox 코드가 없습니다.<br>index.html 파일에서 이 부분을 수정하세요!
-                </div>
+            <div class="section-header"><h2 class="neon-text-sub">OFFICIAL SNS</h2><p>REALTIME FEED</p></div>
+            <div class="neon-box" style="max-width: 600px; margin: 0 auto; border-radius: 12px; overflow: hidden;">
+                <a class="twitter-timeline" data-theme="dark" data-height="800" data-chrome="noheader nofooter noborders transparent" href="https://twitter.com/Official_Obsid">Tweets</a>
+                <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
             </div>
             <div style="text-align: center; margin-top: 50px;"><a href="#home" class="neon-box" style="display: inline-block; padding: 10px 30px; border-radius: 30px; font-weight: bold; color: #fff;">BACK TO HOME</a></div>
         </div>
     </main>
+</div>
+
+<div id="page-notice" class="page-section">
+    <main class="container" style="padding-top: 50px;"><div class="content-section"><div class="section-header"><h2 class="neon-text-sub">NOTICE</h2><p>OFFICIAL NEWS</p></div><div class="notice-list" id="notice-list-container"></div><div style="text-align: center; margin-top: 50px;"><a href="#home" class="neon-box" style="display: inline-block; padding: 10px 30px; border-radius: 30px; font-weight: bold; color: #fff;">BACK TO HOME</a></div></div></main>
+</div>
+<div id="page-cheki" class="page-section">
+    <main class="container" style="padding-top: 50px;"><div class="content-section"><div class="section-header"><h2 class="neon-text-sub">CHEKI LOG</h2><p>MY POLAROID COLLECTION</p></div><div class="list-wrap" id="cheki-list-container"></div><div style="text-align: center; margin-top: 50px;"><a href="#home" class="neon-box" style="display: inline-block; padding: 10px 30px; border-radius: 30px; font-weight: bold; color: #fff;">BACK TO HOME</a></div></div></main>
+</div>
+<div id="page-guestbook" class="page-section">
+    <main class="container" style="padding-top: 50px;"><div class="content-section"><div class="section-header"><h2 class="neon-text-sub">GUESTBOOK</h2><p>LIVE CHAT</p></div><div class="cbox-wrapper"><div style="padding: 50px; text-align: center; color: #888;">Cbox 코드가 없습니다.</div></div><div style="text-align: center; margin-top: 50px;"><a href="#home" class="neon-box" style="display: inline-block; padding: 10px 30px; border-radius: 30px; font-weight: bold; color: #fff;">BACK TO HOME</a></div></div></main>
 </div>
 
 <div id="article-modal" class="modal-overlay" onclick="closeModal(event)">
@@ -132,19 +97,14 @@
     </div>
 </div>
 
-<a href="https://github.com/아이디입력/저장소명입력/edit/main/data.js" target="_blank" class="admin-btn" title="ADMIN">⚙️</a>
-
 <script src="./data.js"></script>
 <script>
-    // 1. 리스트 화면에 그리기 (공지, 체키, 미디어)
+    // 기능 1: 리스트 렌더링
     function renderList(data, id, type) {
-        const c = document.getElementById(id); let h = "";
-        if(!data) return;
+        const c = document.getElementById(id); if(!c || !data) return;
+        let h = "";
         data.forEach((p, i) => {
-            let thumb = "";
-            if (Array.isArray(p.images) && p.images.length > 0) thumb = p.images[0];
-            else if (p.img) thumb = p.img;
-            
+            let thumb = Array.isArray(p.images) && p.images.length > 0 ? p.images[0] : (p.img || "");
             if(type === 'link') {
                 h += `<a href="${p.link||'#'}" target="_blank" class="post-item"><div class="thumb"><img src="${thumb}"></div><div class="text-box"><span class="category-label">${p.tag}</span><h3 class="title">${p.title}</h3><span class="date">${p.date}</span></div></a>`;
             } else if (type === 'notice') {
@@ -156,113 +116,83 @@
         c.innerHTML = h;
     }
 
-    // 2. 상세 모달 팝업 열기
+    // 기능 2: 모달 열기/닫기
     function openModal(type, index) {
-        let post;
-        if(type === 'cheki-list-container') post = chekiPosts[index];
-        else if(type === 'notice-list-container') post = noticePosts[index];
-        else if(typeof mediaPosts !== 'undefined') post = mediaPosts[index];
-        else return;
-        
+        let post = type === 'cheki-list-container' ? chekiPosts[index] : noticePosts[index];
         const imgContainer = document.getElementById('modal-img-container');
         imgContainer.innerHTML = "";
-        if (Array.isArray(post.images) && post.images.length > 0) {
-            post.images.forEach(imgSrc => { imgContainer.innerHTML += `<img src="${imgSrc}" style="width:100%; display:block; margin-bottom:5px;">`; });
-            imgContainer.style.display = "block";
+        if (Array.isArray(post.images)) {
+            post.images.forEach(img => imgContainer.innerHTML += `<img src="${img}" style="width:100%; display:block; margin-bottom:5px;">`);
         } else if (post.img) {
             imgContainer.innerHTML = `<img src="${post.img}" style="width:100%; display:block;">`;
-            imgContainer.style.display = "block";
-        } else { imgContainer.style.display = "none"; }
-
+        }
         document.getElementById('modal-title').innerText = post.title;
         document.getElementById('modal-date').innerText = post.date;
         document.getElementById('modal-text').innerText = post.body;
         document.getElementById('article-modal').style.display = 'block';
     }
+    function closeModal(e) { if(e.target.id === 'article-modal' || e.target.classList.contains('modal-close-btn')) document.getElementById('article-modal').style.display = 'none'; }
 
-    // 3. 모달 닫기
-    function closeModal(e) { 
-        if(e.target.id === 'article-modal' || e.target.classList.contains('modal-close-btn')) 
-        document.getElementById('article-modal').style.display = 'none'; 
+    // 기능 3: 메뉴 토글 (햄버거 애니메이션 포함)
+    function toggleMenu() {
+        const menu = document.getElementById('mobileMenu');
+        const btn = document.querySelector('.m-menu-btn');
+        if (menu && btn) {
+            menu.classList.toggle('active');
+            btn.classList.toggle('active');
+        }
     }
-    
-    // 4. 페이지 이동 처리 (해시 라우팅)
+
+    // 기능 4: 페이지 이동
     function handleRouting() {
         const hash = window.location.hash.replace('#', '') || 'home';
         document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
-        const target = document.getElementById('page-' + hash); 
+        const target = document.getElementById('page-' + hash);
         if(target) target.classList.add('active');
-        
         document.querySelectorAll('.nav-menu a').forEach(el => el.classList.remove('active'));
-        const link = document.querySelector(`.nav-menu a[href="#${hash}"]`); 
+        const link = document.querySelector(`.nav-menu a[href="#${hash}"]`);
         if(link) link.classList.add('active');
         window.scrollTo(0,0);
     }
     window.addEventListener('hashchange', handleRouting);
 
-    // 5. 모바일 햄버거 메뉴 토글
-    // 자바스크립트 내 toggleMenu 함수를 이렇게 수정하세요!
-function toggleMenu() {
-    const menu = document.getElementById('mobileMenu');
-    const btn = document.querySelector('.m-menu-btn'); // 버튼 찾기 추가
-    
-    if (menu && btn) {
-        menu.classList.toggle('active'); // 메뉴 열고 닫기
-        btn.classList.toggle('active');  // 버튼 X 모양으로 바꾸기
-    }
-}
-
-    // 6. 달력 설정
-    const year = 2026; 
-    const monthNames = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"]; 
+    // 기능 5: 달력
+    const year = 2026;
+    const monthNames = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
     let currentIdx = 0;
-
     function initCalendar() {
-      const c = document.getElementById('calendar-body'); 
-      let h = '';
-      if(typeof mySchedule === 'undefined') return;
-      for (let m=0; m<12; m++) {
-        const f = new Date(year, m, 1).getDay(); 
-        const l = new Date(year, m+1, 0).getDate();
-        h += `<div class="calendar-grid ${m===0?'active-month':''}" id="month-${m}">`;
-        for(let i=0; i<f; i++) h+=`<div class="day-cell"></div>`;
-        for(let d=1; d<=l; d++) {
-            const k = `${m+1}-${d}`; const ev = mySchedule[k];
-            if(ev) h += `<div class="day-cell has-event"><a href="${ev.link}" target="_blank" class="event-link"><span class="day-num">${d}</span><img src="${ev.img}" class="event-img"></a></div>`;
-            else h += `<div class="day-cell"><span class="day-num">${d}</span></div>`;
+        const c = document.getElementById('calendar-body'); if(!c || typeof mySchedule === 'undefined') return;
+        let h = '';
+        for (let m=0; m<12; m++) {
+            const f = new Date(year, m, 1).getDay(); const l = new Date(year, m+1, 0).getDate();
+            h += `<div class="calendar-grid ${m===0?'active-month':''}" id="month-${m}">`;
+            for(let i=0; i<f; i++) h+=`<div class="day-cell"></div>`;
+            for(let d=1; d<=l; d++) {
+                const k = `${m+1}-${d}`; const ev = mySchedule[k];
+                h += ev ? `<div class="day-cell has-event"><a href="${ev.link}" target="_blank" class="event-link"><span class="day-num">${d}</span><img src="${ev.img}" class="event-img"></a></div>` : `<div class="day-cell"><span class="day-num">${d}</span></div>`;
+            }
+            h += `</div>`;
         }
-        h += `</div>`;
-      } 
-      c.innerHTML = h;
+        c.innerHTML = h;
     }
-
     function changeMonth(s) {
-      document.getElementById(`month-${currentIdx}`).classList.remove('active-month');
-      currentIdx += s; 
-      if(currentIdx > 11) currentIdx = 0; 
-      if(currentIdx < 0) currentIdx = 11;
-      document.getElementById(`month-${currentIdx}`).classList.add('active-month');
-      document.getElementById('current-month-title').innerHTML = `${monthNames[currentIdx]}<br>${year}`;
+        document.getElementById(`month-${currentIdx}`).classList.remove('active-month');
+        currentIdx = (currentIdx + s + 12) % 12;
+        document.getElementById(`month-${currentIdx}`).classList.add('active-month');
+        document.getElementById('current-month-title').innerHTML = `${monthNames[currentIdx]}<br>${year}`;
     }
 
-    // 7. 초기화 및 로딩 처리
+    // 초기 실행
     document.addEventListener("DOMContentLoaded", () => {
         renderList(typeof chekiPosts !== 'undefined' ? chekiPosts : [], 'cheki-list-container', 'card');
         renderList(typeof mediaPosts !== 'undefined' ? mediaPosts : [], 'media-list-container', 'link');
         renderList(typeof noticePosts !== 'undefined' ? noticePosts : [], 'notice-list-container', 'notice');
-        initCalendar();
-        handleRouting();
-        setTimeout(() => { 
-            const l = document.getElementById('loading-screen'); 
-            if(l){ l.style.opacity = '0'; setTimeout(() => l.style.display = 'none', 800); } 
-        }, 1500);
+        initCalendar(); handleRouting();
+        setTimeout(() => { const l=document.getElementById('loading-screen'); if(l){l.style.opacity='0'; setTimeout(()=>l.style.display='none',800);} }, 1500);
     });
 
-    // 8. 부드러운 스크롤 (Lenis)
-    const lenis = new Lenis({duration:1.2, easing:(t)=>Math.min(1,1.001-Math.pow(2,-10*t)), smooth:true});
-    function raf(t){ lenis.raf(t); requestAnimationFrame(raf); }
-    requestAnimationFrame(raf);
+    const lenis = new Lenis({duration:1.2, smooth:true});
+    function raf(t){lenis.raf(t); requestAnimationFrame(raf);} requestAnimationFrame(raf);
 </script>
-
 </body>
 </html>
