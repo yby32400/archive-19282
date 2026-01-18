@@ -9,13 +9,15 @@ const mySchedule = {
 };
 
 // 2. 공지사항 (Notice)
+
 const noticePosts = [
     {
         title: "아카이브 오픈 안내",
         date: "2026.01.18",
-        body: `옵시드 카렌 아카이브가 오픈되었습니다.`
+        body: "여기에 꼭 따옴표를 앞뒤로 붙여주세요!" 
     }
 ];
+/* ... 나머지 코드는 그대로 붙여넣으세요 ... */
 
 // 3. 체키/사진 (Cheki) - images에 여러 장 넣기 가능
 const chekiPosts = [
