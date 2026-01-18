@@ -1,6 +1,6 @@
 @charset "utf-8";
 
-/* [1] 초기화 및 기초 설정 */
+/* [1] 기본 초기화 및 중앙 정렬 기반 */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { 
     font-family: 'Pretendard', sans-serif; 
@@ -9,77 +9,74 @@ body {
 }
 a { text-decoration: none; color: inherit; cursor: pointer; }
 
-/* [2] 상단 네비게이션 바 (가장 중요) */
+/* [2] 네온 효과 강제 적용 */
+.neon-text { color: #fff; text-shadow: 0 0 10px #fff, 0 0 20px #a855f7, 0 0 40px #a855f7; text-align: center; }
+.neon-text-sub { color: #e9d5ff; text-shadow: 0 0 10px #a855f7; font-weight: 700; text-align: center; width: 100%; display: block; }
+.neon-box { border: 1px solid rgba(168, 85, 247, 0.5); box-shadow: 0 0 20px rgba(168, 85, 247, 0.2); border-radius: 12px; }
+
+/* [3] 모든 섹션 중앙 정렬 컨테이너 */
+.container { 
+    width: 100%; max-width: 1200px; margin: 0 auto; padding: 40px 20px;
+    display: flex; flex-direction: column; align-items: center; /* 가로 중앙 정렬 */
+    text-align: center;
+}
+.page-section { display: none; width: 100%; }
+.page-section.active { display: block; }
+.content-section { width: 100%; display: flex; flex-direction: column; align-items: center; margin-bottom: 60px; }
+
+/* [4] 상단바 및 햄버거 버튼 */
 .sticky_nav { 
     position: fixed; top: 0; left: 0; width: 100%; height: 70px; 
     background: rgba(5, 5, 5, 0.95); backdrop-filter: blur(10px); 
-    z-index: 9999; border-bottom: 1px solid rgba(168, 85, 247, 0.3); 
+    z-index: 99999; border-bottom: 1px solid rgba(168, 85, 247, 0.3); 
     display: flex; justify-content: center; align-items: center; padding: 0 20px; 
 }
-.nav-inner { 
-    width: 100%; max-width: 1200px; 
-    display: flex; justify-content: space-between; align-items: center; 
-}
-.logo a { 
-    font-weight: 800; font-size: 22px; color: #fff; 
-    text-shadow: 0 0 10px #a855f7, 0 0 20px #a855f7; 
-    white-space: nowrap;
-}
+.nav-inner { width: 100%; max-width: 1200px; display: flex; justify-content: space-between; align-items: center; }
+.logo a { font-weight: 800; font-size: 20px; text-shadow: 0 0 10px #a855f7; white-space: nowrap; }
 
-/* [3] PC 메뉴 스타일 (데스크탑에서만 보임) */
-.nav-menu { display: flex; align-items: center; }
-.nav-menu a { 
-    color: #bbb; font-size: 13px; font-weight: 700; 
-    margin-left: 20px; transition: 0.3s; letter-spacing: 1px;
-}
-.nav-menu a:hover { color: #fff; text-shadow: 0 0 10px #a855f7; }
-
-/* [4] 모바일용 햄버거 버튼 (PC에선 숨김) */
 .m-menu-btn { 
     display: none; flex-direction: column; justify-content: space-between; 
-    width: 25px; height: 18px; background: none; border: none; cursor: pointer; z-index: 10001; 
+    width: 30px; height: 20px; background: none; border: none; cursor: pointer; z-index: 100001; 
 }
 .m-menu-btn span { display: block; width: 100%; height: 3px; background: #a855f7; border-radius: 3px; transition: 0.3s; }
 
-/* [5] 페이지 구역 관리 (섞임 방지) */
-.page-section { display: none; width: 100%; }
-.page-section.active { display: block; }
+/* 햄버거 -> X 변신 (이게 안 나왔던 이유: 자바스크립트 연결 필수) */
+.m-menu-btn.active span:nth-child(1) { transform: translateY(8.5px) rotate(45deg); }
+.m-menu-btn.active span:nth-child(2) { opacity: 0; }
+.m-menu-btn.active span:nth-child(3) { transform: translateY(-8.5px) rotate(-45deg); }
 
-/* [6] 모바일 반응형 (768px 이하) - 여기서 메뉴를 숨깁니다 */
+/* [5] 모바일 메뉴 (중앙 정렬 수정) */
+.nav-menu { display: flex; align-items: center; } /* PC용 */
+
 @media (max-width: 768px) {
-    /* 햄버거 버튼 보이게 */
-    .m-menu-btn { display: flex; }
-
-    /* 메뉴를 화면 밖으로 숨김 */
     .nav-menu {
-        position: fixed; top: 0; left: 0; 
-        width: 100%; height: 100vh;
-        background: rgba(5, 5, 5, 0.98); 
-        flex-direction: column; justify-content: center; align-items: center; 
-        gap: 40px; z-index: 10000;
+        display: flex !important; /* 항상 flex로 유지하되 투명도로 조절 */
+        position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+        background: rgba(0, 0, 0, 0.98); 
+        flex-direction: column; 
+        justify-content: center; /* 세로 중앙 */
+        align-items: center;     /* 가로 중앙 */
+        gap: 35px; z-index: 100000;
         
-        /* 애니메이션 효과 */
+        /* 부드러운 효과 */
         opacity: 0; visibility: hidden; 
-        transform: translateY(-20px); transition: 0.4s ease-in-out;
+        transform: translateY(-20px); transition: all 0.4s ease-in-out;
     }
-
-    /* 버튼 클릭 시 메뉴가 나타남 */
-    .nav-menu.active { 
-        opacity: 1; visibility: visible; transform: translateY(0); 
-    }
-    .nav-menu a { font-size: 24px; margin: 0; text-shadow: 0 0 10px #a855f7; }
-
-    /* 햄버거 버튼 X 변신 */
-    .m-menu-btn.active span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
-    .m-menu-btn.active span:nth-child(2) { opacity: 0; }
-    .m-menu-btn.active span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+    .nav-menu.active { opacity: 1; visibility: visible; transform: translateY(0); }
+    .nav-menu a { font-size: 26px; font-weight: 800; text-shadow: 0 0 10px #a855f7; margin: 0; }
+    .m-menu-btn { display: flex !important; }
     
-    .logo a { font-size: 18px; }
+    .calendar-grid { grid-template-columns: repeat(4, 1fr) !important; }
+    .day-cell:not(.has-event) { display: none; }
 }
 
-/* [7] 기타 레이아웃 (달력, 카드 등) */
-.container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; }
-.neon-box { border: 1px solid rgba(168, 85, 247, 0.5); box-shadow: 0 0 20px rgba(168, 85, 247, 0.2); border-radius: 12px; }
-.calendar-grid { display: none; grid-template-columns: repeat(7, 1fr); gap: 5px; width: 100%; max-width: 500px; }
+/* [6] 메인 히어로 & 리스트 디자인 */
+.hero-section { width: 100%; padding: 40px 0; display: flex; flex-direction: column; align-items: center; }
+.video-frame { width: 90%; max-width: 800px; aspect-ratio: 16/9; margin-bottom: 30px; overflow: hidden; }
+.list-wrap { 
+    display: grid; width: 100%;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; 
+}
+.calendar-grid { display: none; grid-template-columns: repeat(7, 1fr); gap: 5px; width: 100%; max-width: 500px; margin-top: 20px; }
 .calendar-grid.active-month { display: grid; }
-.day-cell { aspect-ratio: 1; background: #111; border: 1px solid #222; border-radius: 6px; }
+.day-cell { position: relative; aspect-ratio: 1/1.2; background: #111; border: 1px solid #222; border-radius: 6px; overflow: hidden; }
