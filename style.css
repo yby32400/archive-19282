@@ -1,73 +1,67 @@
 @charset "utf-8";
 
-/* [1] 초기화 */
+/* [1] 초기화 - 모든 여백 제거 */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: 'Pretendard', sans-serif; background: #050505; color: #fff; padding-top: 70px; overflow-x: hidden; }
 a { text-decoration: none; color: inherit; }
 
-/* [2] 상단 네비게이션 (글자 뭉침 해결) */
+/* [2] 상단 네비게이션 - 글자 뭉침 차단 */
 .sticky_nav { 
     position: fixed; top: 0; left: 0; width: 100%; height: 70px; 
     background: rgba(5,5,5,0.95); backdrop-filter: blur(10px); 
     z-index: 99999; border-bottom: 1px solid rgba(168, 85, 247, 0.3); 
-    display: flex; justify-content: center; align-items: center; padding: 0 20px; 
+    display: flex; justify-content: center; align-items: center; 
 }
-.nav-inner { width: 100%; max-width: 1200px; display: flex; justify-content: space-between; align-items: center; }
+.nav-inner { width: 100%; max-width: 1200px; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
 .logo a { font-weight: 800; font-size: 20px; text-shadow: 0 0 10px #a855f7; white-space: nowrap; }
 
-/* PC 메뉴 - 모바일에서는 숨김 처리 */
+/* PC용 메뉴 - 평소 모바일에선 절대 보이지 않음 */
 .nav-menu { display: flex; gap: 20px; }
-.nav-menu a { font-size: 14px; font-weight: 700; color: #bbb; }
+.nav-menu a { font-size: 14px; font-weight: 700; color: #bbb; transition: 0.3s; }
+.nav-menu a:hover { color: #fff; text-shadow: 0 0 10px #a855f7; }
 
-/* 햄버거 버튼 */
+/* 모바일 햄버거 버튼 */
 .m-menu-btn { 
     display: none; flex-direction: column; justify-content: space-between; 
     width: 25px; height: 18px; background: none; border: none; cursor: pointer; z-index: 100001; 
 }
 .m-menu-btn span { display: block; width: 100%; height: 3px; background: #a855f7; border-radius: 3px; transition: 0.3s; }
 
-/* [3] 모바일 반응형 핵심 (여기서 메뉴를 숨깁니다) */
+/* [3] 모바일 반응형 - 메뉴 뭉침 완벽 해결 */
 @media (max-width: 768px) {
     .m-menu-btn { display: flex; }
     
+    /* 모바일 메뉴를 전체화면 레이어로 분리하여 글자 나열 방지 */
     .nav-menu {
         position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
         background: #000; flex-direction: column; justify-content: center; align-items: center;
-        gap: 40px; z-index: 100000;
-        /* 평소엔 숨김 */
-        display: none !important; 
+        gap: 35px; z-index: 100000;
+        display: none !important; /* 평소엔 구조에서 완전히 제거 */
     }
-    /* 버튼 눌렀을 때만 보임 */
     .nav-menu.active { display: flex !important; }
-    .nav-menu a { font-size: 24px; color: #fff; text-shadow: 0 0 10px #a855f7; }
+    .nav-menu a { font-size: 26px; color: #fff; text-shadow: 0 0 15px #a855f7; }
 
-    /* 햄버거 변신 */
+    /* 햄버거 -> X 변신 애니메이션 */
     .m-menu-btn.active span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
     .m-menu-btn.active span:nth-child(2) { opacity: 0; }
     .m-menu-btn.active span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
 
-    /* 모바일 달력 7열 고정 (요청하신 스타일) */
+    /* 달력 7열 강제 유지 */
     .calendar-grid { grid-template-columns: repeat(7, 1fr) !important; gap: 4px !important; }
-    .day-cell { aspect-ratio: 1 / 1.4 !important; }
+    .day-cell { aspect-ratio: 1 / 1.5 !important; }
 }
 
-/* [4] 달력 디자인 (격자 유지) */
-.calendar-grid { 
-    display: none; /* 핵심: 기본적으로 모든 달을 숨김 */
-    grid-template-columns: repeat(7, 1fr); gap: 8px; width: 100%; 
-}
-.calendar-grid.active-month { display: grid !important; } /* 선택된 달만 보여줌 */
+/* [4] 달력 중복 노출 차단 */
+.calendar-grid { display: none !important; grid-template-columns: repeat(7, 1fr); gap: 8px; width: 100%; }
+.calendar-grid.active-month { display: grid !important; } /* 자바스크립트가 선택한 달만 표시 */
 
-.day-cell { 
-    position: relative; aspect-ratio: 1 / 1.2; background: #111; 
-    border: 1px solid #222; border-radius: 6px; overflow: hidden; 
-}
+.day-cell { position: relative; aspect-ratio: 1 / 1.2; background: #111; border: 1px solid #222; border-radius: 6px; overflow: hidden; }
 .day-num { position: absolute; top: 5px; left: 5px; font-size: 11px; color: #555; }
 .has-event { border: 1px solid #a855f7; }
 .event-img { width: 100%; height: 100%; object-fit: cover; }
 
-/* 기타 레이아웃 */
+/* [5] 페이지 섹션 관리 */
+.page-section { display: none; width: 100%; }
+.page-section.active { display: block; animation: fadeIn 0.5s; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 40px 20px; text-align: center; }
-.page-section { display: none; }
-.page-section.active { display: block; }
-.neon-text { text-shadow: 0 0 15px #a855f7; font-weight: 900; }
