@@ -131,3 +131,72 @@ main img { max-width: 100%; border-radius: 10px; }
         color: var(--accent-color);
     }
 }
+
+/* =========================================
+   [NEW] 키치함 3종 세트 추가
+   ========================================= */
+
+/* 1. 노이즈 필터 (자글자글한 옛날 TV 느낌) */
+.noise-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none; /* 마우스 클릭 방해 안 함 */
+    z-index: 999;
+    opacity: 0.07; /* 투명도 조절: 너무 진하면 눈 아픔 */
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
+}
+
+/* 2. 마퀴 텍스트 (흐르는 전광판) */
+.marquee-container {
+    background: #fff;
+    color: var(--accent-color);
+    padding: 8px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.marquee-content {
+    display: inline-block;
+    animation: scroll 20s linear infinite; /* 속도 조절: 20s */
+    padding-right: 50px; /* 문구 사이 간격 */
+}
+
+@keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-100%); }
+}
+
+/* 3. 커스텀 커서 (기본 커서 숨기고 예쁜 원 만들기) */
+/* PC에서만 보이게 설정 (모바일은 터치니까 필요 없음) */
+@media (min-width: 769px) {
+    body {
+        cursor: none; /* 기본 마우스 숨김 */
+    }
+    
+    .cursor {
+        position: fixed;
+        width: 30px;
+        height: 30px;
+        background: rgba(255, 255, 255, 0.8);
+        border: 2px solid #fff;
+        border-radius: 50%;
+        pointer-events: none; /* 클릭 통과 */
+        transform: translate(-50%, -50%);
+        z-index: 9999;
+        mix-blend-mode: difference; /* 배경색 반전 효과 (힙함!) */
+        transition: transform 0.1s; /* 약간의 딜레이로 부드럽게 */
+        box-shadow: 0 0 10px rgba(255,255,255,0.8);
+    }
+
+    /* 링크나 버튼 위에 올렸을 때 커지는 효과 */
+    body:has(button:hover) .cursor,
+    body:has(a:hover) .cursor {
+        transform: translate(-50%, -50%) scale(2);
+        background: var(--accent-color);
+    }
+}
