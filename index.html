@@ -1,193 +1,76 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OBSID KAREN ARCHIVE</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
-    <style>
-        /* [1] 초기화 및 전체 테마 */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: 'Pretendard', sans-serif; background-color: #050505; color: #fff; 
-            padding-top: 70px; overflow-x: hidden; 
-        }
-        a { text-decoration: none; color: inherit; cursor: pointer; }
-
-        /* [2] 네온 & 반투명 유리 효과 (Glassmorphism) */
-        .neon-text { text-shadow: 0 0 15px #fff, 0 0 30px #a855f7; }
-        .glass-panel { 
-            background: rgba(20, 20, 20, 0.6) !important; backdrop-filter: blur(15px); 
-            -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(168, 85, 247, 0.2); border-radius: 20px;
-        }
-
-        /* [3] 움직이는 거대 타이틀 (PC 최적화) */
-        .animated-title {
-            background-image: url('https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNXJ4bnV6aGZ4bnV6aGZ4bnV6aGZ4bnV6aGZ4bnV6aGZ4bnV6aGZSZ/3o7aD53F0J5568961G/giphy.gif');
-            background-size: cover; background-position: center; -webkit-background-clip: text; background-clip: text;
-            color: transparent; font-weight: 900; text-transform: uppercase; -webkit-text-stroke: 1px rgba(168, 85, 247, 0.3);
-            filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.5)); text-align: center; font-size: 3rem; transition: 0.3s;
-        }
-        @media (min-width: 769px) { .animated-title { font-size: 6rem; letter-spacing: -2px; } }
-
-        /* [4] 메뉴 뭉침 차단 네비게이션 */
-        .sticky_nav { position: fixed; top: 0; width: 100%; height: 70px; background: rgba(5,5,5,0.8); backdrop-filter: blur(10px); z-index: 9999; border-bottom: 1px solid rgba(168, 85, 247, 0.2); display: flex; justify-content: center; align-items: center; }
-        .nav-inner { width: 100%; max-width: 1200px; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
-        .nav-menu { display: flex; gap: 30px; }
-        .m-menu-btn { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; z-index: 10001; }
-        .m-menu-btn span { width: 25px; height: 3px; background: #a855f7; border-radius: 2px; }
-
-        @media (max-width: 768px) {
-            .m-menu-btn { display: flex; }
-            .nav-menu { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.95); flex-direction: column; justify-content: center; align-items: center; gap: 40px; z-index: 10000; opacity: 0; visibility: hidden; transition: 0.4s; }
-            .nav-menu.active { opacity: 1; visibility: visible; }
-            .animated-title { font-size: 3rem !important; }
-        }
-
-        /* [5] 달력 중복 노출 방지 및 7열 고정 */
-        .calendar-grid { display: none !important; grid-template-columns: repeat(7, 1fr); gap: 10px; width: 100%; max-width: 800px; margin: 0 auto; }
-        .calendar-grid.active-month { display: grid !important; }
-        .day-cell { position: relative; aspect-ratio: 1/1.4; background: rgba(30,30,30,0.5); border: 1px solid #333; border-radius: 12px; overflow: hidden; }
-        .has-event { border: 1px solid #a855f7; }
-        .event-img { width: 100%; height: 100%; object-fit: cover; }
-        .day-num { position: absolute; top: 5px; left: 5px; font-size: 11px; color: #555; }
-
-        @media (max-width: 768px) {
-            /* 모바일에서 일정이 있는 날만 표시하여 깔끔하게 정리 */
-            .day-cell:not(.has-event) { display: none; }
-            .calendar-grid { grid-template-columns: repeat(4, 1fr) !important; }
-        }
-
-        /* [6] 페이지 및 모달 */
-        .page-section { display: none; width: 100%; animation: fadeIn 0.8s ease; }
-        .page-section.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .container { max-width: 1300px; margin: 0 auto; padding: 40px 20px; text-align: center; }
-        
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); z-index: 100002; display: none; justify-content: center; align-items: center; }
-        .modal-content { background: rgba(20,20,20,0.95); width: 90%; max-width: 600px; border-radius: 25px; border: 1px solid #a855f7; padding: 30px; position: relative; }
-        
-        .list-wrap { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; margin-top: 40px; }
-        .post-item { cursor: pointer; transition: 0.3s; overflow: hidden; }
-        .post-item:hover { transform: translateY(-10px); }
-    </style>
+    <title>Ase's World</title>
+    <link href="https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<nav class="sticky_nav">
-    <div class="nav-inner">
-        <h1 class="logo neon-text"><a href="#home">MY ARCHIVE</a></h1>
-        <button class="m-menu-btn" onclick="toggleMenu()"><span></span><span></span><span></span></button>
-        <div class="nav-menu" id="mobileMenu">
-            <a href="#home" onclick="toggleMenu()">HOME</a>
-            <a href="#sns" onclick="toggleMenu()">SNS</a>
-            <a href="#notice" onclick="toggleMenu()">NOTICE</a>
-            <a href="#cheki" onclick="toggleMenu()">CHEKI</a>
-            <a href="#guestbook" onclick="toggleMenu()">GUESTBOOK</a>
+    <header>
+        <div class="logo">ASE.LOG</div>
+        
+        <nav class="pc-nav">
+            <button onclick="loadPost('posts/intro.md')">PROFILE</button>
+            <button onclick="loadPost('posts/diary.md')">DIARY</button>
+            <button onclick="loadPost('posts/hobby.md')">HOBBY</button>
+        </nav>
+
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
-    </div>
-</nav>
+    </header>
 
-<div id="page-home" class="page-section active">
-    <main class="container">
-        <header style="padding: 100px 20px; min-height: 50vh; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-            <p class="neon-text" style="letter-spacing: 6px; margin-bottom: 20px;">WELCOME TO</p>
-            <h2 class="animated-title">OBSID KAREN<br>ARCHIVE</h2>
-        </header>
-        <section class="glass-panel" style="padding: 40px;">
-            <h2 class="neon-text" style="margin-bottom: 30px;">OFFICIAL SCHEDULE</h2>
-            <div style="display:flex; justify-content:center; align-items:center; gap:30px; margin-bottom:30px;">
-                <button onclick="changeMonth(-1)" style="background:none; border:1px solid #a855f7; color:#fff; width:40px; height:40px; border-radius:50%; cursor:pointer;">◀</button>
-                <h2 id="current-month-title" class="neon-text" style="min-width:200px; font-size: 1.5rem;">JANUARY 2026</h2>
-                <button onclick="changeMonth(1)" style="background:none; border:1px solid #a855f7; color:#fff; width:40px; height:40px; border-radius:50%; cursor:pointer;">▶</button>
-            </div>
-            <div id="calendar-body"></div>
-        </section>
-        <h2 class="neon-text" style="margin-top: 100px; font-size: 2rem;">LATEST MEDIA</h2>
-        <div class="list-wrap" id="media-list"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <button onclick="loadPost('posts/intro.md'); toggleMenu()">PROFILE</button>
+        <button onclick="loadPost('posts/diary.md'); toggleMenu()">DIARY</button>
+        <button onclick="loadPost('posts/hobby.md'); toggleMenu()">HOBBY</button>
+        <button onclick="toggleMenu()" class="close-btn">CLOSE X</button>
+    </div>
+
+    <main id="content-area" class="fade-in">
+        <div class="loading">Loading...</div>
     </main>
-</div>
 
-<div id="page-sns" class="page-section"><main class="container"><h2 class="neon-text">SNS FEED</h2><div class="glass-panel" style="max-width:500px; margin:40px auto; overflow:hidden;"><a class="twitter-timeline" data-theme="dark" data-height="600" href="https://twitter.com/Official_Obsid">Tweets</a><script async src="https://platform.twitter.com/widgets.js"></script></div></main></div>
-<div id="page-notice" class="page-section"><main class="container"><h2 class="neon-text">NOTICE</h2><div class="list-wrap" id="notice-list"></div></main></div>
-<div id="page-cheki" class="page-section"><main class="container"><h2 class="neon-text">CHEKI LOG</h2><div class="list-wrap" id="cheki-list"></div></main></div>
-
-<div class="modal-overlay" id="detailModal" onclick="closeModal(event)">
-    <div class="modal-content">
-        <div id="modal-img-wrap" style="margin-bottom:20px; border-radius:15px; overflow:hidden;"></div>
-        <h2 id="modal-title" class="neon-text" style="margin-bottom: 10px;"></h2>
-        <p id="modal-date" style="color:#888; margin-bottom:15px;"></p>
-        <div id="modal-body" style="text-align: left; color:#ddd; white-space:pre-wrap;"></div>
-    </div>
-</div>
-
-<script>
-    /* [데이터 입력] */
-    const mySchedule = {"1-3": {img: "https://pbs.twimg.com/media/G-ubDR3bAAAeXV-?format=jpg&name=large"}, "1-29": {img: "https://pbs.twimg.com/media/G-ubDR3bAAAeXV-?format=jpg&name=large"}};
-    const mediaPosts = [{title: "페르소나5 플레이 영상", date: "2026.01.15", img: "https://images.unsplash.com/photo-1635322966219-b75ed3a90e27?w=800", body: "영상 설명입니다."}];
-    const noticePosts = [{title: "아카이브 오픈 안내", date: "2026.01.18", img: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800", body: "오픈을 축하합니다!"}];
-    const chekiPosts = [{title: "1월 체키 정산", date: "2026.01.29", img: "https://images.unsplash.com/photo-1595079676339-1534801ad6cf?w=800", body: "체키 기록입니다."}];
-
-    /* [기능 로직] */
-    let currentIdx = 0;
-    const months = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
-
-    function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('active'); }
-    function handleRouting() {
-        const hash = window.location.hash.replace('#', '') || 'home';
-        document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
-        const target = document.getElementById('page-' + hash);
-        if(target) target.classList.add('active');
-        window.scrollTo(0,0);
-    }
-    window.addEventListener('hashchange', handleRouting);
-
-    function initCalendar() {
-        const b = document.getElementById('calendar-body'); let h = '';
-        for (let m=0; m<12; m++) {
-            const f = new Date(2026, m, 1).getDay(); const l = new Date(2026, m+1, 0).getDate();
-            h += `<div class="calendar-grid ${m===currentIdx?'active-month':''}" id="m-${m}">`;
-            for(let i=0; i<f; i++) h += `<div class="day-cell"></div>`;
-            for(let d=1; d<=l; d++) {
-                const ev = mySchedule[`${m+1}-${d}`];
-                h += ev ? `<div class="day-cell has-event"><span class="day-num">${d}</span><img src="${ev.img}" class="event-img"></div>` : `<div class="day-cell"><span class="day-num">${d}</span></div>`;
-            }
-            h += `</div>`;
+    <script>
+        // 1. 마크다운 불러오기 함수 (부드러운 전환 포함)
+        function loadPost(filename) {
+            const contentArea = document.getElementById('content-area');
+            
+            // 페이드 아웃 (사라짐)
+            contentArea.classList.remove('active');
+            
+            setTimeout(() => {
+                fetch(filename)
+                    .then(res => {
+                        if (!res.ok) throw new Error("404 Not Found");
+                        return res.text();
+                    })
+                    .then(text => {
+                        contentArea.innerHTML = marked.parse(text);
+                        // 페이드 인 (나타남)
+                        contentArea.classList.add('active');
+                        window.scrollTo({ top: 0, behavior: 'smooth' }); // 스크롤 맨 위로
+                    })
+                    .catch(() => {
+                        contentArea.innerHTML = "<h1>텅 비었습니다.</h1><p>아직 기록된 게 없네요!</p>";
+                        contentArea.classList.add('active');
+                    });
+            }, 300); // 0.3초 뒤에 내용 교체 (애니메이션 시간과 맞춤)
         }
-        b.innerHTML = h;
-    }
 
-    function changeMonth(s) {
-        document.getElementById(`m-${currentIdx}`).classList.remove('active-month');
-        currentIdx = (currentIdx + s + 12) % 12;
-        document.getElementById(`m-${currentIdx}`).classList.add('active-month');
-        document.getElementById('current-month-title').innerText = `${months[currentIdx]} 2026`;
-    }
+        // 2. 모바일 메뉴 토글
+        function toggleMenu() {
+            document.getElementById('mobileMenu').classList.toggle('open');
+        }
 
-    function renderList(data, id) {
-        const c = document.getElementById(id); if(!c) return;
-        c.innerHTML = data.map((item, i) => `
-            <div class="post-item glass-panel" onclick="openModal('${id}', ${i})">
-                <div style="aspect-ratio:16/9; background:#222;"><img src="${item.img}" style="width:100%; height:100%; object-fit:cover;"></div>
-                <div style="padding:20px; text-align:left;"><h3>${item.title}</h3><p style="color:#888; font-size:12px;">${item.date}</p></div>
-            </div>
-        `).join('');
-    }
-
-    function openModal(type, i) {
-        const data = type === 'media-list' ? mediaPosts : type === 'notice-list' ? noticePosts : chekiPosts;
-        const item = data[i];
-        document.getElementById('modal-img-wrap').innerHTML = `<img src="${item.img}" style="width:100%;">`;
-        document.getElementById('modal-title').innerText = item.title;
-        document.getElementById('modal-date').innerText = item.date;
-        document.getElementById('modal-body').innerText = item.body;
-        document.getElementById('detailModal').style.display = 'flex';
-    }
-    function closeModal(e) { if(e.target.id === 'detailModal' || e.target.classList.contains('modal-overlay')) document.getElementById('detailModal').style.display = 'none'; }
-
-    document.addEventListener("DOMContentLoaded", () => {
-        initCalendar(); renderList(mediaPosts, 'media-list'); renderList(noticePosts, 'notice-list'); renderList(chekiPosts, 'cheki-list'); handleRouting();
-    });
-</script>
+        // 초기 실행
+        loadPost('posts/intro.md');
+    </script>
 </body>
 </html>
