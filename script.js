@@ -291,8 +291,6 @@ function setVolume(value) {
     }
 }
 
-// (기존의 diaryPosts 변수 선언은 지워주세요! data.js에서 가져옵니다.)
-
 /* script.js의 renderDiaryList 함수 교체 */
 
 let currentFilter = 'all'; // 현재 선택된 필터 (기본값: 전체)
@@ -347,45 +345,39 @@ function renderDiaryList(filter = 'all') {
     contentBox.classList.remove('content-fade-out'); // 페이드 효과
     switchView('post');
 }
-    
-    // 방어 코드: 만약 data.js가 안 불러와졌거나 비어있으면 안내 메시지
-    if (typeof diaryData === 'undefined' || diaryData.length === 0) {
-        contentBox.innerHTML = "<h3>📭 아직 작성된 일기가 없어요!</h3>";
-        switchView('post');
-        return;
-    }
-
-    let html = `
-        <div style="margin-bottom:30px;">
-            <h1 style="border:none;">📂 Diary Archive</h1>
-            <p style="color:#666;">총 ${diaryData.length}개의 기록이 있습니다.</p>
-        </div>
-        <ul class="diary-list-style">
-    `;
-
-    // data.js에 있는 diaryData를 하나씩 꺼내서 화면에 그림
-    diaryData.forEach(post => {
-        html += `
-            <li onclick="loadPost('${post.file}')">
-                <div style="display:flex; align-items:center; gap:10px;">
-                    <span class="tag ${getTagColor(post.tag)}">${post.tag}</span>
-                    <span class="title">${post.title}</span>
-                </div>
-                <span class="date">${post.date}</span>
-            </li>
-        `;
-    });
-    html += `</ul>`;
-
-    contentBox.innerHTML = html;
-    switchView('post');
-}
 
 // (선택 사항) 태그별로 색상을 다르게 주는 함수 (꾸미기용)
 function getTagColor(tag) {
     if (tag === 'DEV') return 'tag-dev';      // CSS에서 .tag-dev 색상 지정 필요
     if (tag === '덕질') return 'tag-fan';     // CSS에서 .tag-fan 색상 지정 필요
     return 'tag-daily';                       // 기본값
+}
+
+/* script.js의 renderGallery 함수 */
+function renderGallery() {
+    const contentBox = document.getElementById('markdown-content');
+    
+    let html = `
+        <div class="btn-back" onclick="goHome()">⬅ Back to Home</div>
+        <h1 style="margin-bottom:20px;">📷 Photo Gallery</h1>
+        
+        <div class="gallery-grid"> 
+    `;
+
+    photoData.forEach(photo => {
+        html += `
+            <div class="photo-card" onclick="alert('${photo.text}')">
+                <img src="${photo.src}" alt="사진">
+                <div class="photo-caption">${photo.text}</div>
+            </div>
+        `;
+    });
+
+    html += `</div>`; 
+
+    contentBox.innerHTML = html;
+    contentBox.classList.remove('content-fade-out');
+    switchView('post'); 
 }
 
 /* script.js의 renderGallery 함수 수정 */
@@ -416,3 +408,4 @@ function renderGallery() {
     switchView('post'); 
 
 }
+
