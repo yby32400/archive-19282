@@ -293,8 +293,60 @@ function setVolume(value) {
 
 // (기존의 diaryPosts 변수 선언은 지워주세요! data.js에서 가져옵니다.)
 
-function renderDiaryList() {
+/* script.js의 renderDiaryList 함수 교체 */
+
+let currentFilter = 'all'; // 현재 선택된 필터 (기본값: 전체)
+
+function renderDiaryList(filter = 'all') {
+    currentFilter = filter; // 선택한 필터 저장
     const contentBox = document.getElementById('markdown-content');
+    
+    // 1. 데이터 필터링 (선택한 태그만 남기기)
+    const filteredData = filter === 'all' 
+        ? diaryData 
+        : diaryData.filter(post => post.tag === filter);
+
+    // 2. 필터 버튼 HTML (현재 선택된 버튼은 색깔 다르게 표시)
+    const btnClass = (type) => type === currentFilter ? 'filter-btn active' : 'filter-btn';
+    
+    let html = `
+        <div class="diary-header">
+            <h1 style="border:none; margin:0;">📂 Diary Archive</h1>
+            <p style="color:#666; margin-bottom: 20px;">총 ${filteredData.length}개의 기록</p>
+            
+            <div class="filter-container">
+                <button class="${btnClass('all')}" onclick="renderDiaryList('all')">전체</button>
+                <button class="${btnClass('일상')}" onclick="renderDiaryList('일상')">🍰 일상</button>
+                <button class="${btnClass('DEV')}" onclick="renderDiaryList('DEV')">💻 DEV</button>
+                <button class="${btnClass('덕질')}" onclick="renderDiaryList('덕질')">💜 덕질</button>
+            </div>
+        </div>
+
+        <ul class="diary-list-style">
+    `;
+
+    // 3. 리스트 생성 (필터링된 데이터로)
+    if (filteredData.length === 0) {
+        html += `<li style="text-align:center; padding:40px; color:#888;">작성된 글이 없습니다. 🥲</li>`;
+    } else {
+        filteredData.forEach(post => {
+            html += `
+                <li onclick="loadPost('${post.file}')">
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <span class="tag ${getTagColor(post.tag)}">${post.tag}</span>
+                        <span class="title">${post.title}</span>
+                    </div>
+                    <span class="date">${post.date}</span>
+                </li>
+            `;
+        });
+    }
+    html += `</ul>`;
+
+    contentBox.innerHTML = html;
+    contentBox.classList.remove('content-fade-out'); // 페이드 효과
+    switchView('post');
+}
     
     // 방어 코드: 만약 data.js가 안 불러와졌거나 비어있으면 안내 메시지
     if (typeof diaryData === 'undefined' || diaryData.length === 0) {
@@ -362,4 +414,5 @@ function renderGallery() {
     contentBox.innerHTML = html;
     contentBox.classList.remove('content-fade-out');
     switchView('post'); 
+
 }
