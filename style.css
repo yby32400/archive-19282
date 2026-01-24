@@ -448,3 +448,16 @@ background: linear-gradient(90deg, #000080 0%, #A18CD1 100%);
     width: 90%; /* 모바일에서 너무 꽉 차지 않게 */
     max-width: 800px;
 }
+
+/* 필터 버튼 디자인 */
+.filter-container { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+.filter-btn {
+    padding: 8px 16px; border-radius: 20px; border: 1px solid var(--accent-color);
+    background: transparent; color: var(--text-color); cursor: pointer;
+    font-family: 'SUIT', sans-serif; transition: 0.2s;
+}
+.filter-btn:hover { background: rgba(161, 140, 209, 0.1); }
+.filter-btn.active {
+    background: var(--accent-color); color: #fff; border-color: var(--accent-color);
+    font-weight: bold; box-shadow: 0 4px 10px rgba(161, 140, 209, 0.3);
+}
