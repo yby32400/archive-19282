@@ -430,4 +430,15 @@ background: linear-gradient(90deg, #000080 0%, #A18CD1 100%);
     display: block;
     border-radius: 0; /* 둥근 모서리는 카드가 담당하니까 이미지는 네모나게 */
     z-index: 1;
+
+}
+
+/* style.css 맨 아래 추가 */
+
+#comment-section {
+    background: var(--glass-bg); /* 유리 질감 배경 */
+    backdrop-filter: blur(10px);
+    border-radius: 30px;
+    box-shadow: 0 15px 40px rgba(161, 140, 209, 0.2);
+    border: 3px solid var(--card-border); /* 테마에 맞는 테두리 */
 }
