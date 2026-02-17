@@ -1,7 +1,7 @@
 /**
- * P3R: Moonlight Link - Core Engine v1.0
- * * 기능: SPA 라우팅, 슬래시 트랜지션 제어, 상태 관리
- * 작성일: 2026-02-18
+ * P3R: Moonlight Link - Core Engine v1.1
+ * * 기능: SPA 라우팅, 슬래시 트랜지션, STATUS 차트 렌더링
+ * * 작성일: 2026-02-18
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -12,36 +12,73 @@ document.addEventListener('DOMContentLoaded', () => {
         isAnimating: false
     };
 
-    // 각 섹션별 더미 콘텐츠 (추후 별도 파일이나 모듈로 분리 가능)
+    // 각 섹션별 콘텐츠 (HTML 문자열)
     const CONTENT_MAP = {
         status: `
-            <div class="p3r-section" data-type="status">
-                <h2 class="p3r-section__title">S.E.E.S STATUS</h2>
-                <p class="p3r-section__desc">사용자의 페르소나 능력치 및 성향 그래프</p>
+            <div class="p3r-status">
+                <div class="p3r-status__profile">
+                    <div class="p3r-status__name">
+                        <span class="label">NAME</span>
+                        <h1 class="value">MAKOTO <span class="sub">YUKI</span></h1>
+                    </div>
+                    <div class="p3r-status__details">
+                        <div class="stat-row">
+                            <span class="label">LV</span>
+                            <span class="value big">99</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="label">HP</span>
+                            <div class="bar-container"><div class="bar-fill" style="width: 100%"></div></div>
+                            <span class="value">999</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="label">SP</span>
+                            <div class="bar-container"><div class="bar-fill" style="width: 85%"></div></div>
+                            <span class="value">482</span>
+                        </div>
+                    </div>
                 </div>
+
+                <div class="p3r-status__chart-wrapper">
+                    <svg class="p3r-chart" viewBox="0 0 200 200">
+                        <polygon points="100,20 170,60 170,140 100,180 30,140 30,60" class="chart-bg"/>
+                        <polygon points="100,40 152,70 152,130 100,160 48,130 48,70" class="chart-bg"/>
+                        <polygon points="100,60 135,80 135,120 100,140 65,120 65,80" class="chart-bg"/>
+                        
+                        <polygon id="stat-polygon" points="100,100 100,100 100,100 100,100 100,100 100,100" class="chart-data"/>
+                        
+                        <text x="100" y="15" class="chart-label">ACADEMICS</text>
+                        <text x="180" y="60" class="chart-label">CHARM</text>
+                        <text x="180" y="150" class="chart-label">COURAGE</text>
+                        <text x="100" y="195" class="chart-label">SKILL</text>
+                        <text x="20" y="150" class="chart-label">LUCK</text>
+                        <text x="20" y="60" class="chart-label">AGILITY</text>
+                    </svg>
+                </div>
+            </div>
         `,
         calendar: `
             <div class="p3r-section" data-type="calendar">
                 <h2 class="p3r-section__title">CALENDAR</h2>
-                <p class="p3r-section__desc">중요 일정 및 월령(Moon Phase)</p>
+                <p class="p3r-section__desc">Moon Phase & Schedule (Coming Soon)</p>
             </div>
         `,
         commu: `
             <div class="p3r-section" data-type="commu">
                 <h2 class="p3r-section__title">SOCIAL LINK</h2>
-                <p class="p3r-section__desc">아르카나 및 인연 리스트</p>
+                <p class="p3r-section__desc">Arcana & Bonds (Coming Soon)</p>
             </div>
         `,
         equip: `
             <div class="p3r-section" data-type="equip">
                 <h2 class="p3r-section__title">EQUIPMENT</h2>
-                <p class="p3r-section__desc">현재 장비 및 아이템</p>
+                <p class="p3r-section__desc">Weapon & Armor (Coming Soon)</p>
             </div>
         `,
         skill: `
             <div class="p3r-section" data-type="skill">
                 <h2 class="p3r-section__title">SKILL LIST</h2>
-                <p class="p3r-section__desc">보유 스킬 및 키워드</p>
+                <p class="p3r-section__desc">Persona Skills (Coming Soon)</p>
             </div>
         `
     };
@@ -54,17 +91,14 @@ document.addEventListener('DOMContentLoaded', () => {
         dateDisplay: document.querySelector('.p3r-hud__date')
     };
 
-    // --- [3] Core Functions ---
+    // --- [3] Core Functions (Logic) ---
 
     /**
      * 페이지 전환 메인 함수
-     * @param {string} targetId - 이동할 페이지 ID (status, calendar 등)
      */
     const navigate = (targetId) => {
-        // 이미 같은 페이지거나 애니메이션 중이면 무시
         if (state.currentPage === targetId || state.isAnimating) return;
         
-        // 예외 처리: 존재하지 않는 페이지면 status로 리다이렉트
         if (!CONTENT_MAP[targetId]) {
             console.warn(`Unknown target: ${targetId}, redirecting to Status.`);
             targetId = 'status';
@@ -74,80 +108,106 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     /**
-     * 슬래시 트랜지션 및 콘텐츠 교체 로직
-     * P3R의 날카로운 화면 전환 느낌을 구현
+     * 슬래시 트랜지션 및 콘텐츠 교체
      */
     const startTransition = (targetId) => {
         state.isAnimating = true;
 
-        // 1. 슬래시 애니메이션 시작 (화면 덮기)
+        // 1. 슬래시 애니메이션 시작
         ui.slashFx.classList.add('is-active');
 
-        // 2. 애니메이션 중간 지점(화면이 다 덮였을 때)에 콘텐츠 교체
-        // CSS animation-duration: 0.6s 가정, 0.3s에 교체
+        // 2. 화면이 덮이는 시점(0.3s)에 콘텐츠 교체
         setTimeout(() => {
             renderContent(targetId);
             updateNavState(targetId);
             
-            // 상태 업데이트
             state.currentPage = targetId;
             
-            // 해시 업데이트 (히스토리 기록용, 무한루프 방지)
             if (window.location.hash !== `#${targetId}`) {
                 history.pushState(null, null, `#${targetId}`);
             }
 
         }, 300); 
 
-        // 3. 애니메이션 종료 후 클래스 제거 (화면 열기)
+        // 3. 애니메이션 종료
         setTimeout(() => {
             ui.slashFx.classList.remove('is-active');
             state.isAnimating = false;
-        }, 700); // 0.6s + 여유시간
+        }, 700);
     };
 
     /**
-     * 실제 HTML 콘텐츠 주입
+     * 콘텐츠 렌더링 및 페이지별 특수 로직 실행
      */
     const renderContent = (pageId) => {
-        const html = CONTENT_MAP[pageId];
-        ui.contentArea.innerHTML = html;
+        // HTML 주입
+        ui.contentArea.innerHTML = CONTENT_MAP[pageId];
         
-        // 콘텐츠 등장 애니메이션 효과를 위해 클래스 토글 (필요시 추가)
+        // 페이드인 효과 리셋
         ui.contentArea.classList.remove('fade-in');
         void ui.contentArea.offsetWidth; // 리플로우 강제
         ui.contentArea.classList.add('fade-in');
+
+        // [페이지별 특수 로직]
+        if (pageId === 'status') {
+            // 약간의 딜레이 후 차트 그리기 (DOM 렌더링 확보 및 애니메이션 효과)
+            setTimeout(drawChart, 100);
+        }
     };
 
     /**
-     * 내비게이션 활성화 상태 변경
+     * STATUS 화면: 육각형 차트 그리기
+     */
+    const drawChart = () => {
+        const polygon = document.getElementById('stat-polygon');
+        if (!polygon) return;
+
+        // 능력치 설정 (0 ~ 100)
+        // 순서: Top, Top-Right, Bottom-Right, Bottom, Bottom-Left, Top-Left
+        const stats = [90, 70, 80, 60, 85, 75];
+
+        const centerX = 100;
+        const centerY = 100;
+        const maxRadius = 80;
+
+        // 좌표 계산
+        const points = stats.map((val, i) => {
+            const angle = (Math.PI / 3) * i - (Math.PI / 2); // 12시 방향부터 시작
+            const radius = (val / 100) * maxRadius;
+            const x = centerX + radius * Math.cos(angle);
+            const y = centerY + radius * Math.sin(angle);
+            return `${x},${y}`;
+        }).join(' ');
+
+        // SVG 속성 업데이트 (CSS transition에 의해 애니메이션됨)
+        polygon.setAttribute('points', points);
+    };
+
+    /**
+     * 내비게이션 스타일 업데이트
      */
     const updateNavState = (activeId) => {
         ui.navItems.forEach(item => {
             const target = item.dataset.target;
             if (target === activeId) {
                 item.classList.add('p3r-nav__item--active');
-                item.style.color = 'var(--p3r-cyan)'; // JS에서 직접 제어하거나 CSS 클래스로 위임
             } else {
                 item.classList.remove('p3r-nav__item--active');
-                item.style.color = ''; // 초기화
             }
         });
     };
 
     /**
-     * 날짜 초기화 (현재 날짜 기준)
+     * 날짜 초기화
      */
     const initDate = () => {
         const today = new Date();
-        // 포맷: 2026 / 02 / 18
         const formattedDate = `${today.getFullYear()} / ${String(today.getMonth() + 1).padStart(2, '0')} / ${String(today.getDate()).padStart(2, '0')}`;
         ui.dateDisplay.textContent = formattedDate;
     };
 
     // --- [4] Event Listeners ---
 
-    // 내비게이션 클릭 이벤트
     ui.navItems.forEach(item => {
         item.addEventListener('click', (e) => {
             const target = e.target.dataset.target;
@@ -155,18 +215,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 브라우저 뒤로가기/앞으로가기 감지
     window.addEventListener('popstate', () => {
         const target = window.location.hash.replace('#', '') || 'status';
-        // 직접 render를 부르지 않고 navigate를 통해 애니메이션 효과 유지
-        // 단, 무한 루프 방지를 위해 hash 변경 로직은 navigate 안에서 체크
         startTransition(target);
     });
 
     // --- [5] Initialization ---
     initDate();
-    
-    // 초기 로드 시 해시 확인 또는 기본값 설정
     const initialTarget = window.location.hash.replace('#', '') || 'status';
     navigate(initialTarget);
 });
