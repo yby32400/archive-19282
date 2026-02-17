@@ -3,176 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ase's World</title>
-    <link href="https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=DungGeunMo&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <title>P3R: Moonlight Link</title>
+    <link rel="stylesheet" href="../../assets/fonts/suit.css"> 
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <div class="noise-overlay"></div>
-
-    <div class="marquee-container">
-        <div class="marquee-content">
-            Welcome to Ase's World ✦ HTML/CSS Designing ✦ 2026 Resignation Loading... ✦ Today's Mood: 🍰 ✦
-        </div>
-        <div class="marquee-content">
-            Welcome to Ase's World ✦ HTML/CSS Designing ✦ 2026 Resignation Loading... ✦ Today's Mood: 🍰 ✦
-        </div>
-    </div>
-
-    <header>
-        <div class="logo-group" onclick="goHome()" style="cursor: pointer; display:flex; align-items:center; gap:10px;">
-            <div class="logo">ASE.LOG</div>
-            <div style="font-size:20px; opacity:0.7;">🏠</div>
-        </div>
+    <main class="p3r-wrapper">
         
-        <div style="display:flex; align-items:center;">
-            <div style="font-size: 14px; font-weight: bold; color: white; opacity: 0.8; margin-right:15px;" class="mobile-hide">
-                2026 ARCHIVE
+        <div class="p3r-stage p3r-stage--main">
+            <div class="p3r-stage__bg"></div>
+            <div class="p3r-stage__particles"></div> </div>
+
+        <div class="p3r-character">
             </div>
-            <button class="theme-toggle" onclick="toggleTheme()">🌙 Dark</button>
-        </div>
-    </header>
 
-    <main id="main-container">
-        
-<div id="home-view" class="hidden-view"> <div class="dashboard-container">
+        <nav class="p3r-nav">
+            <ul class="p3r-nav__list">
+                <li class="p3r-nav__item" data-target="status">STATUS</li>
+                <li class="p3r-nav__item" data-target="calendar">CALENDAR</li>
+                <li class="p3r-nav__item" data-target="commu">COMMU</li>
+                <li class="p3r-nav__item" data-target="equip">EQUIP</li>
+                <li class="p3r-nav__item" data-target="skill">SKILL</li>
+            </ul>
+        </nav>
 
-
-                <div class="dashboard-left">
-                    <div class="bento-item item-wide notice-box" style="align-items: flex-start; text-align: left;">
-                        <h3>📢 NOTICE <span style="font-size:12px; color:#888; font-weight:normal; margin-left:10px;">26.01.24</span></h3>
-                        <ul style="padding-left: 20px; line-height: 1.8;">
-                            <li>🚧 <b>2026.01.24</b> 홈 리뉴얼 공사 중!</li>
-                            <li>🍣 3월 일본 여행 준비 중</li>
-                            <li>🙋‍♀️ 서로이웃, 반모 환영합니다</li>
-                        </ul>
-                    </div>
-
-                    <div class="bento-item item-double dday-box" onclick="alert('3월 14일, 도쿄로 떠납니다! ✈️')">
-                        <div style="text-align: left;">
-                            <h3 style="color:white; font-size: 1.5rem;">Japan Trip</h3>
-                            <p style="color:rgba(255,255,255,0.9);">2026.03.14</p>
-                        </div>
-                        <div id="d-day-count" style="font-size: 40px; font-weight: 800; text-shadow: 2px 2px 10px rgba(0,0,0,0.2);">D-??</div>
-                    </div>
-
-                    <div class="bento-item" onclick="window.open('https://twitter.com')">
-                        <img src="https://placehold.co/60x60/1DA1F2/fff?text=TWT" class="bento-custom-icon" alt="Twitter">
-                        <h3>Twitter</h3>
-                        <p>@My_Account</p>
-                    </div>
-
-<div class="bento-item" onclick="renderGallery()"> <img src="https://placehold.co/60x60/FFB86C/fff?text=CAM" class="bento-custom-icon" alt="Photo">
-    <h3>Photo</h3> <p>My Moments</p>
-</div>
-
-<div class="bento-item" onclick="renderDiaryList()">
-    <img src="https://placehold.co/60x60/A18CD1/fff?text=LOG" class="bento-custom-icon" alt="Diary">
-    <h3>Diary</h3>
-    <p>Daily Log</p>
-</div>
-                    <div class="bento-item" onclick="openGuestbook()">
-                        <img src="https://placehold.co/60x60/FF7EB3/fff?text=MSG" class="bento-custom-icon" alt="Guestbook">
-                        <h3>Guestbook</h3>
-                        <p>Message</p>
-                    </div>
-                </div> 
-
-                <div class="dashboard-right">
-                    <div class="sidebar-card love-card-taemin">
-                        <div class="love-title">LOVING TAEMIN 🧀</div>
-                        <div id="love-day-1" class="love-count">...</div>
-                    </div>
-
-                    <div class="sidebar-card love-card-soo">
-                        <div class="love-title">LOVING S.O.O 🎸</div>
-                        <div id="love-day-2" class="love-count">...</div>
-                    </div>
-
-                    <div class="sidebar-card">
-                        <h4 class="neighbor-title">NEIGHBORS</h4>
-                        <div class="banner-grid">
-                            <a href="https://zerozero00.ivyro.net" target="_blank">
-                                <img src="https://zerozero00.ivyro.net/img/banner.png" alt="이웃">
-                            </a>
-                            <a href="#"><img src="https://placehold.co/88x31/ddd/888?text=EMPTY"></a>
-                            <a href="#"><img src="https://placehold.co/88x31/ddd/888?text=EMPTY"></a>
-                        </div>
-                    </div>
+        <section class="p3r-hud">
+            <div class="p3r-hud__header">
+                <span class="p3r-hud__date">2026 / 02 / 18</span>
+                <span class="p3r-hud__moon">Moon Phase</span>
+            </div>
+            
+            <div id="app-content" class="p3r-content">
                 </div>
-            </div>
-        </div>
+        </section>
 
-<div id="post-view" style="display: none;">
-    <div id="markdown-content"></div>
-</div>
-        </div>
-<div id="comment-section" style="max-width:800px; margin:0 auto 50px; padding:20px; display:none;">
-    <div class="btn-back" onclick="goHome()" style="display:inline-block; margin-bottom:20px;">⬅ Back to Home</div>
-        <h3 style="text-align:center; color:#444; margin-bottom:20px;">Guestbook 💬</h3>
-        <div style="text-align: center;">
-            <iframe src="https://www3.cbox.ws/box/?boxid=3551758&boxtag=W324Pg" width="100%" height="450" allowtransparency="yes" allow="autoplay" frameborder="0" marginheight="0" marginwidth="0" scrolling="auto"></iframe>	
-        </div>
-    </div>
+        <div class="p3r-fx__slash"></div>
 
-    <div class="btn-top" onclick="window.scrollTo({top:0, behavior:'smooth'})">⬆</div>
-    <div class="bgm-player" onclick="toggleMusic()">
-        <div class="disk-icon">💿</div>
-        <div style="font-size:12px; font-weight:bold;">OPEN PLAYER</div>
-        <audio id="bgm" loop><source src="images/music.mp3" type="audio/mp3"></audio>
-    </div>
+    </main>
 
-    <div id="retro-player-popup" style="display: none;">
-        <div class="player-header" id="player-drag-handle">
-            <div class="player-title">
-                <span>📼</span> <span>ASE.PLAYER</span>
-            </div>
-            <div class="player-close-btn" onclick="closePlayer()">×</div>
-        </div>
-
-        <div class="player-screen-container">
-            <div class="player-screen" id="player-screen-bg">
-                <div class="screen-header">
-                    <span>STEREO</span> <span>128kbps</span>
-                </div>
-                <div class="track-info">
-                    <marquee scrollamount="4" id="player-track-title">READY...</marquee>
-                </div>
-                <div class="screen-footer">
-                    <span id="play-time">00:00</span>
-                </div>
-            </div>
-            <div class="scanline"></div>
-        </div>
-
-        <div class="player-controls">
-            <div class="player-status-bar">
-                <span class="volume-label">VOL</span>
-                <input type="range" class="retro-slider" min="0" max="1" step="0.1" value="0.5" oninput="setVolume(this.value)">
-            </div>
-            <div class="player-buttons">
-                <button class="win-btn" onclick="prevSong()">⏮</button>
-                <button class="win-btn" onclick="playRetro()">▶</button>
-                <button class="win-btn" onclick="pauseRetro()">⏸</button>
-                <button class="win-btn" onclick="stopRetro()">⏹</button>
-                <button class="win-btn" onclick="nextSong()">⏭</button>
-            </div>
-        </div>
-
-        <div class="player-playlist-container">
-            <div class="player-playlist" id="playlist-container"></div>
-        </div>
-    </div> 
-<script src="data.js"></script>
     <script src="script.js"></script>
 </body>
-
 </html>
-
-
-
-
-
