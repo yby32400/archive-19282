@@ -1,4 +1,6 @@
-/* P3R Design System v1.0 */
+/* P3R: Moonlight Link - Design System v1.0 */
+/* File: style.css */
+
 :root {
     /* Colors */
     --p3r-blue: #0051FF;       /* 시그니처 딥 블루 */
@@ -22,7 +24,7 @@
     --p3r-z-fx: 100;
 }
 
-/* Reset & Base */
+/* --- Base Reset & Layout --- */
 * {
     margin: 0;
     padding: 0;
@@ -33,12 +35,11 @@ body {
     background-color: var(--p3r-bg);
     font-family: var(--font-main);
     color: var(--p3r-white);
-    overflow: hidden; /* 전체 화면 고정 */
+    overflow: hidden;
     width: 100vw;
     height: 100vh;
 }
 
-/* Wrapper */
 .p3r-wrapper {
     position: relative;
     width: 100%;
@@ -46,7 +47,7 @@ body {
     background: radial-gradient(circle at center, #001040 0%, var(--p3r-bg) 80%);
 }
 
-/* Navigation (Example Implementation of Skew & Slash) */
+/* --- Navigation --- */
 .p3r-nav {
     position: absolute;
     left: 5%;
@@ -65,9 +66,9 @@ body {
 .p3r-nav__item {
     font-size: 2rem;
     font-weight: 900;
-    letter-spacing: -0.05em; /* 좁은 자간 */
+    letter-spacing: -0.05em;
     color: var(--p3r-blue);
-    transform: skewX(var(--p3r-skew)); /* 기울기 적용 */
+    transform: skewX(var(--p3r-skew));
     transition: all 0.3s ease;
     cursor: pointer;
     text-shadow: 0 0 10px rgba(0, 81, 255, 0.5);
@@ -77,10 +78,48 @@ body {
 .p3r-nav__item--active {
     color: var(--p3r-cyan);
     padding-left: 20px;
-    text-shadow: 0 0 20px var(--p3r-cyan); /* 광원 효과 증폭 */
+    text-shadow: 0 0 20px var(--p3r-cyan);
 }
 
-/* Slash FX Layer (숨김 상태 기본) */
+/* --- HUD (Head Up Display) --- */
+.p3r-hud {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: var(--p3r-z-hud);
+    pointer-events: none; /* 클릭 통과 */
+}
+
+.p3r-hud__header {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    transform: skewX(var(--p3r-skew));
+}
+
+.p3r-hud__date {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--p3r-white);
+    text-shadow: 0 0 10px var(--p3r-blue);
+}
+
+.p3r-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: auto; /* 콘텐츠는 클릭 가능 */
+    z-index: var(--p3r-z-hud);
+}
+
+/* --- FX: Slash Transition --- */
 .p3r-fx__slash {
     position: absolute;
     top: 0;
@@ -95,12 +134,6 @@ body {
     opacity: 0;
 }
 
-
-
-/* --- Animation & Transitions (Added for script.js) --- */
-
-/* 1. Slash Transition Keyframes */
-/* 화면 왼쪽 밖에서 오른쪽 밖으로 대각선으로 빠르게 지나감 */
 @keyframes slashMove {
     0% {
         transform: translateX(-120%) skewX(var(--p3r-skew));
@@ -110,7 +143,6 @@ body {
         opacity: 1;
     }
     45% {
-        /* 화면을 완전히 덮는 순간 (콘텐츠 교체 타이밍) */
         transform: translateX(-10%) skewX(var(--p3r-skew));
     }
     55% {
@@ -122,14 +154,11 @@ body {
     }
 }
 
-/* JS에서 .is-active 클래스를 붙이면 애니메이션 실행 */
 .p3r-fx__slash.is-active {
     animation: slashMove 0.7s cubic-bezier(0.65, 0, 0.35, 1) forwards;
-    /* P3R 특유의 빠르고 날카로운 베기 느낌을 위한 cubic-bezier */
 }
 
-/* 2. Content Fade In */
-/* 콘텐츠가 바뀔 때 살짝 떠오르는 효과 */
+/* --- FX: Content Fade In --- */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -145,14 +174,13 @@ body {
     animation: fadeInUp 0.5s ease-out forwards;
 }
 
-/* 3. Section Typography */
-/* 임시 콘텐츠 스타일링 */
+/* --- Section: Common --- */
 .p3r-section__title {
     font-size: 4rem;
     font-weight: 900;
     font-style: italic;
     color: var(--p3r-cyan);
-    margin-bottom: 1rem;
+    margin: 2rem;
     text-shadow: 0 0 20px rgba(0, 209, 255, 0.4);
     transform: skewX(var(--p3r-skew));
 }
@@ -160,13 +188,13 @@ body {
 .p3r-section__desc {
     font-size: 1.2rem;
     color: var(--p3r-white);
-    background: rgba(0, 5, 26, 0.7); /* 가독성 확보 */
+    margin-left: 2rem;
     padding: 1rem;
     border-left: 4px solid var(--p3r-blue);
+    display: inline-block;
 }
 
-/* --- STATUS SECTION STYLES --- */
-
+/* --- Section: STATUS Specific --- */
 .p3r-status {
     display: flex;
     justify-content: space-between;
@@ -174,10 +202,10 @@ body {
     width: 100%;
     height: 100%;
     padding: 2rem;
-    padding-left: 15vw; /* 내비게이션 공간 확보 */
+    padding-left: 15vw;
 }
 
-/* 1. Left Profile Panel */
+/* Status: Profile (Left) */
 .p3r-status__profile {
     flex: 1;
     display: flex;
@@ -207,7 +235,6 @@ body {
     color: var(--p3r-cyan);
 }
 
-/* Stats Rows (LV, HP, SP) */
 .p3r-status__details {
     display: flex;
     flex-direction: column;
@@ -222,8 +249,7 @@ body {
     display: flex;
     align-items: center;
     gap: 1rem;
-    /* 텍스트 역방향 skew로 가독성 확보 */
-    transform: skewX(15deg); 
+    transform: skewX(15deg); /* 텍스트 역방향 skew */
 }
 
 .stat-row .label {
@@ -233,7 +259,7 @@ body {
 }
 
 .stat-row .value {
-    font-family: monospace; /* 숫자 전용 폰트 권장 */
+    font-family: monospace;
     font-size: 1.2rem;
 }
 
@@ -243,7 +269,6 @@ body {
     text-shadow: 0 0 10px var(--p3r-white);
 }
 
-/* HP/SP Bars */
 .bar-container {
     flex-grow: 1;
     height: 8px;
@@ -266,7 +291,7 @@ body {
     to { transform: scaleX(1); }
 }
 
-/* 2. Right Chart Wrapper */
+/* Status: Chart (Right) */
 .p3r-status__chart-wrapper {
     flex: 1;
     display: flex;
@@ -282,24 +307,20 @@ body {
     filter: drop-shadow(0 0 10px var(--p3r-blue));
 }
 
-/* Background Hexagons */
 .chart-bg {
     fill: none;
     stroke: rgba(255, 255, 255, 0.1);
     stroke-width: 1;
 }
 
-/* Data Polygon */
 .chart-data {
     fill: rgba(0, 209, 255, 0.3);
     stroke: var(--p3r-cyan);
     stroke-width: 2;
     stroke-linejoin: round;
-    /* 초기 상태: 중앙에 모여있음 (JS에서 points 주입 시 애니메이션 됨) */
     transition: all 1s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Chart Labels */
 .chart-label {
     fill: var(--p3r-white);
     font-size: 10px;
