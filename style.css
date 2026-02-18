@@ -1,20 +1,23 @@
-/* P3R Design System v1.0 */
+/* * [P3R: Moonlight Link] Integrated Design System v1.2
+ * Core: Underwater Mood, Slash UI, Status & Calendar 
+ */
+
 :root {
     /* Colors */
     --p3r-blue: #0051FF;       /* 시그니처 딥 블루 */
-    --p3r-cyan: #00D1FF;       /* 강조 및 광원 효과 */
+    --p3r-cyan: #00D1FF;       /* 강조 및 광원 효과색 */
     --p3r-bg: #00051A;         /* 배경용 딥 네이비 */
     --p3r-white: #FFFFFF;      /* 순백색 (중첩 발광용) */
 
     /* FX & Layout */
-    --p3r-blend: screen;       /* 블렌딩 모드 */
+    --p3r-blend: screen;       /* 레이어 중첩 시 발광 효과 */
     --p3r-glass: blur(20px);   /* 유리틀 효과 */
-    --p3r-skew: -15deg;        /* 공통 기울기 */
+    --p3r-skew: -15deg;        /* P3R 전용 메뉴/박스 기울기 */
     
     /* Typography */
     --font-main: 'SUIT', sans-serif;
 
-    /* Z-Index Hierarchy */
+    /* Z-Index Hierarchy (Manual v1.0 기준) */
     --p3r-z-bg: 10;
     --p3r-z-character: 20;
     --p3r-z-nav: 40;
@@ -22,7 +25,7 @@
     --p3r-z-fx: 100;
 }
 
-/* Reset & Base */
+/* --- [1] Base Reset & Layout --- */
 * {
     margin: 0;
     padding: 0;
@@ -33,23 +36,63 @@ body {
     background-color: var(--p3r-bg);
     font-family: var(--font-main);
     color: var(--p3r-white);
-    overflow: hidden; /* 전체 화면 고정 */
+    overflow: hidden;
     width: 100vw;
     height: 100vh;
 }
 
-/* Wrapper */
 .p3r-wrapper {
     position: relative;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at center, #001040 0%, var(--p3r-bg) 80%);
+    /* 수중 무드를 위한 기본 그라데이션 */
+    background: radial-gradient(circle at center, #001040 0%, var(--p3r-bg) 100%);
 }
 
-/* Navigation (Example Implementation of Skew & Slash) */
+/* --- [2] Global FX: Underwater Atmosphere --- */
+.p3r-stage__bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% -20%, #0026ff 0%, transparent 70%);
+    z-index: var(--p3r-z-bg);
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.p3r-stage__particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: calc(var(--p3r-z-bg) + 1);
+    pointer-events: none;
+}
+
+/* Bubbles (JS에서 생성) */
+.bubble {
+    position: absolute;
+    bottom: -20px;
+    background: rgba(0, 209, 255, 0.2);
+    border-radius: 50%;
+    filter: blur(1px);
+    box-shadow: 0 0 10px rgba(0, 209, 255, 0.1);
+    animation: bubbleRise 15s infinite ease-in;
+}
+
+@keyframes bubbleRise {
+    0% { transform: translateY(0) translateX(0); opacity: 0; }
+    20% { opacity: 0.4; }
+    100% { transform: translateY(-110vh) translateX(50px); opacity: 0; }
+}
+
+/* --- [3] Navigation --- */
 .p3r-nav {
     position: absolute;
-    left: 5%;
+    left: 4%;
     top: 50%;
     transform: translateY(-50%);
     z-index: var(--p3r-z-nav);
@@ -59,107 +102,189 @@ body {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.2rem;
 }
 
 .p3r-nav__item {
-    font-size: 2rem;
+    font-size: 2.2rem;
     font-weight: 900;
-    letter-spacing: -0.05em; /* 좁은 자간 */
+    letter-spacing: -0.05em;
     color: var(--p3r-blue);
-    transform: skewX(var(--p3r-skew)); /* 기울기 적용 */
-    transition: all 0.3s ease;
+    transform: skewX(var(--p3r-skew));
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     cursor: pointer;
-    text-shadow: 0 0 10px rgba(0, 81, 255, 0.5);
+    text-shadow: 0 0 8px rgba(0, 81, 255, 0.4);
+    user-select: none;
 }
 
 .p3r-nav__item:hover,
 .p3r-nav__item--active {
     color: var(--p3r-cyan);
-    padding-left: 20px;
-    text-shadow: 0 0 20px var(--p3r-cyan); /* 광원 효과 증폭 */
+    padding-left: 25px;
+    text-shadow: 0 0 20px var(--p3r-cyan), 0 0 40px rgba(0, 209, 255, 0.4);
 }
 
-/* Slash FX Layer (숨김 상태 기본) */
+/* --- [4] HUD & Transitions --- */
+.p3r-hud__header {
+    position: absolute;
+    top: 3rem;
+    right: 4rem;
+    z-index: var(--p3r-z-hud);
+    text-align: right;
+    transform: skewX(var(--p3r-skew));
+}
+
+.p3r-hud__date {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--p3r-white);
+    text-shadow: 0 0 15px var(--p3r-blue);
+}
+
+.p3r-content {
+    width: 100%;
+    height: 100%;
+    z-index: var(--p3r-z-hud);
+}
+
+/* Slash Transition FX */
 .p3r-fx__slash {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 120%;
     height: 100%;
     background: var(--p3r-cyan);
     z-index: var(--p3r-z-fx);
-    transform: translateX(-100%) skewX(var(--p3r-skew));
+    transform: translateX(-120%) skewX(var(--p3r-skew));
     pointer-events: none;
     mix-blend-mode: var(--p3r-blend);
-    opacity: 0;
 }
 
-/* --- Animation & Transitions (Added for script.js) --- */
-
-/* 1. Slash Transition Keyframes */
-/* 화면 왼쪽 밖에서 오른쪽 밖으로 대각선으로 빠르게 지나감 */
 @keyframes slashMove {
-    0% {
-        transform: translateX(-120%) skewX(var(--p3r-skew));
-        opacity: 0;
-    }
-    10% {
-        opacity: 1;
-    }
-    45% {
-        /* 화면을 완전히 덮는 순간 (콘텐츠 교체 타이밍) */
-        transform: translateX(-10%) skewX(var(--p3r-skew));
-    }
-    55% {
-        transform: translateX(10%) skewX(var(--p3r-skew));
-    }
-    100% {
-        transform: translateX(120%) skewX(var(--p3r-skew));
-        opacity: 1;
-    }
+    0% { transform: translateX(-120%) skewX(var(--p3r-skew)); opacity: 1; }
+    40%, 60% { transform: translateX(-10%) skewX(var(--p3r-skew)); opacity: 1; }
+    100% { transform: translateX(120%) skewX(var(--p3r-skew)); opacity: 1; }
 }
 
-/* JS에서 .is-active 클래스를 붙이면 애니메이션 실행 */
 .p3r-fx__slash.is-active {
-    animation: slashMove 0.7s cubic-bezier(0.65, 0, 0.35, 1) forwards;
-    /* P3R 특유의 빠르고 날카로운 베기 느낌을 위한 cubic-bezier */
+    animation: slashMove 0.7s cubic-bezier(0.77, 0, 0.175, 1) forwards;
 }
 
-/* 2. Content Fade In */
-/* 콘텐츠가 바뀔 때 살짝 떠오르는 효과 */
+.fade-in {
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-.p3r-content.fade-in {
-    animation: fadeInUp 0.5s ease-out forwards;
+/* --- [5] Section: STATUS --- */
+.p3r-status {
+    display: flex;
+    padding: 0 10% 0 20%;
+    height: 100%;
+    align-items: center;
+    gap: 5%;
 }
 
-/* 3. Section Typography */
-/* 임시 콘텐츠 스타일링 */
-.p3r-section__title {
-    font-size: 4rem;
+.p3r-status__profile { flex: 1; }
+.p3r-status__name .value {
+    font-size: 5rem;
     font-weight: 900;
-    font-style: italic;
-    color: var(--p3r-cyan);
-    margin-bottom: 1rem;
-    text-shadow: 0 0 20px rgba(0, 209, 255, 0.4);
+    transform: skewX(var(--p3r-skew));
+    text-shadow: 0 0 20px var(--p3r-blue);
+}
+.p3r-status__name .sub { color: var(--p3r-cyan); font-weight: 300; }
+
+.p3r-status__details {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: linear-gradient(90deg, rgba(0, 81, 255, 0.2), transparent);
+    border-left: 5px solid var(--p3r-cyan);
     transform: skewX(var(--p3r-skew));
 }
 
-.p3r-section__desc {
-    font-size: 1.2rem;
-    color: var(--p3r-white);
-    background: rgba(0, 5, 26, 0.7); /* 가독성 확보 */
-    padding: 1rem;
-    border-left: 4px solid var(--p3r-blue);
+.stat-row { transform: skewX(15deg); display: flex; align-items: center; gap: 15px; margin-bottom: 10px; }
+.stat-row .label { font-weight: 900; color: var(--p3r-cyan); width: 40px; }
+.bar-container { flex: 1; height: 10px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); }
+.bar-fill { height: 100%; background: var(--p3r-cyan); box-shadow: 0 0 15px var(--p3r-cyan); transform-origin: left; animation: fillBar 1.5s ease-out; }
+
+@keyframes fillBar { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* Radar Chart */
+.p3r-status__chart-wrapper { flex: 1; display: flex; justify-content: center; }
+.p3r-chart { width: 450px; height: 450px; overflow: visible; filter: drop-shadow(0 0 15px var(--p3r-blue)); }
+.chart-bg { fill: none; stroke: rgba(255, 255, 255, 0.1); stroke-width: 1; }
+.chart-data { 
+    fill: rgba(0, 209, 255, 0.3); 
+    stroke: var(--p3r-cyan); 
+    stroke-width: 3; 
+    transition: all 1s cubic-bezier(0.19, 1, 0.22, 1); 
+}
+.chart-label { fill: rgba(255,255,255,0.7); font-size: 10px; font-weight: 900; text-anchor: middle; }
+
+/* --- [6] Section: CALENDAR --- */
+.p3r-calendar {
+    display: flex;
+    padding: 0 10% 0 15%;
+    height: 100%;
+    align-items: center;
+    gap: 10%;
 }
 
+.p3r-calendar__moon-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.moon-container {
+    width: 280px;
+    height: 280px;
+    background: #fdfae5;
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 0 60px rgba(253, 250, 229, 0.3), inset -20px -20px 50px rgba(0,0,0,0.2);
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+.moon-shadow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: var(--p3r-bg);
+    border-radius: 50%;
+    filter: blur(15px);
+    transition: transform 1.5s ease-in-out;
+}
+
+.moon-phase-text { font-size: 3.5rem; font-weight: 900; text-shadow: 0 0 20px var(--p3r-cyan); }
+
+.p3r-calendar__schedule {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.schedule-item {
+    padding: 1.2rem;
+    background: rgba(0, 81, 255, 0.1);
+    border: 1px solid rgba(255,255,255,0.1);
+    transform: skewX(var(--p3r-skew));
+    display: flex;
+    gap: 20px;
+    transition: 0.3s;
+}
+
+.schedule-item.active {
+    background: rgba(0, 209, 255, 0.2);
+    border-color: var(--p3r-cyan);
+    padding-left: 2rem;
+}
+
+.schedule-item .date { color: var(--p3r-cyan); font-weight: 900; font-size: 1.2rem; }
