@@ -1,85 +1,12 @@
-:root {
-    --primary-color: #3c0d3a;
-    --secondary-color: #ff6f61;
-    --background-color: #ffffff;
-    --font-family: 'Poppins', sans-serif;
-    --font-size: 16px;
-    --header-height: 60px;
-    --transition-speed: 0.3s;
+/* Content from commit 4e605ec000605f5c1e232e56b6b49ce7643f0210 */
+
+body {
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
 }
 
-/* Navigation styles */
-nav {
-    background-color: var(--primary-color);
-    height: var(--header-height);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
+h1 {
+    color: #333;
 }
 
-nav a {
-    color: #ffffff;
-    text-decoration: none;
-    transition: color var(--transition-speed);
-}
-
-nav a:hover {
-    color: var(--secondary-color);
-}
-
-/* HUD styles */
-hud {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-}
-
-/* Transitions */
-.transition {
-    transition: all var(--transition-speed);
-}
-
-/* Sections */
-.section {
-    padding: 20px;
-    background-color: var(--background-color);
-}
-
-/* Status Display */
-.status {
-    font-weight: bold;
-    color: var(--secondary-color);
-}
-
-/* Charts */
-.chart {
-    position: relative;
-    height: 300px;
-    background-color: var(--background-color);
-}
-
-/* Underwater Atmosphere Effects */
-.underwater {
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7));
-}
-
-/* Bubbles Animation */
-.bubble {
-    position: absolute;
-    bottom: 0;
-    background-color: #e0f7fa;
-    border-radius: 50%;
-    animation: bubble-up 5s infinite;
-}
-
-@keyframes bubble-up {
-    0% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(-100px);
-        opacity: 0;
-    }
-}
+/* Add more styles as needed */
