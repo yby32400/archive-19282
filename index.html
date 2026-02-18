@@ -6,40 +6,35 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- =====================
-         SPA 컨테이너
-         ===================== -->
     <div class="p3r-stage">
-        
-        <!-- 1. 수중 배경 레이어 -->
+
+        <!-- 배경 레이어 (수중/빛 겹침) -->
         <div class="p3r-bg-layer"></div>
         <div class="p3r-bg-layer p3r-bg-layer--alt"></div>
 
-        <!-- 2. HUD / 정보창 -->
+        <!-- HUD -->
         <div class="p3r-hud">
             <div class="p3r-hud__label">NAME</div>
             <div class="p3r-hud__value">아쿠아</div>
-
             <div class="p3r-hud__label">BIRTH</div>
             <div class="p3r-hud__value">07.16</div>
-
             <div class="p3r-hud__label">HEIGHT</div>
             <div class="p3r-hud__value">168cm</div>
         </div>
 
-        <!-- 3. SPA 콘텐츠 영역 -->
+        <!-- SPA 콘텐츠 영역 -->
         <div class="p3r-content">
-            <!-- 각 섹션(status, equip, skill) JS로 교체 -->
+            <!-- JS로 status/equip/skill 교체 -->
         </div>
 
-        <!-- 4. 내비게이션 메뉴 -->
+        <!-- 내비게이션 -->
         <div class="p3r-nav">
             <div class="p3r-nav__item p3r-nav__item--active" data-section="status">STATUS</div>
             <div class="p3r-nav__item" data-section="equip">EQUIP</div>
             <div class="p3r-nav__item" data-section="skill">SKILL</div>
         </div>
 
-        <!-- 5. FX 레이어 (Slash / Cut-in 효과) -->
+        <!-- FX 레이어 (Slash, Cut-in 등) -->
         <div class="p3r-fx"></div>
     </div>
 
