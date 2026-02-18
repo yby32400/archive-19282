@@ -408,3 +408,23 @@ body {
     transform: skewX(-15deg) scale(1.1) translateX(-30px);
     text-shadow: 0 0 30px var(--p3r-blue), 8px 8px 0px #000;
 }
+
+
+.p3r-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--p3r-bg); /* 딥 네이비 */
+}
+
+.p3r-stage {
+    flex: 1.2;
+    height: 100vh;
+    /* 캐릭터 뒤에 파란 빛줄기 중첩 */
+    background: radial-gradient(circle at 30% 50%, var(--p3r-blue) 0%, transparent 70%);
+}
+
+.p3r-nav {
+    flex: 0.8;
+    padding-right: 50px; /* 오른쪽 끝 여백 */
+}
