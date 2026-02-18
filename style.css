@@ -372,3 +372,39 @@ body {
     opacity: 0.5;
     pointer-events: none;
 }
+
+
+/* archive/p3r-dream/style.css */
+
+.p3r-nav__item {
+    /* 1. 크기와 두께: 화면의 절반 가까이를 차지할 만큼 크게 */
+    font-family: var(--font-main); /* 'SUIT' */
+    font-size: 7rem;             /* 기존보다 훨씬 키운 사이즈 */
+    font-weight: 900;            /* 가장 두꺼운 Black 웨이트 */
+    
+    /* 2. 밀도 조절: 글자 사이 간격을 확 줄여서 덩어리감을 줌 */
+    letter-spacing: -6px; 
+    line-height: 0.85;           /* 줄 간격을 좁혀서 메뉴끼리 붙어 보이게 함 */
+    
+    /* 3. P3R 특유의 역동성: 기울기와 이탈릭 */
+    font-style: italic;
+    transform: skewX(-15deg);    /* 왼쪽으로 확 누운 느낌 */
+    
+    /* 4. 색상 및 효과 */
+    color: var(--p3r-cyan);      /* P3R 시그니처 시안 */
+    text-transform: uppercase;
+    text-align: right;
+    transition: var(--p3r-trans); /* 0.4s */
+    
+    /* 글자 뒤에 묵직한 그림자를 넣어 입체감 부여 */
+    text-shadow: 8px 8px 0px rgba(0, 5, 26, 0.8); 
+    cursor: pointer;
+}
+
+/* 활성화 및 호버 시: 더 크게 튀어나오며 발광 */
+.p3r-nav__item--active,
+.p3r-nav__item:hover {
+    color: var(--p3r-white);     /* 흰색 발광 */
+    transform: skewX(-15deg) scale(1.1) translateX(-30px);
+    text-shadow: 0 0 30px var(--p3r-blue), 8px 8px 0px #000;
+}
