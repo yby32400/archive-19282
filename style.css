@@ -288,3 +288,87 @@ body {
 }
 
 .schedule-item .date { color: var(--p3r-cyan); font-weight: 900; font-size: 1.2rem; }
+
+
+/* archive/p3r-dream/style.css */
+
+.p3r-container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--p3r-bg);
+    overflow: hidden;
+    position: relative;
+}
+
+/* 좌측: 캐릭터 공간 */
+.p3r-stage {
+    flex: 1.2; /* 캐릭터가 보일 공간을 더 넓게 설정 */
+    position: relative;
+    display: flex;
+    align-items: flex-end; /* 캐릭터가 바닥에 서 있는 느낌 */
+    padding-left: 5%;
+}
+
+.p3r-stage__character {
+    width: 100%;
+    height: 100%;
+    z-index: var(--p3r-z-character);
+}
+
+.p3r-stage__character-img {
+    height: 110%; /* 화면 밖으로 살짝 나가는 연출 */
+    object-fit: contain;
+    filter: drop-shadow(0 0 30px var(--p3r-blue));
+}
+
+/* 우측: 메인 메뉴 영역 */
+.p3r-nav {
+    flex: 0.8;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end; /* 오른쪽 정렬 */
+    padding-right: 8%;
+    z-index: var(--p3r-z-nav);
+}
+
+.p3r-nav__list {
+    list-style: none;
+    text-align: right;
+}
+
+.p3r-nav__item {
+    font-family: var(--font-main);
+    font-size: 5.5rem; /* 압도적인 크기 */
+    font-weight: 900;    /* 가장 두꺼운 볼드 */
+    line-height: 1.1;
+    letter-spacing: -4px; /* 자간을 좁혀 밀도감 상승 */
+    color: var(--p3r-cyan);
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: var(--p3r-trans);
+    text-transform: uppercase;
+    font-style: italic; /* 기울임꼴로 역동성 추가 */
+    
+    /* P3R 특유의 그림자 효과 */
+    text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.5);
+}
+
+/* 활성화/호버 상태: 흰색 발광 */
+.p3r-nav__item--active,
+.p3r-nav__item:hover {
+    color: var(--p3r-white);
+    transform: scale(1.15) translateX(-20px); /* 왼쪽으로 튀어나오는 연출 */
+    text-shadow: 0 0 20px var(--p3r-blue), 4px 4px 0px #000;
+}
+
+/* 배경 광원 효과 중첩 */
+.p3r-stage__ray {
+    position: absolute;
+    background: var(--p3r-blue);
+    filter: blur(100px);
+    mix-blend-mode: var(--p3r-blend);
+    opacity: 0.5;
+    pointer-events: none;
+}
