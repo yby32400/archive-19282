@@ -2,30 +2,46 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>P3R Moonlight Link - Main Menu</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P3R: Moonlight Link</title>
+    <link rel="stylesheet" href="../../assets/fonts/suit.css"> 
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="p3r-stage">
 
-        <!-- 배경 레이어 -->
-        <div class="p3r-bg-layer"></div>
-        <div class="p3r-bg-layer p3r-bg-layer--alt"></div>
+    <main class="p3r-wrapper">
+        
+        <div class="p3r-stage p3r-stage--main">
+            <div class="p3r-stage__bg"></div>
+            <div class="p3r-stage__particles"></div> </div>
 
-        <!-- HUD (메뉴 화면에서는 생략 가능) -->
-        <!-- <div class="p3r-hud">...</div> -->
+        <div class="p3r-character">
+            </div>
 
-        <!-- 메뉴 버튼 영역 -->
-        <div class="p3r-nav p3r-main-menu">
-            <div class="p3r-nav__item" data-section="status">STATUS</div>
-            <div class="p3r-nav__item" data-section="equip">EQUIP</div>
-            <div class="p3r-nav__item" data-section="skill">SKILL</div>
-            <div class="p3r-nav__item" data-section="commu">COMMU</div>
-            <div class="p3r-nav__item" data-section="calendar">CALENDAR</div>
-        </div>
+        <nav class="p3r-nav">
+            <ul class="p3r-nav__list">
+                <li class="p3r-nav__item" data-target="status">STATUS</li>
+                <li class="p3r-nav__item" data-target="calendar">CALENDAR</li>
+                <li class="p3r-nav__item" data-target="commu">COMMU</li>
+                <li class="p3r-nav__item" data-target="equip">EQUIP</li>
+                <li class="p3r-nav__item" data-target="skill">SKILL</li>
+            </ul>
+        </nav>
 
-        <!-- FX 레이어 -->
-        <div class="p3r-fx"></div>
-    </div>
+        <section class="p3r-hud">
+            <div class="p3r-hud__header">
+                <span class="p3r-hud__date">2026 / 02 / 18</span>
+                <span class="p3r-hud__moon">Moon Phase</span>
+            </div>
+            
+            <div id="app-content" class="p3r-content">
+                </div>
+        </section>
+
+        <div class="p3r-fx__slash"></div>
+
+    </main>
+
+    <script src="script.js"></script>
 </body>
 </html>
