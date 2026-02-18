@@ -94,3 +94,72 @@ body {
     mix-blend-mode: var(--p3r-blend);
     opacity: 0;
 }
+
+/* --- Animation & Transitions (Added for script.js) --- */
+
+/* 1. Slash Transition Keyframes */
+/* 화면 왼쪽 밖에서 오른쪽 밖으로 대각선으로 빠르게 지나감 */
+@keyframes slashMove {
+    0% {
+        transform: translateX(-120%) skewX(var(--p3r-skew));
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    45% {
+        /* 화면을 완전히 덮는 순간 (콘텐츠 교체 타이밍) */
+        transform: translateX(-10%) skewX(var(--p3r-skew));
+    }
+    55% {
+        transform: translateX(10%) skewX(var(--p3r-skew));
+    }
+    100% {
+        transform: translateX(120%) skewX(var(--p3r-skew));
+        opacity: 1;
+    }
+}
+
+/* JS에서 .is-active 클래스를 붙이면 애니메이션 실행 */
+.p3r-fx__slash.is-active {
+    animation: slashMove 0.7s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+    /* P3R 특유의 빠르고 날카로운 베기 느낌을 위한 cubic-bezier */
+}
+
+/* 2. Content Fade In */
+/* 콘텐츠가 바뀔 때 살짝 떠오르는 효과 */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.p3r-content.fade-in {
+    animation: fadeInUp 0.5s ease-out forwards;
+}
+
+/* 3. Section Typography */
+/* 임시 콘텐츠 스타일링 */
+.p3r-section__title {
+    font-size: 4rem;
+    font-weight: 900;
+    font-style: italic;
+    color: var(--p3r-cyan);
+    margin-bottom: 1rem;
+    text-shadow: 0 0 20px rgba(0, 209, 255, 0.4);
+    transform: skewX(var(--p3r-skew));
+}
+
+.p3r-section__desc {
+    font-size: 1.2rem;
+    color: var(--p3r-white);
+    background: rgba(0, 5, 26, 0.7); /* 가독성 확보 */
+    padding: 1rem;
+    border-left: 4px solid var(--p3r-blue);
+}
+
