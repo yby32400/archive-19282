@@ -2,45 +2,46 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>P3R: Moonlight Link</title>
-    <link rel="stylesheet" href="../../assets/fonts/suit.css"> 
+    <title>P3R Moonlight Link</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <main class="p3r-wrapper">
+    <!-- =====================
+         SPA 컨테이너
+         ===================== -->
+    <div class="p3r-stage">
         
-        <div class="p3r-stage p3r-stage--main">
-            <div class="p3r-stage__bg"></div>
-            <div class="p3r-stage__particles"></div> </div>
+        <!-- 1. 수중 배경 레이어 -->
+        <div class="p3r-bg-layer"></div>
+        <div class="p3r-bg-layer p3r-bg-layer--alt"></div>
 
-        <div class="p3r-character">
-            </div>
+        <!-- 2. HUD / 정보창 -->
+        <div class="p3r-hud">
+            <div class="p3r-hud__label">NAME</div>
+            <div class="p3r-hud__value">아쿠아</div>
 
-        <nav class="p3r-nav">
-            <ul class="p3r-nav__list">
-                <li class="p3r-nav__item" data-target="status">STATUS</li>
-                <li class="p3r-nav__item" data-target="calendar">CALENDAR</li>
-                <li class="p3r-nav__item" data-target="commu">COMMU</li>
-                <li class="p3r-nav__item" data-target="equip">EQUIP</li>
-                <li class="p3r-nav__item" data-target="skill">SKILL</li>
-            </ul>
-        </nav>
+            <div class="p3r-hud__label">BIRTH</div>
+            <div class="p3r-hud__value">07.16</div>
 
-        <section class="p3r-hud">
-            <div class="p3r-hud__header">
-                <span class="p3r-hud__date">2026 / 02 / 18</span>
-                <span class="p3r-hud__moon">Moon Phase</span>
-            </div>
-            
-            <div id="app-content" class="p3r-content">
-                </div>
-        </section>
+            <div class="p3r-hud__label">HEIGHT</div>
+            <div class="p3r-hud__value">168cm</div>
+        </div>
 
-        <div class="p3r-fx__slash"></div>
+        <!-- 3. SPA 콘텐츠 영역 -->
+        <div class="p3r-content">
+            <!-- 각 섹션(status, equip, skill) JS로 교체 -->
+        </div>
 
-    </main>
+        <!-- 4. 내비게이션 메뉴 -->
+        <div class="p3r-nav">
+            <div class="p3r-nav__item p3r-nav__item--active" data-section="status">STATUS</div>
+            <div class="p3r-nav__item" data-section="equip">EQUIP</div>
+            <div class="p3r-nav__item" data-section="skill">SKILL</div>
+        </div>
+
+        <!-- 5. FX 레이어 (Slash / Cut-in 효과) -->
+        <div class="p3r-fx"></div>
+    </div>
 
     <script src="script.js"></script>
 </body>
