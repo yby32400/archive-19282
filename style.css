@@ -1,71 +1,27 @@
-:root {
-    --p3r-blue: #0051FF;
-    --p3r-cyan: #00D1FF;
-    --p3r-bg: #00051A;
-    --p3r-white: #FFFFFF;
-    --p3r-skew: -15deg;
-    --p3r-blend: screen;
-    --p3r-glass: blur(20px);
-    --card-bg: rgba(0, 5, 26, 0.5);
-    --card-border: 1px solid rgba(255,255,255,0.2);
-    --font-main: 'SUIT', sans-serif;
-    --p3r-z-hud: 50;
+/* 메인 메뉴 중앙 배치 */
+.p3r-main-menu {
+    position:absolute;
+    top:50%; left:50%;
+    transform:translate(-50%, -50%);
+    display:flex;
+    flex-direction: column;
+    gap:16px;
+    z-index: var(--p3r-z-hud);
+    text-align:center;
 }
 
-/* 배경 레이어 (수중, 겹침 발광) */
-.p3r-bg-layer {
-    position: absolute; top:0; left:0;
-    width:100%; height:100%;
-    background: radial-gradient(circle at center, var(--p3r-cyan) 0%, var(--p3r-blue) 70%);
-    opacity:0.7;
-    mix-blend-mode: var(--p3r-blend);
-    animation: floatLayer 20s infinite linear alternate;
-    pointer-events:none;
-    z-index:1;
-}
-.p3r-bg-layer--alt {
-    background: radial-gradient(circle at top left, var(--p3r-blue) 0%, var(--p3r-cyan) 80%);
-    opacity:0.5;
-    animation: floatLayer 25s infinite linear alternate-reverse;
-}
-
-@keyframes floatLayer {
-    0% { transform: translate(0,0) scale(1) rotate(0deg); }
-    50% { transform: translate(10px,15px) scale(1.02) rotate(1deg); }
-    100% { transform: translate(-10px,-15px) scale(1) rotate(-1deg); }
-}
-
-/* HUD */
-.p3r-hud {
-    position:absolute; top:20px; left:20px; z-index: var(--p3r-z-hud);
-    display:flex; flex-direction:column; gap:8px;
-}
-.p3r-hud__label { font-weight:600; font-size:0.9rem; opacity:0.7; }
-.p3r-hud__value { font-weight:900; font-size:1.2rem; }
-
-/* 내비게이션 버튼 */
-.p3r-nav {
-    position:absolute; bottom:20px; display:flex; gap:16px; z-index:var(--p3r-z-hud);
-}
-.p3r-nav__item {
-    padding:8px 12px; cursor:pointer; border-radius:6px;
+/* 메뉴 버튼 */
+.p3r-main-menu .p3r-nav__item {
+    padding:12px 24px;
+    font-size:1.2rem;
+    cursor:pointer;
+    border-radius:8px;
     background: rgba(0,5,26,0.3);
+    color: var(--p3r-white);
     transform: skewY(var(--p3r-skew));
     transition: all 0.3s ease;
 }
-.p3r-nav__item--active { background-color: var(--p3r-blue); }
-
-/* Glassmorphism 카드 */
-.p3r-card {
-    backdrop-filter: var(--p3r-glass);
-    background-color: var(--card-bg);
-    border: var(--card-border);
-    padding:16px; border-radius:12px;
-}
-
-/* FX 레이어 */
-.p3r-fx {
-    position:absolute; top:0; left:0; width:100%; height:100%;
-    pointer-events:none; mix-blend-mode: var(--p3r-blend);
-    z-index:var(--p3r-z-hud);
+.p3r-main-menu .p3r-nav__item:hover {
+    background: var(--p3r-blue);
+    transform: skewY(var(--p3r-skew)) scale(1.05);
 }
