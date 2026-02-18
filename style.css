@@ -1,10 +1,108 @@
-/* Original content of style.css from commit 4e605ec000605f5c1e232e56b6b49ce7643f0210 */
+/* =========================
+   P3R Moonlight Link - Base CSS
+   Author: P3R Dream Team
+   ========================= */
 
-/* Example content for illustration. Replace this with the actual content fetched from the specified commit */
+/* 1. CSS Variables */
+:root {
+    /* Colors */
+    --p3r-blue: #0051FF;
+    --p3r-cyan: #00D1FF;
+    --p3r-bg: #00051A;
+    --p3r-white: #FFFFFF;
 
-body {
-    background-color: #fff;
-    color: #333;
+    /* Geometry */
+    --p3r-skew: -15deg;
+
+    /* Blending */
+    --p3r-blend: screen;
+
+    /* Glassmorphism */
+    --p3r-glass: blur(20px);
+    --card-bg: rgba(0, 5, 26, 0.5);
+    --card-border: 1px solid rgba(255, 255, 255, 0.2);
+
+    /* Typography */
+    --font-main: 'SUIT', sans-serif;
+
+    /* Z-index */
+    --p3r-z-hud: 50;
 }
 
-/* Other styles... */
+/* 2. 기본 레이아웃 */
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: var(--font-main);
+    background-color: var(--p3r-bg);
+    color: var(--p3r-white);
+    overflow: hidden; /* SPA 전체 화면 고정 */
+}
+
+/* SPA 컨테이너 */
+.p3r-stage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--p3r-bg);
+    transform: skewY(var(--p3r-skew));
+}
+
+/* HUD / 정보창 */
+.p3r-hud {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: var(--p3r-z-hud);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* HUD Label & Value */
+.p3r-hud__label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+.p3r-hud__value {
+    font-weight: 900;
+    font-size: 1.2rem;
+}
+
+/* 내비게이션 */
+.p3r-nav {
+    position: absolute;
+    bottom: 20px;
+    display: flex;
+    gap: 16px;
+    z-index: var(--p3r-z-hud);
+}
+.p3r-nav__item {
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 6px;
+    background: rgba(0, 5, 26, 0.3);
+    transition: all 0.3s ease;
+}
+.p3r-nav__item--active {
+    background-color: var(--p3r-blue);
+    transform: skewY(var(--p3r-skew));
+}
+
+/* 애니메이션 레이어 */
+.p3r-fx {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    mix-blend-mode: var(--p3r-blend);
+}
