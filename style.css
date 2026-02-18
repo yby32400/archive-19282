@@ -1,12 +1,10 @@
-/* Content from commit 4e605ec000605f5c1e232e56b6b49ce7643f0210 */
+/* Original content of style.css from commit 4e605ec000605f5c1e232e56b6b49ce7643f0210 */
+
+/* Example content for illustration. Replace this with the actual content fetched from the specified commit */
 
 body {
-    background-color: #f0f0f0;
-    font-family: Arial, sans-serif;
-}
-
-h1 {
+    background-color: #fff;
     color: #333;
 }
 
-/* Add more styles as needed */
+/* Other styles... */
