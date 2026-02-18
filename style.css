@@ -1,27 +1,96 @@
-/* 메인 메뉴 중앙 배치 */
-.p3r-main-menu {
-    position:absolute;
-    top:50%; left:50%;
-    transform:translate(-50%, -50%);
-    display:flex;
-    flex-direction: column;
-    gap:16px;
-    z-index: var(--p3r-z-hud);
-    text-align:center;
+/* P3R Design System v1.0 */
+:root {
+    /* Colors */
+    --p3r-blue: #0051FF;       /* 시그니처 딥 블루 */
+    --p3r-cyan: #00D1FF;       /* 강조 및 광원 효과 */
+    --p3r-bg: #00051A;         /* 배경용 딥 네이비 */
+    --p3r-white: #FFFFFF;      /* 순백색 (중첩 발광용) */
+
+    /* FX & Layout */
+    --p3r-blend: screen;       /* 블렌딩 모드 */
+    --p3r-glass: blur(20px);   /* 유리틀 효과 */
+    --p3r-skew: -15deg;        /* 공통 기울기 */
+    
+    /* Typography */
+    --font-main: 'SUIT', sans-serif;
+
+    /* Z-Index Hierarchy */
+    --p3r-z-bg: 10;
+    --p3r-z-character: 20;
+    --p3r-z-nav: 40;
+    --p3r-z-hud: 50;
+    --p3r-z-fx: 100;
 }
 
-/* 메뉴 버튼 */
-.p3r-main-menu .p3r-nav__item {
-    padding:12px 24px;
-    font-size:1.2rem;
-    cursor:pointer;
-    border-radius:8px;
-    background: rgba(0,5,26,0.3);
-    color: var(--p3r-white);
-    transform: skewY(var(--p3r-skew));
-    transition: all 0.3s ease;
+/* Reset & Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
-.p3r-main-menu .p3r-nav__item:hover {
-    background: var(--p3r-blue);
-    transform: skewY(var(--p3r-skew)) scale(1.05);
+
+body {
+    background-color: var(--p3r-bg);
+    font-family: var(--font-main);
+    color: var(--p3r-white);
+    overflow: hidden; /* 전체 화면 고정 */
+    width: 100vw;
+    height: 100vh;
+}
+
+/* Wrapper */
+.p3r-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, #001040 0%, var(--p3r-bg) 80%);
+}
+
+/* Navigation (Example Implementation of Skew & Slash) */
+.p3r-nav {
+    position: absolute;
+    left: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: var(--p3r-z-nav);
+}
+
+.p3r-nav__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.p3r-nav__item {
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: -0.05em; /* 좁은 자간 */
+    color: var(--p3r-blue);
+    transform: skewX(var(--p3r-skew)); /* 기울기 적용 */
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-shadow: 0 0 10px rgba(0, 81, 255, 0.5);
+}
+
+.p3r-nav__item:hover,
+.p3r-nav__item--active {
+    color: var(--p3r-cyan);
+    padding-left: 20px;
+    text-shadow: 0 0 20px var(--p3r-cyan); /* 광원 효과 증폭 */
+}
+
+/* Slash FX Layer (숨김 상태 기본) */
+.p3r-fx__slash {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--p3r-cyan);
+    z-index: var(--p3r-z-fx);
+    transform: translateX(-100%) skewX(var(--p3r-skew));
+    pointer-events: none;
+    mix-blend-mode: var(--p3r-blend);
+    opacity: 0;
 }
